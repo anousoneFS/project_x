@@ -1,0 +1,88 @@
+name: project_x
+description: A new Flutter application.
+publish_to: 'none' # Remove this line if you wish to publish to pub.dev
+version: 1.0.0+1
+environment:
+  sdk: ">=2.7.0 <3.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  cupertino_icons: ^1.0.0
+
+  firebase_core: ^0.7.0
+  firebase_database: ^6.0.0
+  flutter_svg: ^0.19.1
+  google_fonts: ^1.1.2
+  form_field_validator: ^1.0.1
+  firebase_auth: ^0.20.0
+  fluttertoast: ^7.1.8
+  email_auth: ^0.0.1+2
+  sleek_circular_slider: ^1.1.0
+  provider: ^4.3.3
+  intl: ^0.16.1
+  syncfusion_flutter_charts: ^18.4.44
+  custom_switch: ^0.0.1
+  shared_preferences: ^0.5.12
+
+  path_provider: ^1.6.27
+  image_gallery_saver: ^1.6.7
+  permission_handler: ^5.0.1
+  csv: ^4.1.0
+  hive: ^1.4.4
+  hive_flutter: ^0.3.1
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+flutter:
+
+  uses-material-design: true
+
+  # To add assets to your application, add an assets section, like this:
+  assets:
+     - assets/images/
+     - assets/icons/
+  #   - images/a_dot_ham.jpeg
+
+  # An image asset can refer to one or more resolution-specific "variants", see
+  # https://flutter.dev/assets-and-images/#resolution-aware.
+
+  # For details regarding adding assets from package dependencies, see
+  # https://flutter.dev/assets-and-images/#from-packages
+
+  # To add custom fonts to your application, add a fonts section here,
+  # in this "flutter" section. Each entry in this list should have a
+  # "family" key with the font family name, and a "fonts" key with a
+  # list giving the asset and other descriptors for the font. For
+  # example:
+  fonts:
+    - family: NotoSansLao
+      fonts:
+        - asset: assets/fonts/NotoSansLao-Regular.ttf
+          weight: 700
+          #        - asset: assets/fonts/noto-sans-lao-fonts.ymp
+    - family: NotoSansLao light
+      fonts:
+        - asset: assets/fonts/NotoSansLao-Light.ttf
+          weight: 300
+
+    - family: Raleway
+      fonts:
+        - asset: assets/fonts/Raleway-Regular.ttf
+        - asset: assets/fonts/Raleway-Bold.ttf
+          weight: 700
+        - asset: assets/fonts/Raleway-Black.ttf
+          weight: 900
+    - family: RobotoCondensed
+      fonts:
+        - asset: assets/fonts/RobotoCondensed-Regular.ttf
+        - asset: assets/fonts/RobotoCondensed-Bold.ttf
+          weight: 700
+        - asset: assets/fonts/RobotoCondensed-Light.ttf
+          weight: 300
+        - asset: assets/fonts/RobotoCondensed-Italic.ttf
+          style: italic
+  #
+  # For details regarding fonts from package dependencies,
+  # see https://flutter.dev/custom-fonts/#from-packages

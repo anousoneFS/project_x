@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "208062057135",
+    "firebase_url": "https://final-project-2fa6f-default-rtdb.firebaseio.com",
+    "project_id": "final-project-2fa6f",
+    "storage_bucket": "final-project-2fa6f.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:208062057135:android:9fe5b2f36287da600da25a",
+        "android_client_info": {
+          "package_name": "com.anousonefs.project_x"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "208062057135-jh6b63jt6dgra3l3dt24m2hnkp3ab3aj.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDVd3FG-s1TaImdINFP2UT6R2HZgXpqBAI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "208062057135-jh6b63jt6dgra3l3dt24m2hnkp3ab3aj.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "208062057135-bmi68b32pctk55rrb45bc0jaradv0ue7.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.anousonefs.projectx"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
