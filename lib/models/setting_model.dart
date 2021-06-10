@@ -36,41 +36,42 @@ class Setting {
   });
 
   Setting.formJson(Map<dynamic, dynamic> json)
-      : this.timePumpActive = int.parse(json['timePumpActive'].toString()),
-        this.timeFish1Split = json['timeFish1'].split(":"),
-        this.timeFish2Split = json['timeFish2'].split(":"),
-        this.maxPh = double.parse(json['maxPh'].toString()),
-        this.maxEc = int.parse(json['maxEc'].toString()),
-        this.maxTempWater = json['maxTempWater'],
-        this.maxTempAir = json['maxTempAir'],
-        this.maxHumid = json['maxHumid'],
-        this.maxLight = json['maxLight'],
-        this.minPh = double.parse(json['minPh'].toString()),
-        this.minEc = int.parse(json['minEc'].toString()),
-        this.minTempWater = json['minTempWater'],
-        this.minTempAir = json['minTempAir'],
-        this.minHumid = json['minHumid'],
-        this.minLight = json['minLight'];
+  // ຂຽນດັກໄວ້ ຫ້າມມີຄ່າ null ຖືວ່າດັກໄວ້ຫຼາຍຊັ້ນເຕີບ
+      : this.timePumpActive = int.parse(json['timePumpActive'].toString()) ?? 0,
+        this.timeFish1Split = json['timeFish1'].split(":") ?? ['00', '00'],
+        this.timeFish2Split = json['timeFish2'].split(":") ?? ['00', '00'],
+        this.maxPh = double.parse(json['maxPh'].toString()) ?? 0,
+        this.maxEc = int.parse(json['maxEc'].toString()) ?? 0,
+        this.maxTempWater = int.parse(json['maxTempWater'].toString()) ?? 0,
+        this.maxTempAir = int.parse(json['maxTempAir'].toString()) ?? 0,
+        this.maxHumid = int.parse(json['maxHumid'].toString()) ?? 0,
+        this.maxLight = int.parse(json['maxLight'].toString()) ?? 0,
+        this.minPh = double.parse(json['minPh'].toString()) ?? 0,
+        this.minEc = int.parse(json['minEc'].toString()) ?? 0,
+        this.minTempWater = int.parse(json['minTempWater'].toString()) ?? 0,
+        this.minTempAir = int.parse(json['minTempAir'].toString()) ?? 0,
+        this.minHumid = int.parse(json['minHumid'].toString()) ?? 0,
+        this.minLight = int.parse(json['minLight'].toString()) ?? 0;
 
   dynamic json() {
     return {
       // ຂຽນດັກໄວ້ຖ້າມີຄ່າ null ເວລາ save ໃສ່ LocalDb ຈຶ່ງບໍ່ມີຄ່າ null
-      'timePumpActive': this.timePumpActive ?? 30,
-      'maxPh': this.maxPh ?? 2,
-      'maxEc': this.maxEc ?? 2,
-      'maxTempWater': this.maxTempWater ?? 20,
-      'maxTempAir': this.maxTempAir ?? 30,
-      'maxHumid': this.maxHumid ?? 20,
-      'maxLight': this.maxLight ?? 2000,
-      'minPh': this.minPh ?? 2,
-      'minEc': this.minEc ?? 2,
-      'minTempWater': this.minTempWater ?? 10,
-      'minTempAir': this.minTempAir ?? 10,
-      'minHumid': this.minHumid ?? 20,
-      'minLight': this.minLight ?? 50,
-      'timeFish1': this.timeFish1Split == null ? "06:30" : this.timeFish1Split.join(':'),
+      'timePumpActive': this.timePumpActive ?? 0,
+      'maxPh': this.maxPh ?? 0,
+      'maxEc': this.maxEc ?? 0,
+      'maxTempWater': this.maxTempWater ?? 0,
+      'maxTempAir': this.maxTempAir ?? 0,
+      'maxHumid': this.maxHumid ?? 0,
+      'maxLight': this.maxLight ?? 0,
+      'minPh': this.minPh ?? 0,
+      'minEc': this.minEc ?? 0,
+      'minTempWater': this.minTempWater ?? 0,
+      'minTempAir': this.minTempAir ?? 0,
+      'minHumid': this.minHumid ?? 0,
+      'minLight': this.minLight ?? 0,
+      'timeFish1': this.timeFish1Split == null ? "00:00" : this.timeFish1Split.join(':'),
       // ຕ້ອງ save data ໄວ້ຄືກັບຢູ່ Firebase
-      'timeFish2': this.timeFish2Split == null ? "17:00" : this.timeFish2Split.join(':'),
+      'timeFish2': this.timeFish2Split == null ? "00:00" : this.timeFish2Split.join(':'),
     };
   }
 }

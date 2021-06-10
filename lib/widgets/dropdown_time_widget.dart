@@ -76,9 +76,16 @@ class _DropDownWidgetState extends State<DropDownWidget> {
             // update value in provider
             setValueDropDownProvider(_setting, widget.id, newValueList[0]);
           }
-          setState(() {
-            valueChoose = newValueList[0];
-          });
+
+          if(widget.unit == '' && newValueList[0] == 'XXX'){
+            setState(() {
+              valueChoose = newValue;
+            });
+          }else{
+            setState(() {
+              valueChoose = newValueList[0];
+            });
+          }
         },
         dropdownColor: Colors.white,
         icon: Icon(Icons.arrow_drop_down),

@@ -54,7 +54,7 @@ class _TabsScreenState extends State<TabsScreen> {
         });
         await Provider.of<FirebaseApi>(context, listen: false).fetchData();
         // ຖ້າມີ Error ຄຳສັ່ງຕໍ່ໄປຈະບໍ່ຖືກເອີ້ນໃຊ້ຈະເອີ້ນໃຊ້ catch ເລີຍ
-        print("=== > if connected is called");
+        print("=== > if connected the next function was call");
         await Provider.of<SettingProvider>(context, listen: false).fetchData();
       }catch(error){
         print("---- Have Error fetchData on Tab Screen---");

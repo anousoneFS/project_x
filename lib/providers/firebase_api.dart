@@ -40,6 +40,7 @@ class FirebaseApi with ChangeNotifier{
       });
       // ຖ້າມີ Error ເກີດຂຶ້ນ ຄຳສັ່ງຕໍ່ໄປນີ້ຈະບໍ່ຖືກເອີ້ນໃຊ້
       _sensorData = sensorList;
+      // ຫຼັງຈາກ assign ຄ່າແລ້ວຈາກນັ້ນ save ລົງ LocalDB ໄວ້
       await openBoxSensor();
       await pushDataSensor(_sensorData).then((value) {
         print('-----> Save data to LocalDB Success');

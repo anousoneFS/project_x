@@ -100,7 +100,7 @@ List initialDropDown(SettingProvider setting, String id, String unit){
     break;
     default:{
       // ກັນ Error ໄວ້
-      valueChoose =  null;
+      valueChoose =  'null';
       listItemOption = listItemDefault.keys.toList();
       listItemOption.add('...');
       print('invalid choice initial value for Drop-Down-Widget. => may be id is wrong');
@@ -165,7 +165,7 @@ void setValueDropDownProvider(SettingProvider setting, String id, String newValu
     }
     break;
     default:{
-      print('invalid choice update value for provider fails !!!');
+      print('invalid choice update value for provider fails !!! may be id was wrong');
       print('$newValue = ${listItemDefault[newValue]}');
     }
     break;

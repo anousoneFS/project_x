@@ -4,9 +4,11 @@ Map<dynamic, int> listItemDefault = {
   "XXX %": 15,
   "XXX ec": 20,
   "XXX lux": 25,
+  "XXX": 30,
 };
 
 Map<dynamic, int> listItemTimePumpActive = {
+  "0": 0,
   "5": 5,
   "10": 10,
   "15": 15,
@@ -24,6 +26,7 @@ Map<dynamic, int> listItemTimePumpActive = {
 };
 
 Map<dynamic, double> listItemPh = {
+  "0": 0,
   '2.0': 2.0,
   '2.5': 2.5,
   '3.0': 3.0,
