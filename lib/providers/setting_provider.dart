@@ -80,9 +80,11 @@ class SettingProvider with ChangeNotifier {
           .then((DataSnapshot snapshot) {
         // =====> pass json data <===
         assignData(snapshot.value);
+      }).then((value) {
+        print("------> call then snapshot firebase");
+        saveSettingToLocalDb(_data);
       });
       // ====> save data to local db
-      saveSettingToLocalDb(_data);
     } catch (error) {
       print('---- Have Error fetch settingFirebase in provider----');
       print(error);
@@ -207,6 +209,7 @@ class SettingProvider with ChangeNotifier {
         notifyListeners();
       } else {
         // ====> ຖ້າບໍ່ສາມາດເອົາ data ມາຈາກ firebase ໄດ້ ຕ້ອງ fetch data ມາຈາກ LocalDB ແທນ
+        // ຫ້າມໃຫ້ data ຢູ່ LocalDb ມີຄ່າ null ເດັດຂາດ!!! ບໍ່ຊັ້ນມັນຈະ loop ໄປເລື່ອຍໆ  ຄືຈະເອີ້ນໃຊ້ assignData ໄປເລື່ອຍໆ
         fetchDataFormLocalDb();
         print(">>> Key Firebase Data Setting get Value Null !!!");
         Fluttertoast.showToast(
