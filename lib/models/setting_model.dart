@@ -54,19 +54,20 @@ class Setting {
 
   dynamic json() {
     return {
-      'timePumpActive': this.timePumpActive,
-      'maxPh': this.maxPh,
-      'maxEc': this.maxEc,
-      'maxTempWater': this.maxTempWater,
-      'maxTempAir': this.maxTempAir,
-      'maxHumid': this.maxHumid,
-      'maxLight': this.maxLight,
-      'minPh': this.minPh,
-      'minEc': this.minEc,
-      'minTempWater': this.minTempWater,
-      'minTempAir': this.minTempAir,
-      'minHumid': this.minHumid,
-      'minLight': this.minLight,
+      // ຂຽນດັກໄວ້ຖ້າມີຄ່າ null ເວລາ save ໃສ່ LocalDb ຈຶ່ງບໍ່ມີຄ່າ null
+      'timePumpActive': this.timePumpActive ?? 30,
+      'maxPh': this.maxPh ?? 2,
+      'maxEc': this.maxEc ?? 2,
+      'maxTempWater': this.maxTempWater ?? 20,
+      'maxTempAir': this.maxTempAir ?? 30,
+      'maxHumid': this.maxHumid ?? 20,
+      'maxLight': this.maxLight ?? 2000,
+      'minPh': this.minPh ?? 2,
+      'minEc': this.minEc ?? 2,
+      'minTempWater': this.minTempWater ?? 10,
+      'minTempAir': this.minTempAir ?? 10,
+      'minHumid': this.minHumid ?? 20,
+      'minLight': this.minLight ?? 50,
       'timeFish1': this.timeFish1Split == null ? "06:30" : this.timeFish1Split.join(':'),
       // ຕ້ອງ save data ໄວ້ຄືກັບຢູ່ Firebase
       'timeFish2': this.timeFish2Split == null ? "17:00" : this.timeFish2Split.join(':'),
