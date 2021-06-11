@@ -88,20 +88,6 @@ class _TabsScreenState extends State<TabsScreen> {
       appBar: AppBar(
         title: Text(_pages[_selectedPageIndex]['title']),
         elevation: 0,
-        actions: [
-          IconButton(
-            icon: Icon(Icons.exit_to_app),
-            onPressed: () async {
-              SharedPreferences prefs = await SharedPreferences.getInstance();
-              prefs.remove('email');
-              auth.signOut().then(
-                    (value) => Navigator.of(context).pushReplacementNamed(
-                      LogInScreen.routeName,
-                    ),
-                  );
-            },
-          ),
-        ],
       ),
       drawer: MainDrawer(),
       body: loading

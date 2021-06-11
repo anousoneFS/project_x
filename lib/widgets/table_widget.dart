@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:project_x/providers/monitor_provider.dart';
+import 'package:project_x/providers/firebase_api.dart';
 
 class TableWidget extends StatelessWidget {
   final List<List<dynamic>> data;
-  final MonitorProvider initialData;
+  final FirebaseApi initialData;
 
   TableWidget({@required this.data, @required this.initialData});
 

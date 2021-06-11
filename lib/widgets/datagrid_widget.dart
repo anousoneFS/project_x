@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:project_x/models/sensor_data_model.dart';
 import 'package:project_x/providers/firebase_api.dart';
-import 'package:project_x/providers/monitor_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:syncfusion_flutter_datagrid/datagrid.dart';
 
@@ -9,11 +8,10 @@ class DataGridWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // get ເອົາຄ່າເລີ່ມຕົ້ນ indexBegin and indexEnding ແລະ listen = true
-     final _initialData = Provider.of<MonitorProvider>(context, listen: true);
+     final _initialData = Provider.of<FirebaseApi>(context, listen: true);
      // get ເອົາ sensor data object ໃນຕຳແໜ່ງທີສອດຄອງກັບ indexBegin ແລະ indexEnding
-    final _data = Provider.of<FirebaseApi>(context, listen: true)
-        .getDataObj
-        .sublist(_initialData.getIndexBegin, _initialData.getIndexEnding);
+    final _data = _initialData.getSubDataObj;
+    print("call build in datagrid");
     // assign sensor sub data ໃສ່ sensorDataSource ເພື່ອ get ຄ່າໃຫ້ map ຕາມ mappingName
     final _sensorDataSource = SensorDataSource(sensorData: _data);
 

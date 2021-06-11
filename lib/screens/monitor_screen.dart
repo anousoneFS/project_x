@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:project_x/providers/firebase_api.dart';
+import 'package:project_x/screens/chart_screen.dart';
 import 'package:project_x/screens/table_screen.dart';
 import 'package:provider/provider.dart';
 
@@ -12,6 +13,17 @@ class MonitorScreen extends StatelessWidget {
         Provider.of<FirebaseApi>(ctx, listen: false).saveData();
       } catch (error) {
         print("--- Have Error saveData in MonitorScreen ---");
+        print(error);
+      }
+    });
+  }
+
+  void reverseData(BuildContext ctx) {
+    Future.delayed(Duration.zero).then((value) {
+      try {
+        Provider.of<FirebaseApi>(ctx, listen: false).reversData();
+      } catch (error) {
+        print("--- Have Error reverseData in MonitorScreen ---");
         print(error);
       }
     });
@@ -43,18 +55,43 @@ class MonitorScreen extends StatelessWidget {
         body: TabBarView(
           children: [
             TableScreen(),
-            Center(child: Text("chart")),
+            ChartScreen(),
+            // Center(
+            //   child: Text("Chart"),
+            // ),
           ],
         ),
-        floatingActionButton: FloatingActionButton(
-          onPressed: () => saveData(context),
-          backgroundColor: Colors.blue,
-          child: FittedBox(
-            child: Icon(
-              Icons.download_rounded,
-              size: 45,
+        // ສຳຫຼັບປຸ່ມ Download ຂໍ້ມູນ ໃສ່ ໂທລະສັບ
+        floatingActionButton: Column(
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: [
+            FloatingActionButton(
+              onPressed: () => reverseData(context),
+              backgroundColor: Colors.blue,
+              child: FittedBox(
+                child: Transform.rotate(
+                  angle: -1.6,
+                  child: Icon(
+                    Icons.compare_arrows_outlined,
+                    size: 45,
+                  ),
+                ),
+              ),
             ),
-          ),
+            SizedBox(
+              height: 10,
+            ),
+            FloatingActionButton(
+              onPressed: () => saveData(context),
+              backgroundColor: Colors.blue,
+              child: FittedBox(
+                child: Icon(
+                  Icons.download_rounded,
+                  size: 45,
+                ),
+              ),
+            ),
+          ],
         ),
       ),
     );

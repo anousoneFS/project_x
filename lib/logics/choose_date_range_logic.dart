@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:project_x/providers/monitor_provider.dart';
+import 'package:project_x/providers/firebase_api.dart';
 
 Future pickDateRange(BuildContext context, List<List<dynamic>> data,
-    MonitorProvider initialData) async {
+    FirebaseApi initialData) async {
   final initialDateRange = DateTimeRange(
     start: DateTime.now(),
     end: DateTime.now().add(Duration(hours: 24 * 3)),
@@ -32,8 +32,6 @@ Future pickDateRange(BuildContext context, List<List<dynamic>> data,
   var day2 = (two.day + 1).toString();
   var year2 = two.year.toString();
   String dateEnd = day2 + "-" + month2 + "-" + year2;
-  print(dateBegin);
-  print(dateEnd);
 
   if (data.length <= 1) {
     print("widget.data.length <= 1");
@@ -43,6 +41,8 @@ Future pickDateRange(BuildContext context, List<List<dynamic>> data,
     dateEnd = day2 + "-" + month2 + "-" + year2;
     initialData.setFormDate(dateBegin);
     initialData.setUntilDate(dateEnd);
+    print(dateBegin);
+    print(dateEnd);
     return;
   }
 
@@ -51,7 +51,7 @@ Future pickDateRange(BuildContext context, List<List<dynamic>> data,
     List subString = e[0].split(' ');
     return subString[0];
   }).toList();
-  print(myDate);
+  // print(myDate);
 
   // ຊອກຫາ index ເລີມຕົ້ນ ແລະ ສິ້ນສຸດ ຂອງ myDate ເວລາເລືອກຊ່ວງເວລາ
   final begin = myDate.indexWhere((element) => element == dateBegin);
@@ -74,6 +74,8 @@ Future pickDateRange(BuildContext context, List<List<dynamic>> data,
     initialData.setFormDate(dateBegin);
     initialData.setUntilDate(dateEnd);
     initialData.setIndexBegin(begin + 1);
-    initialData.setIndexEnding(end + 1);
+    initialData.setIndexEnding(end);
+    initialData.setSubDataObj();
+    initialData.setSubData();
   }
 }

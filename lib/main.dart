@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:project_x/providers/firebase_api.dart';
 import 'package:project_x/providers/monitor_provider.dart';
 import 'package:project_x/providers/setting_provider.dart';
+import 'package:project_x/screens/chart_screen.dart';
 import 'package:project_x/screens/home_screen.dart';
 import 'package:project_x/screens/login_screen.dart';
 import 'package:project_x/screens/monitor_screen.dart';
@@ -64,6 +65,7 @@ class MyApp extends StatelessWidget {
             TabsScreen.routeName: (ctx) => TabsScreen(),
             SettingScreen.routeName: (ctx) => SettingScreen(),
             TableScreen.routeName: (ctx) => TableScreen(),
+            ChartScreen.routeName: (ctx) => ChartScreen(),
           }),
     );
   }

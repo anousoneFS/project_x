@@ -1,15 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:project_x/logics/choose_date_range_logic.dart';
 import 'package:project_x/providers/firebase_api.dart';
-import 'package:project_x/providers/monitor_provider.dart';
 import 'package:provider/provider.dart';
 import '../components/button_widget.dart';
 
 class DateRangePickerWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final initialData = Provider.of<MonitorProvider>(context, listen: true);
-    List<List<dynamic>> data = Provider.of<FirebaseApi>(context, listen: true).getData;
+    final initialData = Provider.of<FirebaseApi>(context, listen: true);
+    List<List<dynamic>> data = initialData.getData;
 
     return Row(
       children: [

@@ -81,7 +81,7 @@ class SettingProvider with ChangeNotifier {
         // =====> pass json data <===
         assignData(snapshot.value);
       }).then((value) {
-        print("------> call then snapshot firebase");
+        print("------> call then snapshot firebase next save to LocalDB");
         saveSettingToLocalDb(_data);
       });
       // ====> save data to local db
