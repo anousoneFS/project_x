@@ -51,7 +51,7 @@ class _TableScreenState extends State<TableScreen> {
                 //   initialData: initialData,
                 // ),
                 // child: TestTableWidget(),
-                child: MyHomePage(),
+                child: DataGridWidget(),
               )
             else
               Expanded(

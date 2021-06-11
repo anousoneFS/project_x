@@ -6,6 +6,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart' as http;
 import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
+import 'package:project_x/models/sensor_data_model.dart';
 
 import '../cache_data.dart';
 
@@ -13,8 +14,10 @@ class FirebaseApi with ChangeNotifier{
   List<List<dynamic>> _sensorData = [
     ['time', 'temperature', 'humidity', 'ph', 'ec', 'light'],
   ];
+  List<SensorData> _sensorDataObj;
 
   List<List<dynamic>> get getData => _sensorData;
+  List<SensorData> get getDataObj => _sensorDataObj;
 
   Future<void> fetchData() async{
     try{
@@ -22,13 +25,10 @@ class FirebaseApi with ChangeNotifier{
           'https://final-project-2fa6f-default-rtdb.firebaseio.com/sensor-values2.json';
       final response = await http.get(url);
       final body = json.decode(response.body) as Map<String, dynamic>;
-      List<List<dynamic>> sensorList = [
-        ['time', 'temperature', 'humidity', 'ph', 'ec', 'light'],
-      ];
       body.forEach((key, value) {
         for (var item in value.sublist(1)) {
           Map<String, dynamic> myMap = json.decode(item) as Map<String, dynamic>;
-          sensorList.add([
+          _sensorData.add([
             myMap["time"],
             myMap["temp"],
             myMap["humid"],
@@ -36,10 +36,11 @@ class FirebaseApi with ChangeNotifier{
             myMap["ec"],
             myMap["light"],
           ]);
+          _sensorDataObj.add(SensorData.formJson(myMap));
         }
       });
-      // ຖ້າມີ Error ເກີດຂຶ້ນ ຄຳສັ່ງຕໍ່ໄປນີ້ຈະບໍ່ຖືກເອີ້ນໃຊ້
-      _sensorData = sensorList;
+      print(_sensorDataObj[10].time);
+
       // ຫຼັງຈາກ assign ຄ່າແລ້ວຈາກນັ້ນ save ລົງ LocalDB ໄວ້
       await openBoxSensor();
       await pushDataSensor(_sensorData).then((value) {
@@ -74,6 +75,8 @@ class FirebaseApi with ChangeNotifier{
         );
         // add data from db to provider
         _sensorData = fetchData;
+        _sensorDataObj = _sensorData.sublist(1).map((list) => SensorData.formList(list)).toList();
+        print(_sensorDataObj[10].time);
       }
       notifyListeners();
     }catch(error){

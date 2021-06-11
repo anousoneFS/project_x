@@ -1,97 +1,36 @@
 import 'package:flutter/material.dart';
+import 'package:project_x/models/sensor_data_model.dart';
+import 'package:project_x/providers/firebase_api.dart';
+import 'package:project_x/providers/monitor_provider.dart';
+import 'package:provider/provider.dart';
 import 'package:syncfusion_flutter_datagrid/datagrid.dart';
 
-class MyHomePage extends StatefulWidget {
-  /// Creates the home page.
-  MyHomePage({Key key}) : super(key: key);
-
-  @override
-  _MyHomePageState createState() => _MyHomePageState();
-}
-
-final List<Employee> _employees = <Employee>[];
-
-final EmployeeDataSource _employeeDataSource = EmployeeDataSource();
-
-class _MyHomePageState extends State<MyHomePage> {
-  @override
-  void initState() {
-    super.initState();
-    populateData();
-  }
-
+class DataGridWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    // get ເອົາຄ່າເລີ່ມຕົ້ນ indexBegin and indexEnding ແລະ listen = true
+     final _initialData = Provider.of<MonitorProvider>(context, listen: true);
+     // get ເອົາ sensor data object ໃນຕຳແໜ່ງທີສອດຄອງກັບ indexBegin ແລະ indexEnding
+    final _data = Provider.of<FirebaseApi>(context, listen: true)
+        .getDataObj
+        .sublist(_initialData.getIndexBegin, _initialData.getIndexEnding);
+    // assign sensor sub data ໃສ່ sensorDataSource ເພື່ອ get ຄ່າໃຫ້ map ຕາມ mappingName
+    final _sensorDataSource = SensorDataSource(sensorData: _data);
+
     return Scaffold(
       body: SfDataGrid(
-        source: _employeeDataSource,
+        source: _sensorDataSource,
         columns: <GridColumn>[
-          GridNumericColumn(mappingName: 'id', headerText: 'ID'),
-          GridTextColumn(mappingName: 'name', headerText: 'Name'),
-          GridTextColumn(mappingName: 'designation', headerText: 'Designation'),
-          GridNumericColumn(mappingName: 'salary', headerText: 'Salary'),
+          GridTextColumn(mappingName: 'time', headerText: 'time'),
+          GridNumericColumn(mappingName: 'tempAir', headerText: 'tempA'),
+          GridNumericColumn(mappingName: 'tempWater', headerText: 'tempW'),
+          GridNumericColumn(mappingName: 'humid', headerText: 'humid'),
+          GridNumericColumn(mappingName: 'ph', headerText: 'ph'),
+          GridNumericColumn(mappingName: 'ec', headerText: 'ec'),
+          GridNumericColumn(mappingName: 'light', headerText: 'light'),
         ],
       ),
     );
   }
-
-  void populateData() {
-    _employees.add(Employee(10001, 'James', 'Project Lead', 20000));
-    _employees.add(Employee(10002, 'Kathryn', 'Manager', 30000));
-    _employees.add(Employee(10003, 'Lara', 'Developer', 15000));
-    _employees.add(Employee(10004, 'Michael', 'Designer', 15000));
-    _employees.add(Employee(10005, 'Martin', 'Developer', 15000));
-    _employees.add(Employee(10006, 'Newberry', 'Developer', 15000));
-    _employees.add(Employee(10007, 'Balnc', 'Developer', 15000));
-    _employees.add(Employee(10008, 'Perry', 'Developer', 15000));
-    _employees.add(Employee(10009, 'Gable', 'Developer', 15000));
-    _employees.add(Employee(10010, 'Grimes', 'Developer', 15000));
-  }
 }
 
-/// Custom business object class which contains properties to hold the detailed
-/// information about the employee which will be rendered in datagrid.
-class Employee {
-  /// Creates the employee class with required details.
-  Employee(this.id, this.name, this.designation, this.salary);
-
-  /// Id of an employee.
-  final int id;
-
-  /// Name of an employee.
-  final String name;
-
-  /// Designation of an employee.
-  final String designation;
-
-  /// Salary of an employee.
-  final int salary;
-}
-
-/// An object to set the employee collection data source to the datagrid. This
-/// is used to map the employee data to the datagrid widget.
-class EmployeeDataSource extends DataGridSource<Employee> {
-  @override
-  List<Employee> get dataSource => _employees;
-
-  @override
-  Object getValue(Employee employee, String columnName) {
-    switch (columnName) {
-      case 'id':
-        return employee.id;
-        break;
-      case 'name':
-        return employee.name;
-        break;
-      case 'salary':
-        return employee.salary;
-        break;
-      case 'designation':
-        return employee.designation;
-        break;
-      default:
-        return ' ';
-        break;
-    }
-  }
-}
