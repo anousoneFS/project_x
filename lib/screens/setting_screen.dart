@@ -141,8 +141,30 @@ class SettingScreen extends StatelessWidget {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () async {
-          // set all ກ່ອນ
-          await _setting.update();
+          await showDialog<Null>(
+            context: context,
+            builder: (ctx) => AlertDialog(
+              title: Text('ກະລຸນາຢືນຢັນກ່ອນອັບເດດ Setting'),
+              content: Text("ທ່ານແນ່ໃຈບໍ່ວ່າຕັ້ງຄ່າຖືກຕ້ອງແລ້ວ?"),
+              actions: [
+                FlatButton(
+                  child: Text('ແນ່ໃຈ'),
+                  onPressed: () async{
+                    // set all ກ່ອນ
+                    await _setting.update();
+                    Navigator.of(context).pop();
+                  },
+                ),
+                FlatButton(
+                  child: Text('ຍົກເລີກ'),
+                  onPressed: () {
+                    print("cancel save Data Setting to Firebase by user");
+                    Navigator.of(context).pop();
+                  },
+                )
+              ],
+            ),
+          );
         },
         backgroundColor: Colors.red,
         child: Text("Save"),

@@ -31,6 +31,7 @@ class FirebaseApi with ChangeNotifier {
   List<SensorData> get getDataObj => _sensorDataObj;
 
   List<List<dynamic>> get getSubData => _sensorSubData;
+
   List<SensorData> get getSubDataObj => _sensorSubDataObj;
 
 // ===========
@@ -92,8 +93,8 @@ class FirebaseApi with ChangeNotifier {
       final body = json.decode(response.body) as Map<String, dynamic>;
       body.forEach((key, value) {
         for (var item in value.sublist(1)) {
-          Map<String, dynamic> myMap = json.decode(item) as Map<String,
-              dynamic>;
+          Map<String, dynamic> myMap =
+              json.decode(item) as Map<String, dynamic>;
           // ດັກ Error ໄວ້ ຖ້າມີຄ່າ Null
           _sensorData.add([
             myMap["time"] ?? 0,
@@ -105,7 +106,8 @@ class FirebaseApi with ChangeNotifier {
           ]);
         }
       });
-      _sensorDataObj = _sensorData.sublist(1)
+      _sensorDataObj = _sensorData
+          .sublist(1)
           .map((list) => SensorData.formList(list))
           .toList();
 
@@ -134,28 +136,25 @@ class FirebaseApi with ChangeNotifier {
     // get data from LocalDB
     try {
       await openBoxSensor();
-      var myMap = box
-          .toMap()
-          .values
-          .toList();
+      var myMap = box.toMap().values.toList();
       if (myMap.isEmpty) {
         print("LocalDb is empty");
       } else {
         List<List<dynamic>> fetchData = List.generate(
           myMap.length,
-              (index) => myMap[index],
+          (index) => myMap[index],
         );
         // add data from LocalDB to provider
         _sensorData = fetchData;
         // add data List to data Object but don't need header
-        _sensorDataObj = _sensorData.sublist(1)
+        _sensorDataObj = _sensorData
+            .sublist(1)
             .map((list) => SensorData.formList(list))
             .toList();
 
         // set Sub Data
         setSubData();
         setSubDataObj();
-
       }
       notifyListeners();
     } catch (error) {
@@ -166,7 +165,12 @@ class FirebaseApi with ChangeNotifier {
   }
 
   Future<void> saveData() async {
-    String sensorCsv = ListToCsvConverter().convert(_sensorData);
+    // save ສະເພາະຊ່ວງເວລາທີ່ user ໄດ້ກົດເລືອກນັ້ນຄືເຫດຜົນທີໃຊ້ _sensorSubData
+    _sensorSubData.insert(
+      0,
+      ['time', 'temperature', 'humidity', 'ph', 'ec', 'light'],
+    );
+    String sensorCsv = ListToCsvConverter().convert(_sensorSubData);
     print(sensorCsv);
     Directory directory;
     try {
@@ -207,6 +211,10 @@ class FirebaseApi with ChangeNotifier {
         print("==> Directory Is Created");
         await saveFile.writeAsString(sensorCsv).then((_) {
           print("save file success");
+          Fluttertoast.showToast(
+            msg: 'Save File Success!!',
+            timeInSecForIosWeb: 3,
+          );
         });
       }
     } catch (e) {
@@ -226,5 +234,4 @@ class FirebaseApi with ChangeNotifier {
     }
     return false;
   }
-
 }

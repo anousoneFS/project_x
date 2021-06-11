@@ -82,7 +82,31 @@ class MonitorScreen extends StatelessWidget {
               height: 10,
             ),
             FloatingActionButton(
-              onPressed: () => saveData(context),
+              onPressed: () async {
+                await showDialog<Null>(
+                  context: context,
+                  builder: (ctx) => AlertDialog(
+                    title: Text('ກະລຸນາຢືນຢັນກ່ອນທຳການດາວໂຫລດຂໍ້ມູນ'),
+                    content: Text("ທ່ານຕ້ອງການ Save ຂໍ້ມູນລົງເຄື່ອງແທ້ບໍ່?"),
+                    actions: [
+                      FlatButton(
+                        child: Text('ແມ່ນແລ້ວ'),
+                        onPressed: () {
+                          saveData(context);
+                          Navigator.of(context).pop();
+                        },
+                      ),
+                      FlatButton(
+                        child: Text('ຍົກເລີກ'),
+                        onPressed: () {
+                          print("cancel save Data to local by user");
+                          Navigator.of(context).pop();
+                        },
+                      )
+                    ],
+                  ),
+                );
+              },
               backgroundColor: Colors.blue,
               child: FittedBox(
                 child: Icon(
