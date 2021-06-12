@@ -44,6 +44,7 @@ Map<dynamic, double> listItemPh = {
 };
 
 Map<dynamic, int> listItemEc = {
+  '0': 0,
   '1': 1,
   '2': 2,
   '3': 3,
@@ -120,5 +121,24 @@ Map<dynamic, int> listItemLight = {
   '6000': 6000,
 };
 
-
-
+List<Map<String, dynamic>> notifyInfo = [
+  {'title': 'pump active', 'id': 'timePumpActive', 'unit': " ນາທີ" },
+  {'title': 'max PH', 'id': 'maxPh', 'unit': "" },
+  {'title': 'max EC', 'id': 'maxEc', 'unit': "" },
+  {'title': 'max Temperature water', 'id': 'maxTempWater', 'unit': " ອົງສາ" },
+  {'title': 'max Temperature air', 'id': 'maxTempAir', 'unit': " ອົງສາ" },
+  {'title': 'max humid', 'id': 'maxHumid', 'unit': " %" },
+  {'title': 'max light', 'id': 'maxLight', 'unit': " Lux" },
+  {'title': 'min PH', 'id': 'minPh', 'unit': "" },
+  {'title': 'Min EC', 'id': 'minEc', 'unit': "" },
+  {'title': 'Min Temperature Water', 'id': 'minTempWater', 'unit': " ອົງສາ" },
+  {'title': 'Min Temperature air', 'id': 'minTempAir', 'unit': " ອົງສາ" },
+  {'title': 'Min Humid', 'id': 'minHumid', 'unit': " %" },
+  {'title': 'Min Light', 'id': 'minLight', 'unit': " Lux" },
+];
+// title: 'ເປີດ Pump ດົນປານໃດ',
+// id: 'timePumpActive',
+// unit: " ນາທີ",
+// valNotify: valValueTime,
+// onChangeMethod: changeValTime,
+// )

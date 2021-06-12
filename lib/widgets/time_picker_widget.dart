@@ -2,24 +2,28 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:project_x/components/button_widget.dart';
 
-class TimePickerWidget extends StatefulWidget {
+class TimePickerWidget extends StatelessWidget {
   final Function func;
   final String time;
   final String title;
+  final double rightPadding;
+  final double leftPadding;
 
-  TimePickerWidget({@required this.func, @required this.time, @required this.title});
+  TimePickerWidget({
+    @required this.func,
+    this.time = '00:00',
+    this.title = 'Time',
+    this.rightPadding = 0,
+    this.leftPadding = 0,
+  });
 
   @override
-  _TimePickerWidgetState createState() => _TimePickerWidgetState();
-}
-
-class _TimePickerWidgetState extends State<TimePickerWidget> {
-
-  @override
-  Widget build(BuildContext context) => ButtonHeaderWidget(
-        title: widget.title,
-        text: widget.time,
-        onClicked: () => widget.func(context),
+  Widget build(BuildContext context) => Padding(
+        padding: EdgeInsets.only(left: leftPadding, right: rightPadding),
+        child: ButtonHeaderWidget(
+          title: title,
+          text: time,
+          onClicked: () => func(context),
+        ),
       );
-
 }

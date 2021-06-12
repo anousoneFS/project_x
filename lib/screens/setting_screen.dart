@@ -1,142 +1,118 @@
 import 'package:flutter/material.dart';
+import 'package:project_x/dummy_data.dart';
 import 'package:project_x/logics/format_time.dart';
+import 'package:project_x/logics/pick_time_setting.dart';
 import 'package:project_x/providers/setting_provider.dart';
-import 'package:project_x/widgets/dropdown_time_widget.dart';
+import 'package:project_x/widgets/dropdown_header_widget.dart';
 import 'package:project_x/widgets/time_picker_widget.dart';
 import 'package:provider/provider.dart';
 
-class SettingScreen extends StatelessWidget {
+class SettingScreen extends StatefulWidget {
   static String routeName = '/setting';
-  SettingProvider _setting;
+
+  @override
+  _SettingScreenState createState() => _SettingScreenState();
+}
+
+class _SettingScreenState extends State<SettingScreen> {
+  SettingProvider settingProvider;
   TimeOfDay timeFish1;
   TimeOfDay timeFish2;
   String displayTime1;
   String displayTime2;
+  bool valValueTime = false;
+  bool _isExpanded = true;
+  Map<String, bool> allStatus;
 
-  Future pickTime1(BuildContext context) async {
-    final initialTime = timeFish1;
-    final newTime = await showTimePicker(
-      context: context,
-      initialTime: initialTime,
-    );
-
-    if (newTime == null) return;
-    // ທຸກຄັ້ງທີເລືອກເວລາຈະ update data ຢູ່ provider
-    _setting.setTimeFish1(newTime);
+  void initState(){
+    settingProvider = Provider.of<SettingProvider>(context, listen: false);
+    super.initState();
   }
 
-  Future pickTime2(BuildContext context) async {
-    final initialTime = timeFish2;
-    final newTime = await showTimePicker(
-      context: context,
-      initialTime: initialTime,
-    );
+  void pickTime1Local(BuildContext context) {
+    pickTime1(settingProvider, context, timeFish1);
+  }
 
-    if (newTime == null) return;
-    // ທຸກຄັ້ງທີເລືອກເວລາຈະ update data ຢູ່ provider
-    _setting.setTimeFish2(newTime);
+  void pickTime2Local(BuildContext context) {
+    pickTime2(settingProvider, context, timeFish2);
+  }
+
+  void changeValTime(bool value) {
+    setState(() {
+      valValueTime = value;
+    });
   }
 
   @override
   Widget build(BuildContext context) {
-    _setting = Provider.of<SettingProvider>(context);
-    // ປ້ອງກັນໄວ້ອີກຊັ້ນໜຶ່ງ ເຖິງວ່າຈະປ້ອງກັນຢູ່ provider setting ແລ້ວກໍ່ຕາມ
-    // ກັບເຖິງວ່າມັນຈະເອີ້ນໃຊ້ CircularProgressIndicator() ກໍ່ຕາມ
-    if (_setting.getTimeFish.length == 0) {
-      timeFish1 = TimeOfDay(hour: 0, minute: 0);
-      timeFish2 = TimeOfDay(hour: 0, minute: 0);
-    } else {
-      timeFish1 = _setting.getTimeFish[0];
-      timeFish2 = _setting.getTimeFish[1];
-    }
-    // ສຳຫຼັບເອົາໄປສະແດງຢູ່ ໜ້າຈໍ
-    List<String> formatTime = FormatTime.displayTime([timeFish1, timeFish2]);
+    print("get all status in setting screen");
+    Size size = MediaQuery.of(context).size;
     return Scaffold(
-      body: Padding(
-        padding: EdgeInsets.all(15),
-        child: SingleChildScrollView(
-          scrollDirection: Axis.vertical,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              TimePickerWidget(
-                func: pickTime1,
-                time: formatTime[0],
-                title: "Time Fish 1",
-              ),
-              TimePickerWidget(
-                func: pickTime2,
-                time: formatTime[1],
-                title: "Time Fish 2",
-              ),
-              SizedBox(height: 10,),
-              DropDownHeaderWidget(
-                title: 'ເປີດ Pump ດົນປານໃດ',
-                id: 'timePumpActive',
-                unit: " ນາທີ",
-              ),
-              SizedBox(height: 10,),
-              DropDownHeaderWidget(
-                title: 'ແຈ້ງເຕືອນເມືອ PH ຫຼາຍກວ່າ',
-                id: 'maxPh',
-                unit: "",
-              ),
-              SizedBox(height: 10,),
-              DropDownHeaderWidget(
-                title: 'ແຈ້ງເຕືອນເມືອ PH ໜ້ອຍກວ່າ',
-                id: 'minPh',
-                unit: "",
-              ),
-              SizedBox(height: 10,),
-              DropDownHeaderWidget(
-                title: 'ແຈ້ງເຕືອນເມືອ EC ຫຼາຍກວ່າ',
-                id: 'maxEc',
-                unit: " ec",
-              ),
-              SizedBox(height: 10,),
-              DropDownHeaderWidget(
-                title: 'ແຈ້ງເຕືອນເມືອ EC ໜ້ອຍກວ່າ',
-                id: 'minEc',
-                unit: " ec",
-              ),
-              SizedBox(height: 10,),
-              DropDownHeaderWidget(
-                title: 'ແຈ້ງເຕືອນເມືອ Temp Water ຫຼາຍກວ່າ',
-                id: 'maxTempWater',
-                unit: " ອົງສາ",
-              ),
-              SizedBox(height: 10,),
-              DropDownHeaderWidget(
-                title: 'ແຈ້ງເຕືອນເມືອ Temp Water ໜ້ອຍກວ່າ',
-                id: 'minTempWater',
-                unit: " ອົງສາ",
-              ),
-              SizedBox(height: 10,),
-              DropDownHeaderWidget(
-                title: 'ແຈ້ງເຕືອນເມືອ Temp Air ຫຼາຍກວ່າ',
-                id: 'maxTempAir',
-                unit: " ອົງສາ",
-              ),
-              SizedBox(height: 10,),
-              DropDownHeaderWidget(
-                title: 'ແຈ້ງເຕືອນເມືອ Temp Air ໜ້ອຍກວ່າ',
-                id: 'minTempAir',
-                unit: " ອົງສາ",
-              ),
-              SizedBox(height: 10,),
-              DropDownHeaderWidget(
-                title: 'ແຈ້ງເຕືອນເມືອ Humid ຫຼາຍກວ່າ',
-                id: 'maxHumid',
-                unit: " %",
-              ),
-              SizedBox(height: 10,),
-              DropDownHeaderWidget(
-                title: 'ແຈ້ງເຕືອນເມືອ Humid ໜ້ອຍກວ່າ',
-                id: 'minHumid',
-                unit: " %",
-              ),
-            ],
-          ),
+      body: Container(
+        width: double.infinity,
+        height: size.height,
+        child: Column(
+          children: [
+            Consumer<SettingProvider>(
+              builder: (_, settingPro, ch) {
+                // ປ້ອງກັນໄວ້ອີກຊັ້ນໜຶ່ງ ເຖິງວ່າຈະປ້ອງກັນຢູ່ provider setting ແລ້ວກໍ່ຕາມ
+                // ກັບເຖິງວ່າມັນຈະເອີ້ນໃຊ້ CircularProgressIndicator() ກໍ່ຕາມ
+                if (settingPro.getTimeFish.length == 0) {
+                  timeFish1 = TimeOfDay(hour: 0, minute: 0);
+                  timeFish2 = TimeOfDay(hour: 0, minute: 0);
+                } else {
+                  timeFish1 = settingPro.getTimeFish[0];
+                  timeFish2 = settingPro.getTimeFish[1];
+                }
+                // ສຳຫຼັບເອົາໄປສະແດງຢູ່ ໜ້າຈໍ
+                List<String> formatTime =
+                    FormatTime.displayTime([timeFish1, timeFish2]);
+                print("call consumer");
+                return Column(
+                  children: [
+                    TimePickerWidget(
+                      func: pickTime1Local,
+                      time: formatTime[0],
+                      title: "Time Fish 1",
+                      rightPadding: 5,
+                      leftPadding: 15,
+                    ),
+                    TimePickerWidget(
+                      func: pickTime2Local,
+                      time: formatTime[1],
+                      title: "Time Fish 2",
+                      rightPadding: 5,
+                      leftPadding: 15,
+                    ),
+                  ],
+                );
+              },
+            ),
+            SizedBox(
+              height: 10,
+            ),
+            notifyExpand(), // ຕັ້ງຄ່າການແຈ້ງເຕືອນ
+            SizedBox(
+              height: 10,
+            ),
+            _isExpanded
+                ? Expanded(
+                    child: Padding(
+                      padding: const EdgeInsets.only(left: 15, right: 0),
+                      child: ListView.builder(
+                        itemCount: notifyInfo.length,
+                        itemBuilder: (context, index) {
+                          return DropDownHeaderWidget(
+                            title: notifyInfo[index]['title'],
+                            id: notifyInfo[index]['id'],
+                            unit: notifyInfo[index]['unit'],
+                          );
+                        },
+                      ),
+                    ),
+                  )
+                : Container(),
+          ],
         ),
       ),
       floatingActionButton: FloatingActionButton(
@@ -149,9 +125,9 @@ class SettingScreen extends StatelessWidget {
               actions: [
                 FlatButton(
                   child: Text('ແນ່ໃຈ'),
-                  onPressed: () async{
+                  onPressed: () async {
                     // set all ກ່ອນ
-                    await _setting.update();
+                    await settingProvider.update();
                     Navigator.of(context).pop();
                   },
                 ),
@@ -168,6 +144,39 @@ class SettingScreen extends StatelessWidget {
         },
         backgroundColor: Colors.red,
         child: Text("Save"),
+      ),
+    );
+  }
+
+  Widget notifyExpand() {
+    return GestureDetector(
+      onTap: () {
+        setState(() {
+          _isExpanded = !_isExpanded;
+        });
+      },
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Text(
+            'ຕັ້ງຄ່າການແຈ້ງເຕືອນ',
+            style: TextStyle(fontSize: 25, fontFamily: 'NotoSansLao'),
+          ),
+          SizedBox(
+            width: 10,
+          ),
+          _isExpanded
+              ? Icon(
+                  Icons.expand_more,
+                  size: 35,
+                  color: Colors.blue,
+                )
+              : Icon(
+                  Icons.expand_less,
+                  size: 35,
+                  color: Colors.blue,
+                ),
+        ],
       ),
     );
   }

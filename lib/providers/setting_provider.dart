@@ -28,7 +28,131 @@ class SettingProvider with ChangeNotifier {
   int _maxLight;
   int _minLight;
 
+  // ==================
+
+  //ເກັບຄ່າເກົ່າໄວ້ ແລ້ວບັນທຶກລົງ LocalDB
+  List<Map<String, dynamic>> _oldValueSensorNotify;
+  bool _maxPhStatus = true;
+  bool _maxEcStatus = false;
+  bool _maxTempWaterStatus = false;
+  bool _maxTempAirStatus = false;
+  bool _maxHumidStatus = false;
+  bool _maxLightStatus = true;
+  bool _minPhStatus = false;
+  bool _minEcStatus = false;
+  bool _minTempWaterStatus = false;
+  bool _minTempAirStatus = false;
+  bool _minHumidStatus = false;
+  bool _minLightStatus = false;
+  Map<String, bool> _allStatus = {};
+
+  Map<String, bool> get getAllStatus => _allStatus;
+
+
+  bool get getMaxPhStatus => _maxPhStatus;
+
+  bool get getMaxEcStatus => _maxEcStatus;
+
+  bool get getMaxTempWaterStatus => _maxTempWaterStatus;
+
+  bool get getMaxTempAirStatus => _maxTempAirStatus;
+
+  bool get getMaxHumidStatus => _maxHumidStatus;
+
+  bool get getMaxLightStatus => _maxLightStatus;
+
+  bool get getMinPhStatus => _minPhStatus;
+
+  bool get getMinEcStatus => _minEcStatus;
+
+  bool get getMinTempWaterStatus => _minTempWaterStatus;
+
+  bool get getMinTempAirStatus => _minTempAirStatus;
+
+  bool get getMinHumidStatus => _minHumidStatus;
+
+  bool get getMinLightStatus => _minLightStatus;
+
+  void setAllStatus(){
+    _allStatus.putIfAbsent('maxPh', () => _maxPhStatus);
+    _allStatus.putIfAbsent('maxEc', () => _maxEcStatus);
+    _allStatus.putIfAbsent('maxTempWater', () => _maxTempWaterStatus);
+    _allStatus.putIfAbsent('maxTempAir', () => _maxTempAirStatus);
+    _allStatus.putIfAbsent('maxHumid', () => _maxHumidStatus);
+    _allStatus.putIfAbsent('maxLight', () => _maxLightStatus);
+    _allStatus.putIfAbsent('minPh', () => _minPhStatus);
+    _allStatus.putIfAbsent('minEc', () => _minEcStatus);
+    _allStatus.putIfAbsent('minTempWater', () => _minTempWaterStatus);
+    _allStatus.putIfAbsent('minTempAir', () => _minTempAirStatus);
+    _allStatus.putIfAbsent('minHumid', () => _minHumidStatus);
+    _allStatus.putIfAbsent('minLight', () => _minLightStatus);
+  }
+
+  void setMaxPhStatus(bool newValue) {
+    _maxPhStatus = newValue;
+    // notifyListeners();
+  }
+
+  void setMaxEcStatus(bool newValue) {
+    _maxEcStatus = newValue;
+    // notifyListeners();    //  ຫ້າມໃສ່ໃນຂະນະທີກຳລັງ build
+  }
+
+  void setMaxTempWaterStatus(bool newValue) {
+    _maxTempWaterStatus = newValue;
+    // notifyListeners();
+  }
+
+  void setMaxTempAirStatus(bool newValue) {
+    _maxTempAirStatus = newValue;
+    // notifyListeners();
+  }
+
+  void setMaxHumidStatus(bool newValue) {
+    _maxHumidStatus = newValue;
+    // notifyListeners();
+  }
+
+  void setMaxLightStatus(bool newValue) {
+    _maxLightStatus = newValue;
+    // notifyListeners();
+  }
+
+  void setMinPhStatus(bool newValue) {
+    _minPhStatus = newValue;
+    // notifyListeners();
+  }
+
+  void setMinEcStatus(bool newValue) {
+    _minEcStatus = newValue;
+    // notifyListeners();
+  }
+
+  void setMinTempWaterStatus(bool newValue) {
+    _minTempWaterStatus = newValue;
+    // notifyListeners();
+  }
+
+  void setMinTempAirStatus(bool newValue) {
+    _minTempAirStatus = newValue;
+    // notifyListeners();
+  }
+
+  void setMinHumidStatus(bool newValue) {
+    _minHumidStatus = newValue;
+    // notifyListeners();
+  }
+
+  void setMinLightStatus(bool newValue) {
+    _minLightStatus = newValue;
+    // notifyListeners();
+  }
+
+  // ==============================
+
   List<TimeOfDay> get getTimeFish => [..._timeFish];
+
+  int get getPumpActive => _timePumpActive;
 
   void setTimeFish1(TimeOfDay newTime1) {
     _timeFish[0] = newTime1;
@@ -39,8 +163,6 @@ class SettingProvider with ChangeNotifier {
     _timeFish[1] = newTime2;
     notifyListeners();
   }
-
-  int get getPumpActive => _timePumpActive;
 
   void setTimePumpActive(int newValue) {
     _timePumpActive = newValue;
@@ -82,9 +204,10 @@ class SettingProvider with ChangeNotifier {
         assignData(snapshot.value);
       }).then((value) {
         print("------> call then snapshot firebase next save to LocalDB");
+        // ====> save data to local db
         saveSettingToLocalDb(_data);
+        setAllStatus();
       });
-      // ====> save data to local db
     } catch (error) {
       print('---- Have Error fetch settingFirebase in provider----');
       print(error);
@@ -102,8 +225,9 @@ class SettingProvider with ChangeNotifier {
       } else {
         // =====> pass json data <======
         assignData(myMap[0]);
+        setAllStatus();
       }
-      notifyListeners();
+      // notifyListeners();
     } catch (error) {
       print("--- Have Error in OpenBoxSetting ---");
       print(error);
