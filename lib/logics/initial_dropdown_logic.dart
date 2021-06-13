@@ -96,6 +96,8 @@ Map<String, dynamic> initialDropDown(SettingProvider setting, String id, String 
         setting.setMaxTempWaterStatus(true);
         valNotify = true;
       }
+      print('maxtemp water');
+      print(valueChoose);
     }
     break;
     case 'minTempWater':{
@@ -111,6 +113,8 @@ Map<String, dynamic> initialDropDown(SettingProvider setting, String id, String 
         setting.setMinTempWaterStatus(true);
         valNotify = true;
       }
+      print('mintemp water');
+      print(valueChoose);
     }
     break;
     case 'maxTempAir':{

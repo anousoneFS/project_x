@@ -124,7 +124,7 @@ class FirebaseApi with ChangeNotifier {
         // setAllStatus();
       });
     } catch (error) {
-      print('---- Have Error fetch settingFirebase in provider----');
+      print('---- Have Error fetch data sensor in provider----');
       print(error);
       throw error;
     }

@@ -201,6 +201,7 @@ class SettingProvider with ChangeNotifier {
           .once()
           .then((DataSnapshot snapshot) {
         // =====> pass json data <===
+        print('data setting is ${snapshot.value}');
         assignData(snapshot.value);
       }).then((value) {
         print("------> call then snapshot firebase next save to LocalDB");
@@ -314,7 +315,8 @@ class SettingProvider with ChangeNotifier {
         _maxLight = _data.maxLight;
         _minPh = _data.minPh;
         _minEc = _data.minEc;
-        _minTempWater = _data.minTempWater;
+        // _minTempWater = _data.minTempWater;
+        _minTempWater = 20;
         _minTempAir = _data.minTempAir;
         _minHumid = _data.minHumid;
         _minLight = _data.minLight;
