@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 import 'package:csv/csv.dart';
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart' as http;
@@ -87,50 +88,94 @@ class FirebaseApi with ChangeNotifier {
 
   Future<void> fetchData() async {
     try {
-      final url =
-          'https://final-project-2fa6f-default-rtdb.firebaseio.com/sensor-values2.json';
-      final response = await http.get(url);
-      final body = json.decode(response.body) as Map<String, dynamic>;
-      body.forEach((key, value) {
-        for (var item in value.sublist(1)) {
-          Map<String, dynamic> myMap =
-              json.decode(item) as Map<String, dynamic>;
-          // ດັກ Error ໄວ້ ຖ້າມີຄ່າ Null
-          _sensorData.add([
-            myMap["time"] ?? 0,
-            myMap["temp"] ?? 0,
-            myMap["humid"] ?? 0,
-            myMap["ph"] ?? 0,
-            myMap["ec"] ?? 0,
-            myMap["light"] ?? 0,
-          ]);
-        }
-      });
-      _sensorDataObj = _sensorData
-          .sublist(1)
-          .map((list) => SensorData.formList(list))
-          .toList();
+      DatabaseReference _databaseReference = FirebaseDatabase.instance.reference();
+      await _databaseReference
+          .child('sensor-values')
+          .once()
+          .then((DataSnapshot snapshot) {
+            snapshot.value.forEach((key, value) {
+              for (var item in value.sublist(1)) {
+                Map<String, dynamic> myMap =
+                    json.decode(item) as Map<String, dynamic>;
+                // ດັກ Error ໄວ້ ຖ້າມີຄ່າ Null
+                _sensorData.add([
+                  myMap["time"] ?? 0,
+                  myMap["temp"] ?? 0,
+                  myMap["humid"] ?? 0,
+                  myMap["ph"] ?? 0,
+                  myMap["ec"] ?? 0,
+                  myMap["light"] ?? 0,
+                ]);
+              }
+            });
+            _sensorDataObj = _sensorData
+                .sublist(1)
+                .map((list) => SensorData.formList(list))
+                .toList();
 
-      // ===> set Sub Data
-      setSubData();
-      setSubDataObj();
-
-      // ຫຼັງຈາກ assign ຄ່າແລ້ວຈາກນັ້ນ save ລົງ LocalDB ໄວ້
-      await openBoxSensor();
-      await pushDataSensor(_sensorData).then((value) {
-        print('-----> Save data to LocalDB Success');
+            // ===> set Sub Data
+            setSubData();
+            setSubDataObj();
+        // =====> pass json data <===
+      }).then((value) {
+        print("------> call then snapshot firebase next save to LocalDB");
+        // ====> save data to local db
+        // saveSettingToLocalDb(_data);
+        // setAllStatus();
       });
-      notifyListeners();
     } catch (error) {
-      print("---- Have Error fetchData in Provider -----");
-      Fluttertoast.showToast(
-        msg: 'Connection Failed!',
-        timeInSecForIosWeb: 3,
-      );
+      print('---- Have Error fetch settingFirebase in provider----');
       print(error);
       throw error;
     }
   }
+
+  // Future<void> fetchData() async {
+  //   try {
+  //     final url =
+  //         'https://final-project-2fa6f-default-rtdb.firebaseio.com/sensor-values2.json';
+  //     final response = await http.get(url);
+  //     final body = json.decode(response.body) as Map<String, dynamic>;
+  //     body.forEach((key, value) {
+  //       for (var item in value.sublist(1)) {
+  //         Map<String, dynamic> myMap =
+  //             json.decode(item) as Map<String, dynamic>;
+  //         // ດັກ Error ໄວ້ ຖ້າມີຄ່າ Null
+  //         _sensorData.add([
+  //           myMap["time"] ?? 0,
+  //           myMap["temp"] ?? 0,
+  //           myMap["humid"] ?? 0,
+  //           myMap["ph"] ?? 0,
+  //           myMap["ec"] ?? 0,
+  //           myMap["light"] ?? 0,
+  //         ]);
+  //       }
+  //     });
+  //     _sensorDataObj = _sensorData
+  //         .sublist(1)
+  //         .map((list) => SensorData.formList(list))
+  //         .toList();
+  //
+  //     // ===> set Sub Data
+  //     setSubData();
+  //     setSubDataObj();
+  //
+  //     // ຫຼັງຈາກ assign ຄ່າແລ້ວຈາກນັ້ນ save ລົງ LocalDB ໄວ້
+  //     await openBoxSensor();
+  //     await pushDataSensor(_sensorData).then((value) {
+  //       print('-----> Save data to LocalDB Success');
+  //     });
+  //     notifyListeners();
+  //   } catch (error) {
+  //     print("---- Have Error fetchData in Provider -----");
+  //     Fluttertoast.showToast(
+  //       msg: 'Connection Failed!',
+  //       timeInSecForIosWeb: 3,
+  //     );
+  //     print(error);
+  //     throw error;
+  //   }
+  // }
 
   Future<void> fetchDataFormLocalDb() async {
     // get data from LocalDB
