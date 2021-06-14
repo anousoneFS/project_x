@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:firebase_database/ui/firebase_animated_list.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:project_x/providers/firebase_api.dart';
 import 'package:project_x/providers/home_provider.dart';
@@ -24,6 +25,8 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   DatabaseReference _streamData;
   HomeProvider homeProvider;
+  bool valSwitchPump = false;
+  bool valSwitchServo = false;
 
   void initState() {
     final FirebaseDatabase database = FirebaseDatabase(app: widget.app);
@@ -44,6 +47,7 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
         firebaseProvider.getConnectionStatus != 'Unknown'
             ? FirebaseAnimatedList(
+                physics: ClampingScrollPhysics(),
                 shrinkWrap: true,
                 query: _streamData,
                 itemBuilder: (BuildContext context, DataSnapshot snapshot,
@@ -64,42 +68,50 @@ class _HomeScreenState extends State<HomeScreen> {
                     json.putIfAbsent('${title[i]}', () => bodySplit[i]);
                   }
                   homeProvider.setData(json);
-                  return StreamCardWidget(json:json);
+                  print('*** call homeProvider.setData');
+                  return StreamCardWidget(json: json);
                 },
               )
-            : StreamCardWidget(json:Provider.of<HomeProvider>(context).getData),
+            : StreamCardWidget(
+                json: Provider.of<HomeProvider>(context).getData),
         SizedBox(
-          height: 15,
+          height: 200,
         ),
         Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            StatusWidget(
-              title: 'ສະຖານະປໍ້ານໍ້າ',
-              action: 'ເປີດ',
-            ),
-            StatusWidget(
-              title: 'ສະຖານະເຄື່ອງໃຫ້ອາຫານປາ',
-              action: 'ປິດ',
-            ),
-          ],
-        ),
-        SizedBox(
-          height: 10,
-        ),
-        Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            TextButton(
-                onPressed: () {},
-                child: Text(
-                  "ເປີດປໍ້ານໍ້າ",
-                  style: TextStyle(fontSize: 25, fontFamily: 'NotoSansLao'),
-                )),
-            TextButton(
-                onPressed: () {},
-                child: Text("ເປີດເຄື່ອງໃຫ້ອາຫານປາ",
-                    style: TextStyle(fontSize: 25, fontFamily: 'NotoSansLao'))),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text("ເປີດ-ປິດ Pump", style: TextStyle(fontSize: 24, fontFamily: 'NotoSansLao'),),
+                CupertinoSwitch(
+                  value: valSwitchPump,
+                  onChanged: (bool newValue) async {
+                    await homeProvider.togglePump();
+                    setState(() {
+                      print(newValue);
+                      valSwitchPump = newValue;
+                    });
+                  },
+                ),
+              ],
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text("ໃຫ້ອາຫານປາ", style: TextStyle(fontSize: 24, fontFamily: 'NotoSansLao'),),
+                CupertinoSwitch(
+                  value: valSwitchServo,
+                  onChanged: (bool newValue) async {
+                    await homeProvider.toggleServo();
+                    setState(() {
+                      print(newValue);
+                      valSwitchServo = newValue;
+                    });
+                  },
+                ),
+              ],
+            ),
           ],
         )
       ],
