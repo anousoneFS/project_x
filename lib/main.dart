@@ -1,6 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:project_x/providers/firebase_api.dart';
+import 'package:project_x/providers/home_provider.dart';
 import 'package:project_x/providers/monitor_provider.dart';
 import 'package:project_x/providers/setting_provider.dart';
 import 'package:project_x/screens/chart_screen.dart';
@@ -45,6 +46,9 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(
           create: (ctx) => SettingProvider(),
         ),
+        ChangeNotifierProvider(
+          create: (ctx) => HomeProvider(),
+        ),
       ],
       child: MaterialApp(
           debugShowCheckedModeBanner: false,
@@ -54,8 +58,8 @@ class MyApp extends StatelessWidget {
             visualDensity: VisualDensity.adaptivePlatformDensity,
             accentColor: Colors.black,
           ),
-          // home: email == null ? LogInPage() : TabsScreen(),
-          home: TabsScreen(),
+          home: email == null ? LogInScreen() : TabsScreen(),
+          // home: TabsScreen(),
           routes: {
             HomeScreen.routeName: (ctx) => HomeScreen(),
             OtpScreen.routeName: (ctx) => OtpScreen(),

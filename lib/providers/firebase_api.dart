@@ -15,6 +15,15 @@ import 'package:provider/provider.dart';
 import '../cache_data.dart';
 
 class FirebaseApi with ChangeNotifier {
+  String _connectionStatus = '';
+
+  String get getConnectionStatus => _connectionStatus;
+
+  void setConnectionStatus(String newStatus) {
+    _connectionStatus = newStatus;
+    notifyListeners();
+  }
+
   List<List<dynamic>> _sensorData = [
     ['time', 'temperature', 'humidity', 'ph', 'ec', 'light'],
   ];
@@ -128,7 +137,7 @@ class FirebaseApi with ChangeNotifier {
           _subAllData.add(_subData);
           _subData = [];
         });
-        print('my time = $_timeUnsort');
+
         List<DateTime> _timeSort = [..._timeUnsort];
         _timeSort.sort((a, b) => a.compareTo(b));
         // print('my time sort = $_timeSort');
@@ -150,6 +159,7 @@ class FirebaseApi with ChangeNotifier {
             _finalDataSorted.add(item);
           });
         });
+
         // type = List<dynamic>
         _sensorData = [..._finalDataSorted];
         //ປ່ຽນໄປເປັນ Object  List<dynamic> ==> SensorData()
@@ -162,13 +172,9 @@ class FirebaseApi with ChangeNotifier {
         setSubDataObj();
         // =====> pass json data <===
       }).then((value) async {
-        print("------> call then snapshot firebase next save to LocalDB");
         // ====> save data to local db
         // ຫຼັງຈາກ assign ຄ່າແລ້ວຈາກນັ້ນ save ລົງ LocalDB ໄວ້
-        await openBoxSensor();
-        await pushDataSensor(_sensorData).then((value) {
-          print('-----> Save data to LocalDB Success');
-        });
+        await saveSensorDataToLocalDb(_sensorData);
         notifyListeners();
       });
     } catch (error) {
@@ -187,6 +193,7 @@ class FirebaseApi with ChangeNotifier {
     try {
       await openBoxSensor();
       var myMap = box.toMap().values.toList();
+      box.close();
       if (myMap.isEmpty) {
         print("LocalDb is empty");
       } else {
@@ -205,6 +212,7 @@ class FirebaseApi with ChangeNotifier {
         // set Sub Data
         setSubData();
         setSubDataObj();
+        print('fetch sensor data from Local DB success');
       }
       notifyListeners();
     } catch (error) {
@@ -284,4 +292,11 @@ class FirebaseApi with ChangeNotifier {
     }
     return false;
   }
+}
+
+Future<void> saveSensorDataToLocalDb(List<dynamic> sensorData) async {
+  await openBoxSensor();
+  await pushDataSensor(sensorData).then((value) {
+    print('save sensor data to Local DB success');
+  });
 }

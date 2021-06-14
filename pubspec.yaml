@@ -32,6 +32,8 @@ dependencies:
   hive: ^1.4.4
   hive_flutter: ^0.3.1
   syncfusion_flutter_datagrid: ^18.4.44-beta
+  connectivity: ^2.0.2
+
 
 dev_dependencies:
   flutter_test:

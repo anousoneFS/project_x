@@ -21,6 +21,7 @@ Future pushDataSensor(data) async {
   for (var d in data) {
     box.add(d);
   }
+  box.close();
 }
 
 Box boxSetting;
@@ -42,4 +43,24 @@ Future pushDataSetting(data) async {
   //   boxSetting.add(d);
   // }
   boxSetting.add(data);
+  boxSetting.close();
+}
+
+Box boxHome;
+Future openBoxHome() async {
+  Directory directory;
+  if (Platform.isAndroid) {
+    directory = await getExternalStorageDirectory();
+  } else {
+    directory = await getApplicationDocumentsDirectory();
+  }
+  Hive.init(directory.path);
+  boxHome = await Hive.openBox('home');
+  return;
+}
+
+Future pushHome(data) async {
+  await boxHome.clear();
+  boxHome.add(data);
+  boxHome.close();
 }

@@ -201,12 +201,10 @@ class SettingProvider with ChangeNotifier {
           .once()
           .then((DataSnapshot snapshot) {
         // =====> pass json data <===
-        print('data setting is ${snapshot.value}');
         assignData(snapshot.value);
-      }).then((value) {
-        print("------> call then snapshot firebase next save to LocalDB");
+      }).then((value) async{
         // ====> save data to local db
-        saveSettingToLocalDb(_data);
+        await saveSettingToLocalDb(_data);
         setAllStatus();
       });
     } catch (error) {
@@ -221,12 +219,14 @@ class SettingProvider with ChangeNotifier {
     try {
       await openBoxSetting();
       final myMap = boxSetting.toMap().values.toList();
+      boxSetting.close();
       if (myMap == null) {
         print("setting LocalDb is empty");
       } else {
         // =====> pass json data <======
         assignData(myMap[0]);
         setAllStatus();
+        print('fetch data setting from Local DB success');
       }
       // notifyListeners();
     } catch (error) {
@@ -426,7 +426,7 @@ class SettingProvider with ChangeNotifier {
 
 Future<void> saveSettingToLocalDb(Setting data) async {
   await openBoxSetting();
-  await pushDataSetting(data.json()).then((value) {
-    print("------> Save setting to LocalDB Success");
+  await pushDataSetting(data.json()).then((_) {
+    print('save setting data to local db success');
   });
 }
