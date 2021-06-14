@@ -70,6 +70,8 @@ Future pickDateRange(BuildContext context, List<List<dynamic>> data,
     day2 = two.day.toString();
     year2 = two.year.toString();
     dateEnd = day2 + "-" + month2 + "-" + year2;
+    print('index is');
+    print('${begin + 1}, $end');
     // update ຄ່າໃນ provider
     initialData.setFormDate(dateBegin);
     initialData.setUntilDate(dateEnd);

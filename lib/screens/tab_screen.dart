@@ -52,7 +52,6 @@ class _TabsScreenState extends State<TabsScreen> {
         setState(() {
           loading = true;
         });
-        // await Provider.of<FirebaseApi>(context, listen: false).fetchDataFormLocalDb();
         await Provider.of<FirebaseApi>(context, listen: false).fetchData();
         // ຖ້າມີ Error ຄຳສັ່ງຕໍ່ໄປຈະບໍ່ຖືກເອີ້ນໃຊ້ຈະເອີ້ນໃຊ້ catch ເລີຍ
         print("=== > if connected the next function was call");

@@ -24,7 +24,7 @@ class _SettingScreenState extends State<SettingScreen> {
   bool _isExpanded = true;
   Map<String, bool> allStatus;
 
-  void initState(){
+  void initState() {
     settingProvider = Provider.of<SettingProvider>(context, listen: false);
     super.initState();
   }
@@ -83,6 +83,11 @@ class _SettingScreenState extends State<SettingScreen> {
                       title: "Time Fish 2",
                       rightPadding: 5,
                       leftPadding: 15,
+                    ),
+                    DropDownHeaderWidget(
+                      title: 'Time Pump Active',
+                      id: 'timePumpActive',
+                      unit: ' ນາທີ',
                     ),
                   ],
                 );

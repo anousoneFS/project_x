@@ -123,7 +123,6 @@ Map<dynamic, int> listItemLight = {
 };
 
 List<Map<String, dynamic>> notifyInfo = [
-  {'title': 'pump active', 'id': 'timePumpActive', 'unit': " ນາທີ" },
   {'title': 'max PH', 'id': 'maxPh', 'unit': "" },
   {'title': 'max EC', 'id': 'maxEc', 'unit': "" },
   {'title': 'max Temperature water', 'id': 'maxTempWater', 'unit': " ອົງສາ" },
