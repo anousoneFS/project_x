@@ -11,30 +11,36 @@ class StreamCardWidget extends StatelessWidget {
     return Container(
       width: double.infinity,
       height: size.height * 0.32,
-      color: Colors.black12,
+      // color: Colors.black12,
       child: GridView.builder(
-          physics: ClampingScrollPhysics(),
+          // physics: ClampingScrollPhysics(),
           gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
             crossAxisCount: 3,
           ),
-          itemCount: json.values.length - 1, // ບໍ່ເອົາ ເວລາ
+          itemCount: json.values != null ? json.values.length - 1 : 0,
+          // ບໍ່ເອົາ ເວລາ
           itemBuilder: (BuildContext context, int index) {
             return Card(
               color: Colors.lightBlueAccent,
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text(
-                    '${json.keys.toList()[index + 1]}',
-                    style: TextStyle(fontSize: 20, fontFamily: 'NotoSansLao'),
-                  ),
-                  Text(
-                    '${json.values.toList()[index + 1]}',
-                    style: TextStyle(
-                        fontSize: 24,
-                        color: Colors.black,
-                        fontFamily: 'RobotoCondensed'),
-                  ),
+                  json.keys.toList()[index + 1] != null
+                      ? Text(
+                          '${json.keys.toList()[index + 1]}',
+                          style: TextStyle(
+                              fontSize: 20, fontFamily: 'NotoSansLao'),
+                        )
+                      : Text("title"),
+                  json.values.toList()[index + 1] != null
+                      ? Text(
+                          '${json.values.toList()[index + 1] ?? 0}',
+                          style: TextStyle(
+                              fontSize: 24,
+                              color: Colors.black,
+                              fontFamily: 'RobotoCondensed'),
+                        )
+                      : Text('null'),
                 ],
               ),
             );
