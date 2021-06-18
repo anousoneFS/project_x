@@ -10,13 +10,13 @@ class SensorData {
   final int light;
 
   SensorData({
-    this.time,
-    this.tempAir,
-    this.tempWater,
-    this.ec,
-    this.ph,
-    this.humid,
-    this.light,
+    this.time = '1-6-2021 7:00',
+    this.tempAir = 0,
+    this.tempWater = 0,
+    this.ec = 0,
+    this.ph = 0,
+    this.humid = 0,
+    this.light = 0,
   });
 
   SensorData.formList(List<dynamic> list)

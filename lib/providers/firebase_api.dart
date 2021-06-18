@@ -27,10 +27,10 @@ class FirebaseApi with ChangeNotifier {
   List<List<dynamic>> _sensorData = [
     ['time', 'temperature', 'humidity', 'ph', 'ec', 'light'],
   ];
-  List<SensorData> _sensorDataObj;
+  List<SensorData> _sensorDataObj = [];
 
-  List<List<dynamic>> _sensorSubData;
-  List<SensorData> _sensorSubDataObj;
+  List<List<dynamic>> _sensorSubData = [];
+  List<SensorData> _sensorSubDataObj = [];
 
   String _formDate = 'Form';
   String _untilDate = 'Until';
@@ -57,13 +57,21 @@ class FirebaseApi with ChangeNotifier {
 
   void setSubDataObj() {
     // ເອົາຂໍ້ມູນທັງໝົດ ມາແບ່ງສ່ວນ
-    _sensorSubDataObj = _sensorDataObj.sublist(_indexBegin, _indexEnding);
+    if(_sensorDataObj.length > 1){
+      _sensorSubDataObj = _sensorDataObj.sublist(_indexBegin, _indexEnding);
+    }else{
+      _sensorSubDataObj = _sensorDataObj;
+    }
     notifyListeners();
   }
 
   void setSubData() {
     // ເອົາຂໍ້ມູນທັງໝົດ ມາແບ່ງສ່ວນ
-    _sensorSubData = _sensorData.sublist(_indexBegin, _indexEnding);
+    if(_sensorData.length > 1){
+      _sensorSubData = _sensorData.sublist(_indexBegin, _indexEnding);
+    }else{
+     _sensorSubData = _sensorData;
+    }
     notifyListeners();
   }
 
@@ -140,7 +148,6 @@ class FirebaseApi with ChangeNotifier {
 
         List<DateTime> _timeSort = [..._timeUnsort];
         _timeSort.sort((a, b) => a.compareTo(b));
-        // print('my time sort = $_timeSort');
         // ຊອກຫາ index ຂອງເວລາທີ່ຈັດລຽງແລ້ວ
         List<int> _timeIndexSort = [];
         for (var i = 0; i < _timeSort.length; i++) {
@@ -163,10 +170,14 @@ class FirebaseApi with ChangeNotifier {
         // type = List<dynamic>
         _sensorData = [..._finalDataSorted];
         //ປ່ຽນໄປເປັນ Object  List<dynamic> ==> SensorData()
-        _sensorDataObj = _sensorData
-            .sublist(1)
-            .map((list) => SensorData.formList(list))
-            .toList();
+        if(_sensorData.length > 1){
+          _sensorDataObj = _sensorData
+              .sublist(1)
+              .map((list) => SensorData.formList(list))
+              .toList();
+        }else{
+          _sensorDataObj = [SensorData(time: '0-0-0 00:00', tempAir: 0, tempWater: 0, ec: 0, ph: 0, humid: 0, light: 0)];
+        }
         // ===> set Sub Data
         setSubData();
         setSubDataObj();
@@ -180,7 +191,7 @@ class FirebaseApi with ChangeNotifier {
     } catch (error) {
       print('---- Have Error fetch data sensor in provider----');
       Fluttertoast.showToast(
-        msg: 'Connection Failed!',
+        msg: 'Connection Failed! api',
         timeInSecForIosWeb: 3,
       );
       print(error);

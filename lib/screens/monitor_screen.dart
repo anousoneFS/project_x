@@ -37,17 +37,33 @@ class MonitorScreen extends StatelessWidget {
       initialIndex: 0,
       child: Scaffold(
         appBar: AppBar(
-          toolbarHeight: size.height * 0.085,
+          toolbarHeight: size.height * 0.1,
           elevation: 4,
           bottom: TabBar(
             tabs: [
-              Tab(
-                icon: Icon(Icons.table_chart),
-                text: 'Data Table',
+              Container(
+                margin: EdgeInsets.only(bottom: 4),
+                width: size.width * 0.25,
+                height: size.height * 0.09,
+                child: FittedBox(
+                  fit: BoxFit.fitWidth,
+                  child: Tab(
+                    icon: Icon(Icons.table_chart),
+                    text: 'Data Table',
+                  ),
+                ),
               ),
-              Tab(
-                icon: Icon(Icons.stacked_line_chart),
-                text: 'Chart',
+              Container(
+                margin: EdgeInsets.only(bottom: 4),
+                width: size.width * 0.14,
+                height: size.height * 0.09,
+                child: FittedBox(
+                  fit: BoxFit.fitWidth,
+                  child: Tab(
+                    icon: Icon(Icons.stacked_line_chart),
+                    text: 'Chart',
+                  ),
+                ),
               ),
             ],
           ),

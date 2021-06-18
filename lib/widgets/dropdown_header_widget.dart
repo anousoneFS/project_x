@@ -85,14 +85,20 @@ class _DropDownWidgetState extends State<DropDownWidget> {
         children: [
           Container(
             width: size.width * 0.5,
-            child: Text(
-              widget.title,
-              style: TextStyle(
-                fontSize: 18,
-                color: Colors.black,
-                fontFamily: 'NotoSansLao',
+            height: size.height * 0.055,
+            padding: EdgeInsets.symmetric(horizontal: 5),
+            alignment: Alignment.centerLeft,
+            child: FittedBox(
+              fit: BoxFit.fitWidth,
+              child: Text(
+                widget.title,
+                style: TextStyle(
+                  fontSize: 20,
+                  color: Colors.black,
+                  fontFamily: 'NotoSansLao',
+                ),
+                overflow: TextOverflow.ellipsis,
               ),
-              overflow: TextOverflow.ellipsis,
             ),
           ),
           Container(
@@ -102,28 +108,33 @@ class _DropDownWidgetState extends State<DropDownWidget> {
               border: Border.all(width: 1, color: Colors.grey),
               borderRadius: BorderRadius.circular(15),
             ),
-            child: DropdownButton(
-              value: valueChooseLocal == 'null'
-                  ? '...'
-                  : valueChooseLocal + widget.unit,
-              items: widget.listItemOption
-                  .map(
-                    (item) => DropdownMenuItem(
-                      child: Text(item),
-                      value: item,
-                    ),
-                  )
-                  .toList(),
-              onChanged: (newValue) => onChangeDropDown(newValue),   // call this when selected
-              dropdownColor: Colors.white,
-              icon: Icon(Icons.arrow_drop_down),
-              iconSize: 36,
-              isExpanded: false,
-              elevation: 5,
-              style: TextStyle(
-                color: Colors.black,
-                fontSize: 18,
-                fontFamily: "NotoSansLao",
+            width: size.width * 0.25,
+            height: size.height * 0.06,
+            child: FittedBox(
+              fit: BoxFit.fitHeight,
+              child: DropdownButton(
+                value: valueChooseLocal == 'null'
+                    ? '...'
+                    : valueChooseLocal + widget.unit,
+                items: widget.listItemOption
+                    .map(
+                      (item) => DropdownMenuItem(
+                        child: Text(item),
+                        value: item,
+                      ),
+                    )
+                    .toList(),
+                onChanged: (newValue) => onChangeDropDown(newValue),   // call this when selected
+                dropdownColor: Colors.white,
+                icon: Icon(Icons.arrow_drop_down),
+                // iconSize: 36,
+                isExpanded: false,
+                elevation: 5,
+                style: TextStyle(
+                  color: Colors.black,
+                  // fontSize: 18,
+                  fontFamily: "NotoSansLao",
+                ),
               ),
             ),
           ),
@@ -207,16 +218,23 @@ class _DropDownHeaderWidgetState extends State<DropDownHeaderWidget> {
                   title: widget.title,
                 ),
                 Spacer(),
-                CupertinoSwitch(
-                  value: valNotify ?? false,
-                  onChanged: (bool newValue) {
-                    setState(() {
-                      // ອັບເດດ status value in setting provider ເພື່ອໃຫ້ເວລາຍ້ອນກັບມາຂໍ້ມູນຍັງຄືເກົ່າ
-                      setStatusSwitchCase(settingProvider, widget.id, newValue);
-                      valNotify = newValue;
-                      print("set state in header");
-                    });
-                  },
+                Container(
+                  width: size.width * 0.18,
+                  height: size.height * 0.055,
+                  child: FittedBox(
+                    fit: BoxFit.fitWidth,
+                    child: CupertinoSwitch(
+                      value: valNotify ?? false,
+                      onChanged: (bool newValue) {
+                        setState(() {
+                          // ອັບເດດ status value in setting provider ເພື່ອໃຫ້ເວລາຍ້ອນກັບມາຂໍ້ມູນຍັງຄືເກົ່າ
+                          setStatusSwitchCase(settingProvider, widget.id, newValue);
+                          valNotify = newValue;
+                          print("set state in header");
+                        });
+                      },
+                    ),
+                  ),
                 ),
               ],
             ),

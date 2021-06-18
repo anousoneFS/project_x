@@ -14,7 +14,6 @@ import '../screens/home_screen.dart';
 import '../screens/monitor_screen.dart';
 import 'package:connectivity/connectivity.dart';
 
-
 class TabsScreen extends StatefulWidget {
   static const routeName = '/tabs_screen';
 
@@ -33,7 +32,7 @@ class _TabsScreenState extends State<TabsScreen> {
   final Connectivity _connectivity = Connectivity();
   StreamSubscription<ConnectivityResult> _connectivitySubscription;
 
-  void initState()  {
+  void initState() {
     initConnectivity();
     _connectivitySubscription =
         _connectivity.onConnectivityChanged.listen(_updateConnectionStatus);
@@ -81,31 +80,33 @@ class _TabsScreenState extends State<TabsScreen> {
     super.dispose();
   }
 
-
-  void didChangeDependencies(){
+  void didChangeDependencies() {
     print('--- Call didChangeDependencies on TabsScreen ----');
     browse();
     super.didChangeDependencies();
   }
 
-  Future<void> browse()async{
-    if(_isFirst){
-      try{
+  Future<void> browse() async {
+    if (_isFirst) {
+      try {
         setState(() {
           loading = true;
         });
         await Provider.of<FirebaseApi>(context, listen: false).fetchData();
         // ຖ້າມີ Error ຄຳສັ່ງຕໍ່ໄປຈະບໍ່ຖືກເອີ້ນໃຊ້ຈະເອີ້ນໃຊ້ catch ເລີຍ
         print("=== > if connected the next function was call");
-        await Provider.of<SettingProvider>(context, listen: false).fetchData().then((_){
-          Provider.of<FirebaseApi>(context, listen: false).setConnectionStatus('');
+        await Provider.of<SettingProvider>(context, listen: false)
+            .fetchData()
+            .then((_) {
+          Provider.of<FirebaseApi>(context, listen: false)
+              .setConnectionStatus('');
         });
-      }catch(error){
+      } catch (error) {
         print("---- Have Error fetchData on Tab Screen---");
         // await Provider.of<FirebaseApi>(context, listen: false).fetchDataFormLocalDb();
         // await Provider.of<SettingProvider>(context, listen: false).fetchDataFormLocalDb();
         // print(error);
-      }finally{
+      } finally {
         setState(() {
           loading = false;
         });
@@ -122,9 +123,15 @@ class _TabsScreenState extends State<TabsScreen> {
 
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
-        title: Text(_pages[_selectedPageIndex]['title']),
+        title: Container(
+          height: size.height * 0.04,
+          child: FittedBox(
+            child: Text(_pages[_selectedPageIndex]['title']),
+          ),
+        ),
         elevation: 0,
       ),
       drawer: MainDrawer(),
@@ -143,18 +150,48 @@ class _TabsScreenState extends State<TabsScreen> {
         items: [
           BottomNavigationBarItem(
             backgroundColor: Theme.of(context).primaryColor,
-            icon: Icon(Icons.home),
-            title: Text("Home"),
+            icon: Container(
+              height: size.height * 0.03,
+              child: FittedBox(
+                child: Icon(Icons.home),
+              ),
+            ),
+            title: Container(
+              height: size.height * 0.028,
+              child: FittedBox(
+                child: Text("Home"),
+              ),
+            ),
           ),
           BottomNavigationBarItem(
             backgroundColor: Theme.of(context).primaryColor,
-            icon: Icon(Icons.monitor),
-            title: Text("Monitoring"),
+            icon: Container(
+              height: size.height * 0.03,
+              child: FittedBox(
+                child: Icon(Icons.monitor),
+              ),
+            ),
+            title: Container(
+              height: size.height * 0.028,
+              child: FittedBox(
+                child: Text("Monitoring"),
+              ),
+            ),
           ),
           BottomNavigationBarItem(
             backgroundColor: Theme.of(context).primaryColor,
-            icon: Icon(Icons.settings),
-            title: Text("Setting"),
+            icon: Container(
+              height: size.height * 0.03,
+              child: FittedBox(
+                child: Icon(Icons.settings),
+              ),
+            ),
+            title: Container(
+              height: size.height * 0.028,
+              child: FittedBox(
+                child: Text("Setting"),
+              ),
+            ),
           ),
         ],
       ),
@@ -174,15 +211,19 @@ class _TabsScreenState extends State<TabsScreen> {
       case ConnectivityResult.none:
         print('==> internet Unknown');
         setState(() => _connectionStatus = 'Unknown');
-        Provider.of<FirebaseApi>(context, listen: false).setConnectionStatus(_connectionStatus);
+        Provider.of<FirebaseApi>(context, listen: false)
+            .setConnectionStatus(_connectionStatus);
         Fluttertoast.showToast(
           msg: 'Connection Failed!',
           timeInSecForIosWeb: 3,
         );
         print('fetch data from Local DB in case Unknown');
-        await Provider.of<HomeProvider>(context, listen: false).fetchDataFromLocalDb();
-        await Provider.of<FirebaseApi>(context, listen: false).fetchDataFormLocalDb();
-        await Provider.of<SettingProvider>(context, listen: false).fetchDataFormLocalDb();
+        await Provider.of<HomeProvider>(context, listen: false)
+            .fetchDataFromLocalDb();
+        await Provider.of<FirebaseApi>(context, listen: false)
+            .fetchDataFormLocalDb();
+        await Provider.of<SettingProvider>(context, listen: false)
+            .fetchDataFormLocalDb();
         break;
       default:
         print('==> connectivity failed');
@@ -191,7 +232,7 @@ class _TabsScreenState extends State<TabsScreen> {
     }
     print('@@@ ===> connectionStatus = $_connectionStatus');
     // ເພືອ່ແຈ້ງອັບເດດຄ່າຢູ່ homeScreen
-    Provider.of<FirebaseApi>(context, listen: false).setConnectionStatus(_connectionStatus);
+    Provider.of<FirebaseApi>(context, listen: false)
+        .setConnectionStatus(_connectionStatus);
   }
-
 }

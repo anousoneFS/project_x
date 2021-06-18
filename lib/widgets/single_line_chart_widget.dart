@@ -21,8 +21,8 @@ class SingleLineChartWidget extends StatelessWidget {
                 series: <ChartSeries>[
                   LineSeries<ChartData, DateTime>(
                     dataSource: chartData,
-                    xValueMapper: (ChartData sale, _) => sale.xAxis,
-                    yValueMapper: (ChartData sale, _) => sale.yAxis,
+                    xValueMapper: (ChartData chart, _) => chart.xAxis ?? DateTime.now(),
+                    yValueMapper: (ChartData chart, _) => chart.yAxis ?? 10,
                   ),
                 ],
                 primaryXAxis: DateTimeAxis(

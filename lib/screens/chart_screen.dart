@@ -13,41 +13,51 @@ class ChartScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
+    List<ChartData> _phData;
+    List<ChartData> _ecData;
+    List<ChartData> _tempWaterData;
+    List<ChartData> _tempAirData;
+    List<ChartData> _humidData;
+    List<ChartData> _lightData;
 
     final _initialData = Provider.of<FirebaseApi>(context, listen: true);
     // get ເອົາ sensor data object ໃນຕຳແໜ່ງທີສອດຄອງກັບ indexBegin ແລະ indexEnding
     final sensorDataObject = _initialData.getSubDataObj;
+    if(sensorDataObject.length == 0){
+      print("==> sorry no chart data");
+    }else{
+      _phData = sensorDataObject
+          .map((e) => ChartData(
+          DateFormat('dd-MM-yyyy HH:mm').parse(e.time.toString()), e.ph))
+          .toList();
 
-    final List<ChartData> _phData = sensorDataObject
-        .map((e) => ChartData(
-            DateFormat('dd-MM-yyyy HH:mm').parse(e.time.toString()), e.ph))
-        .toList();
+      _ecData = sensorDataObject
+          .map((e) => ChartData(
+          DateFormat('dd-MM-yyyy HH:mm').parse(e.time.toString()), e.ec))
+          .toList();
 
-    final List<ChartData> _ecData = sensorDataObject
-        .map((e) => ChartData(
-            DateFormat('dd-MM-yyyy HH:mm').parse(e.time.toString()), e.ec))
-        .toList();
+      _tempAirData = sensorDataObject
+          .map((e) => ChartData(
+          DateFormat('dd-MM-yyyy HH:mm').parse(e.time.toString()), e.tempAir))
+          .toList();
 
-    final List<ChartData> _tempAirData = sensorDataObject
-        .map((e) => ChartData(
-            DateFormat('dd-MM-yyyy HH:mm').parse(e.time.toString()), e.tempAir))
-        .toList();
+      _tempWaterData = sensorDataObject
+          .map((e) => ChartData(
+          DateFormat('dd-MM-yyyy HH:mm').parse(e.time.toString()),
+          e.tempWater))
+          .toList();
 
-    final List<ChartData> _tempWaterData = sensorDataObject
-        .map((e) => ChartData(
-            DateFormat('dd-MM-yyyy HH:mm').parse(e.time.toString()),
-            e.tempWater))
-        .toList();
+      _humidData = sensorDataObject
+          .map((e) => ChartData(
+          DateFormat('dd-MM-yyyy HH:mm').parse(e.time.toString()), e.humid))
+          .toList();
 
-    final List<ChartData> _humidData = sensorDataObject
-        .map((e) => ChartData(
-            DateFormat('dd-MM-yyyy HH:mm').parse(e.time.toString()), e.humid))
-        .toList();
+      _lightData = sensorDataObject
+          .map((e) => ChartData(
+          DateFormat('dd-MM-yyyy HH:mm').parse(e.time.toString()), e.light))
+          .toList();
+    }
 
-    final List<ChartData> _lightData = sensorDataObject
-        .map((e) => ChartData(
-            DateFormat('dd-MM-yyyy HH:mm').parse(e.time.toString()), e.light))
-        .toList();
     print('call build in chart screen');
     return Scaffold(
       body: Container(

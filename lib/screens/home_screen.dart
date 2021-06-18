@@ -145,7 +145,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   Widget buildSwitchControlWithHeaderWidget(Size size, String title, Function func, bool valueOnOff) {
     return Padding(
-            padding:  EdgeInsets.symmetric(horizontal: size.width * 0.23),
+            padding:  EdgeInsets.symmetric(horizontal: size.width * 0.10),
             child: Container(
               child: Row(
                 children: [
