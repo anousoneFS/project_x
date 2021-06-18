@@ -129,7 +129,7 @@ class _HomeScreenState extends State<HomeScreen> {
           },
         ),
         SizedBox(
-          height: 200,
+          height: 10,
         ),
         Column(
           mainAxisAlignment: MainAxisAlignment.center,

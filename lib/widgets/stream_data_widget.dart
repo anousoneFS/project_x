@@ -10,7 +10,7 @@ class StreamCardWidget extends StatelessWidget {
     Size size = MediaQuery.of(context).size;
     return Container(
       width: double.infinity,
-      height: size.height * 0.32,
+      height: size.height * 0.4,
       // color: Colors.black12,
       child: GridView.builder(
           // physics: ClampingScrollPhysics(),

@@ -24,10 +24,10 @@ class HomeProvider with ChangeNotifier{
 
   Future<void> togglePump()async{
     try {
-      if(_togglePump == 1){
-        _togglePump = 0;
+      if(_togglePump == 3){
+        _togglePump = 2;
       }else{
-        _togglePump = 1;
+        _togglePump = 3;
       }
       await _databaseReference.update({
         'arduino_streaming': _togglePump
@@ -41,10 +41,10 @@ class HomeProvider with ChangeNotifier{
 
   Future<void> toggleServo()async{
     try {
-      if(_toggleServo == 2){
-        _toggleServo = 3;
+      if(_toggleServo == 1){
+        _toggleServo = 0;
       }else{
-        _toggleServo = 2;
+        _toggleServo = 1;
       }
       await _databaseReference.update({
         'arduino_streaming': _toggleServo

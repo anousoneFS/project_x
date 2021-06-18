@@ -121,8 +121,17 @@ class _TabsScreenState extends State<TabsScreen> {
     });
   }
 
+  void _portraitModeOnly() {
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.portraitUp,
+      DeviceOrientation.portraitDown,
+    ]);
+    print("portraitMode in mainScreen....");
+  }
+
   @override
   Widget build(BuildContext context) {
+    _portraitModeOnly();
     Size size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
