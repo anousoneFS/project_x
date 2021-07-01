@@ -258,9 +258,13 @@ class SettingProvider with ChangeNotifier {
         'timePumpActive': _timePumpActive,
       });
       // update streaming for Arduino
+      // await _databaseReference.update({
+      //   'arduino_streaming':
+      //       formatTime.join(',') + ',' + _timePumpActive.toString(),
+      // });
+
       await _databaseReference.update({
-        'arduino_streaming':
-            formatTime.join(',') + ',' + _timePumpActive.toString(),
+        'arduino_streaming': 6
       });
 
       // ຕ້ອງ update data ຢູ່ object ກ່ອນ or _data

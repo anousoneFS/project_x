@@ -57,7 +57,7 @@ class _SettingScreenState extends State<SettingScreen> {
                   maxHeight: MediaQuery
                       .of(context)
                       .size
-                      .height * 1.4,
+                      .height * 1.7,
                   minHeight: constraint.minHeight,
               ),
               child: Column(
