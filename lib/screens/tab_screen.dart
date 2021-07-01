@@ -7,6 +7,7 @@ import 'package:project_x/providers/firebase_api.dart';
 import 'package:project_x/providers/home_provider.dart';
 import 'package:project_x/providers/setting_provider.dart';
 import 'package:project_x/screens/setting_screen.dart';
+import 'package:project_x/screens/test.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter/material.dart';
 import '../components/main_drawer.dart';
