@@ -12,6 +12,7 @@ import 'package:project_x/screens/otp_screen.dart';
 import 'package:project_x/screens/reset_password_screen.dart';
 import 'package:project_x/screens/setting_screen.dart';
 import 'package:project_x/screens/tab_screen.dart';
+import 'package:project_x/screens/tab_screen2.dart';
 import 'package:project_x/screens/table_screen.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -58,7 +59,7 @@ class MyApp extends StatelessWidget {
             visualDensity: VisualDensity.adaptivePlatformDensity,
             accentColor: Colors.black,
           ),
-          home: email == null ? LogInScreen() : TabsScreen(),
+          home: email == null ? LogInScreen() : TabsScreen2(),
           // home: TabsScreen(),
           routes: {
             HomeScreen.routeName: (ctx) => HomeScreen(),

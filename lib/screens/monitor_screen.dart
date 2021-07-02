@@ -131,6 +131,7 @@ class MonitorScreen extends StatelessWidget {
                 ),
               ),
             ),
+            SizedBox(height: 50,),
           ],
         ),
       ),

@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -151,7 +150,7 @@ class _TabsScreenState extends State<TabsScreen> {
           : _pages[_selectedPageIndex]['page'],
       bottomNavigationBar: SafeArea(
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 0),
+          padding: const EdgeInsets.only(left: 30, right: 30, bottom: 5,),
           child: Container(
             // height: size.height * 0.07,
             padding: const EdgeInsets.all(0),
@@ -164,9 +163,11 @@ class _TabsScreenState extends State<TabsScreen> {
             child: ClipRRect(
               borderRadius: BorderRadius.circular(30),
               child: BottomNavigationBar(
+                selectedFontSize: 0,
                 showSelectedLabels: false,
                 showUnselectedLabels: false,
                 backgroundColor: Theme.of(context).primaryColor,
+                // backgroundColor: Colors.black,
                 onTap: _selectPages,
                 unselectedItemColor: Colors.white,
                 selectedItemColor: Theme.of(context).accentColor,
