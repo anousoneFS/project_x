@@ -36,36 +36,40 @@ class MonitorScreen extends StatelessWidget {
       length: 2,
       initialIndex: 0,
       child: Scaffold(
-        appBar: AppBar(
-          toolbarHeight: size.height * 0.1,
-          elevation: 4,
-          bottom: TabBar(
-            tabs: [
-              Container(
-                margin: EdgeInsets.only(bottom: 4),
-                width: size.width * 0.25,
-                height: size.height * 0.09,
-                child: FittedBox(
-                  fit: BoxFit.fitWidth,
-                  child: Tab(
-                    icon: Icon(Icons.table_chart),
-                    text: 'Data Table',
+        appBar: PreferredSize(
+          preferredSize: Size.fromHeight(50.0),
+          child: AppBar(
+            // toolbarHeight: size.height * 0.06,
+            elevation: 4,
+            backgroundColor: Colors.white,
+            bottom: TabBar(
+              tabs: [
+                Container(
+                  margin: EdgeInsets.only(bottom: 4),
+                  width: size.width * 0.1,
+                  height: size.width * 0.1,
+                  child: FittedBox(
+                    fit: BoxFit.fitWidth,
+                    child: Tab(
+                      icon: Icon(Icons.table_chart, color: Colors.blue,),
+                      // text: 'Data Table',
+                    ),
                   ),
                 ),
-              ),
-              Container(
-                margin: EdgeInsets.only(bottom: 4),
-                width: size.width * 0.14,
-                height: size.height * 0.09,
-                child: FittedBox(
-                  fit: BoxFit.fitWidth,
-                  child: Tab(
-                    icon: Icon(Icons.stacked_line_chart),
-                    text: 'Chart',
+                Container(
+                  margin: EdgeInsets.only(bottom: 4),
+                  width: size.width * 0.1,
+                  height: size.width * 0.1,
+                  child: FittedBox(
+                    fit: BoxFit.fitWidth,
+                    child: Tab(
+                      icon: Icon(Icons.stacked_line_chart, color: Colors.blue),
+                      // text: 'Chart',
+                    ),
                   ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
         body: TabBarView(

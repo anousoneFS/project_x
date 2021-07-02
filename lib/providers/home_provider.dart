@@ -65,18 +65,22 @@ class HomeProvider with ChangeNotifier{
       }
       await _databaseReference.update({
         'arduino_streaming': _toggleAuto
-      }).then((_) => print('togglePump Success'));
-
-      int _isAuto;
-      if(_toggleAuto == 5){
-        _isAuto = 1;
-      }else{
-       _isAuto = 0;
-      }
+      }).then((_) => print('toggleAuto Success'));
 
       await _databaseReference.update({
-        'setting/auto': _isAuto
-      }).then((_) => print('togglePump Success'));
+        'setting/auto': _toggleAuto == 5 ? 1 : 0
+      }).then((_) => print('update auto Success'));
+
+      // int _isAuto;
+      // if(_toggleAuto == 5){
+      //   _isAuto = 1;
+      // }else{
+      //  _isAuto = 0;
+      // }
+      //
+      // await _databaseReference.update({
+      //   'setting/auto': _isAuto
+      // }).then((_) => print('togglePump Success'));
 
     } catch (error) {
       print('---- Have Error toggleServo Arduino Streaming ----');

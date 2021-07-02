@@ -34,14 +34,26 @@ class ButtonWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => ElevatedButton(
-        style: ElevatedButton.styleFrom(
-          minimumSize: Size.fromHeight(40),
-          primary: Colors.blue,
+        style:
+            // ElevatedButton.styleFrom(
+            //   minimumSize: Size.fromHeight(40),
+            //   primary: Colors.white,
+            ButtonStyle(
+          foregroundColor: MaterialStateProperty.all<Color>(Colors.black),
+          backgroundColor: MaterialStateProperty.all<Color>(Colors.white),
+          shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+            RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(10.0),
+              side: BorderSide(color: Colors.blue, width: 1),
+            ),
+          ),
         ),
         child: FittedBox(
           child: Text(
             text,
-            style: TextStyle(fontSize: 20, color: Colors.white),
+            style: TextStyle(
+              fontSize: 20,
+            ),
           ),
         ),
         onPressed: onClicked,
@@ -59,19 +71,27 @@ class HeaderWidget extends StatelessWidget {
   }) : super(key: key);
 
   @override
-  Widget build(BuildContext context) => Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
+  Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
+    return Row(
+      children: [
+        Container(
+          width: size.width * 0.5,
+          child: Text(
             title,
             style: TextStyle(
-              color: Colors.blue,
+              color: Colors.black,
               fontSize: 24,
-              fontWeight: FontWeight.bold,
+              fontWeight: FontWeight.w400,
+              fontFamily: "NotoSansLao",
             ),
           ),
-          const SizedBox(height: 8),
-          child,
-        ],
-      );
+        ),
+        // const SizedBox(width: 8),
+        child,
+        const SizedBox(width: 2),
+        Container(child: Icon(Icons.expand_less)),
+      ],
+    );
+  }
 }

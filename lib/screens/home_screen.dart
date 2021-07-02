@@ -29,6 +29,7 @@ class _HomeScreenState extends State<HomeScreen> {
   bool valSwitchServo = false;
   bool valSwitchAuto = false;
   Map<String, dynamic> json = {};
+  bool _isLoading = false;
 
   void initState() {
     final FirebaseDatabase database = FirebaseDatabase(app: widget.app);
@@ -63,8 +64,14 @@ class _HomeScreenState extends State<HomeScreen> {
             child: Text('ແນ່ໃຈ'),
             onPressed: () async {
               // set all ກ່ອນ
+              setState(() {
+                _isLoading = true;
+              });
               await homeProvider.toggleAuto();
               Navigator.of(context).pop();
+              setState(() {
+                _isLoading = false;
+              });
             },
           ),
           FlatButton(
@@ -88,112 +95,128 @@ class _HomeScreenState extends State<HomeScreen> {
     Size size = MediaQuery.of(context).size;
     homeProvider = Provider.of<HomeProvider>(context, listen: false);
     final firebaseProvider = Provider.of<FirebaseApi>(context);
-    return SingleChildScrollView(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          SizedBox(
-            height: 10,
-          ),
-          Container(
-            alignment: Alignment.centerLeft,
-            margin: EdgeInsets.only(left: 25),
-            child: Text(
-              "ສະພາບແວດລ້ອມໃນໂຮງເຮືອນ",
-              style: TextStyle(
-                fontSize: 22,
-                fontFamily: "NotoSansLao",
-              ),
-            ),
-          ),
-          SizedBox(
-            height: 10,
-          ),
-          // firebaseProvider.getConnectionStatus != 'Unknown' ?
-          FirebaseAnimatedList(
-            physics: ClampingScrollPhysics(),
-            shrinkWrap: true,
-            query: _streamData,
-            itemBuilder: (BuildContext context, DataSnapshot snapshot,
-                Animation<double> animation, int index) {
-              String body = snapshot.value; // ຂໍ້ມູນທີ່ໄດ້ຈາກ Arduino ພຽວໆ
-              List<dynamic> bodySplit = body.split(','); // split ,
-              List<String> title = [
-                'ເວລາ',
-                'ອຸນຫະພູມອາກາດ',
-                'ຄວາມຊຸມ',
-                'ຄ່າ PH',
-                'ຄ່າ EC',
-                'ອຸນຫະພູມນໍ້າ',
-                'ຄ່າແສງ'
-              ];
-              json = {};
-              for (var i = 0; i < title.length; i++) {
-                json.putIfAbsent('${title[i]}', () => bodySplit[i]);
-              }
-              homeProvider.setData(json);
-              print('*** call homeProvider.setData');
-              return Container();
-            },
-          ),
-          Consumer<HomeProvider>(
-            builder: (_, data, ch) {
-              print('call consumer');
-              return data.getData.values.length != 0
-                  ? SensorValueStreamingWidget(json: data.getData)
-                  : CircularProgressIndicator();
-            },
-          ),
-          SizedBox(
-            height: 10,
-          ),
-          Container(
-            alignment: Alignment.centerLeft,
-            margin: EdgeInsets.only(left: 25),
-            child: Text(
-              "ປຸ່ມ ຄວບຄຸມ",
-              style: TextStyle(
-                fontSize: 22,
-                fontFamily: "NotoSansLao",
-              ),
-            ),
-          ),
-          SizedBox(
-            height: 10,
-          ),
-          Column(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
+    return !_isLoading
+        ? Stack(
             children: [
-              buildSwitchControlWithHeaderWidget(
-                size,
-                'ເປີດ-ປິດ ປໍ້ານໍ້າ',
-                controlPump,
-                valSwitchPump,
-                'assets/icons/pump.svg',
+              Positioned(
+                top: 0,
+                left: 0,
+                right: 0,
+                child: Container(
+                  color: Colors.black38,
+                  height: 1,
+                ),
               ),
-              SizedBox(height: 10),
-              buildSwitchControlWithHeaderWidget(
-                size,
-                'ໃຫ້ອາຫານປາ',
-                controlServo,
-                valSwitchServo,
-                'assets/icons/fish.svg',
-              ),
-              SizedBox(height: 10),
-              buildSwitchControlWithHeaderWidget(
-                size,
-                'ເປີດ-ປິດ ອໍໂຕ້',
-                controlAuto,
-                valSwitchAuto,
-                'assets/icons/machine-learning.svg',
+              SingleChildScrollView(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    SizedBox(
+                      height: 10,
+                    ),
+                    Container(
+                      alignment: Alignment.centerLeft,
+                      margin: EdgeInsets.only(left: 25),
+                      child: Text(
+                        "ສະພາບແວດລ້ອມໃນໂຮງເຮືອນ",
+                        style: TextStyle(
+                          fontSize: 22,
+                          fontFamily: "NotoSansLao",
+                        ),
+                      ),
+                    ),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    // firebaseProvider.getConnectionStatus != 'Unknown' ?
+                    FirebaseAnimatedList(
+                      physics: ClampingScrollPhysics(),
+                      shrinkWrap: true,
+                      query: _streamData,
+                      itemBuilder: (BuildContext context, DataSnapshot snapshot,
+                          Animation<double> animation, int index) {
+                        String body =
+                            snapshot.value; // ຂໍ້ມູນທີ່ໄດ້ຈາກ Arduino ພຽວໆ
+                        List<dynamic> bodySplit = body.split(','); // split ,
+                        List<String> title = [
+                          'ເວລາ',
+                          'ອຸນຫະພູມອາກາດ',
+                          'ຄວາມຊຸມ',
+                          'ຄ່າ PH',
+                          'ຄ່າ EC',
+                          'ອຸນຫະພູມນໍ້າ',
+                          'ຄ່າແສງ'
+                        ];
+                        json = {};
+                        for (var i = 0; i < title.length; i++) {
+                          json.putIfAbsent('${title[i]}', () => bodySplit[i]);
+                        }
+                        homeProvider.setData(json);
+                        print('*** call homeProvider.setData');
+                        return Container();
+                      },
+                    ),
+                    Consumer<HomeProvider>(
+                      builder: (_, data, ch) {
+                        print('call consumer');
+                        return data.getData.values.length != 0
+                            ? SensorValueStreamingWidget(json: data.getData)
+                            : CircularProgressIndicator();
+                      },
+                    ),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    Container(
+                      alignment: Alignment.centerLeft,
+                      margin: EdgeInsets.only(left: 25),
+                      child: Text(
+                        "ປຸ່ມ ຄວບຄຸມ",
+                        style: TextStyle(
+                          fontSize: 22,
+                          fontFamily: "NotoSansLao",
+                        ),
+                      ),
+                    ),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        buildSwitchControlWithHeaderWidget(
+                          size,
+                          'ເປີດ-ປິດ ປໍ້ານໍ້າ',
+                          controlPump,
+                          valSwitchPump,
+                          'assets/icons/pump.svg',
+                        ),
+                        SizedBox(height: 10),
+                        buildSwitchControlWithHeaderWidget(
+                          size,
+                          'ໃຫ້ອາຫານປາ',
+                          controlServo,
+                          valSwitchServo,
+                          'assets/icons/fish.svg',
+                        ),
+                        SizedBox(height: 10),
+                        buildSwitchControlWithHeaderWidget(
+                          size,
+                          'ເປີດ-ປິດ ອໍໂຕ້',
+                          controlAuto,
+                          valSwitchAuto,
+                          'assets/icons/machine-learning.svg',
+                        ),
+                      ],
+                    ),
+                    SizedBox(height: 110),
+                  ],
+                ),
               ),
             ],
-          ),
-          SizedBox(height: 110),
-        ],
-      ),
-    );
+          )
+        : CircularProgressIndicator();
   }
 
   Widget buildSwitchControlWithHeaderWidget(

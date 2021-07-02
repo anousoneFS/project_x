@@ -132,92 +132,100 @@ class _TabsScreen2State extends State<TabsScreen2> {
   Widget build(BuildContext context) {
     _portraitModeOnly();
     Size size = MediaQuery.of(context).size;
-    return Scaffold(
-      appBar: AppBar(
-        title: Container(
-          height: size.height * 0.04,
-          child: FittedBox(
-            child: Text(_pages[_selectedPageIndex]['title']),
-          ),
-        ),
-        elevation: 0,
+    return Theme(
+      data: ThemeData(
+        primaryIconTheme: IconThemeData(color: Colors.blue,),
       ),
-      drawer: MainDrawer(),
-      // ເຊັກ loading ກັບ connection ຖ້າ loading = true ແລະ connection != unknown
-      // ສະແດງວ່າກຳລັງໂຫລດຂໍ້ມູນຢູ່ ໃຫ້ສະແດງ CircularProgressIndicator()
-      body: Container(
-        width: double.infinity,
-        height: size.height,
-        child: Stack(
-          children: [
-            loading && _connectionStatus != 'Unknown'
-                ? Center(child: CircularProgressIndicator())
-                : _pages[_selectedPageIndex]['page'],
-            Positioned(
-              bottom: 5,
-              left: size.width * 0.1,
-              right: size.width * 0.1,
-              child: SafeArea(
-                child: Container(
-                  padding: EdgeInsets.symmetric(vertical: 4, horizontal: 4),
-                  decoration: BoxDecoration(
-                    color: Theme.of(context).primaryColor,
-                    borderRadius: BorderRadius.circular(30),
-                  ),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: [
-                      IconButton(
-                        padding: EdgeInsets.all(0),
-                        icon: Icon(
-                          Icons.home,
-                          size: _selectedPageIndex == 0 ? 35 : 26,
-                          color: _selectedPageIndex == 0
-                              ? Theme.of(context).scaffoldBackgroundColor
-                              : Theme.of(context)
-                              .scaffoldBackgroundColor
-                              .withOpacity(0.5),
-                        ),
-                        onPressed: (){
-                          _selectPages(0);
-                        },
+      child: Scaffold(
+        appBar: AppBar(
+          title: Container(
+            height: size.height * 0.04,
+            child: FittedBox(
+              child: Text(_pages[_selectedPageIndex]['title'],
+                  style: TextStyle(
+                    color: Colors.black,
+                  )),
+            ),
+          ),
+          elevation: 0,
+          backgroundColor: Colors.white,
+        ),
+        drawer: MainDrawer(),
+        // ເຊັກ loading ກັບ connection ຖ້າ loading = true ແລະ connection != unknown
+        // ສະແດງວ່າກຳລັງໂຫລດຂໍ້ມູນຢູ່ ໃຫ້ສະແດງ CircularProgressIndicator()
+        body: Container(
+          width: double.infinity,
+          height: size.height,
+          child: Stack(
+            children: [
+              loading && _connectionStatus != 'Unknown'
+                  ? Center(child: CircularProgressIndicator())
+                  : _pages[_selectedPageIndex]['page'],
+              Positioned(
+                bottom: 0,
+                left: 0,
+                right: 0,
+                child: SafeArea(
+                  child: Container(
+                    padding: EdgeInsets.symmetric(vertical: 4, horizontal: 4),
+                    decoration: BoxDecoration(
+                      // color: Theme.of(context).primaryColor,
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(0),
+                      border: Border.all(
+                        width: 1,
+                        color: Colors.black38,
                       ),
-                      IconButton(
-                        padding: EdgeInsets.all(0),
-                        icon: Icon(
-                          Icons.monitor,
-                          size: _selectedPageIndex == 1 ? 35 : 26,
-                          color: _selectedPageIndex == 1
-                              ? Theme.of(context).scaffoldBackgroundColor
-                              : Theme.of(context)
-                              .scaffoldBackgroundColor
-                              .withOpacity(0.5),
+                    ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        IconButton(
+                          padding: EdgeInsets.all(0),
+                          icon: Icon(
+                            Icons.home,
+                            size: _selectedPageIndex == 0 ? 35 : 26,
+                            color: _selectedPageIndex == 0
+                                ? Colors.blue
+                                : Colors.black38,
+                          ),
+                          onPressed: () {
+                            _selectPages(0);
+                          },
                         ),
-                        onPressed: (){
-                          _selectPages(1);
-                        },
-                      ),
-                      IconButton(
-                        padding: EdgeInsets.all(0),
-                        icon: Icon(
-                          Icons.settings,
-                          size: _selectedPageIndex == 2 ? 35 : 26,
-                          color: _selectedPageIndex == 2
-                              ? Theme.of(context).scaffoldBackgroundColor
-                              : Theme.of(context)
-                              .scaffoldBackgroundColor
-                              .withOpacity(0.5),
+                        IconButton(
+                          padding: EdgeInsets.all(0),
+                          icon: Icon(
+                            Icons.monitor,
+                            size: _selectedPageIndex == 1 ? 35 : 26,
+                            color: _selectedPageIndex == 1
+                                ? Colors.blue
+                                : Colors.black38,
+                          ),
+                          onPressed: () {
+                            _selectPages(1);
+                          },
                         ),
-                        onPressed: (){
-                          _selectPages(2);
-                        },
-                      ),
-                    ],
+                        IconButton(
+                          padding: EdgeInsets.all(0),
+                          icon: Icon(
+                            Icons.settings,
+                            size: _selectedPageIndex == 2 ? 35 : 26,
+                            color: _selectedPageIndex == 2
+                                ? Colors.blue
+                                : Colors.black38,
+                          ),
+                          onPressed: () {
+                            _selectPages(2);
+                          },
+                        ),
+                      ],
+                    ),
                   ),
                 ),
-              ),
-            )
-          ],
+              )
+            ],
+          ),
         ),
       ),
     );

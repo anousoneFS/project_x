@@ -49,100 +49,114 @@ class _SettingScreenState extends State<SettingScreen> {
     print("get all status in setting screen");
     // Size size = MediaQuery.of(context).size;
     return Scaffold(
-      body: LayoutBuilder(builder: (context, constraint) {
-        return SingleChildScrollView(
-          child: ConstrainedBox(
-            constraints: BoxConstraints(
-              maxHeight: MediaQuery.of(context).size.height * 1.7,
-              minHeight: constraint.minHeight,
-            ),
-            child: Column(
-              children: [
-                Consumer<SettingProvider>(
-                  builder: (_, settingPro, ch) {
-                    // ປ້ອງກັນໄວ້ອີກຊັ້ນໜຶ່ງ ເຖິງວ່າຈະປ້ອງກັນຢູ່ provider setting ແລ້ວກໍ່ຕາມ
-                    // ກັບເຖິງວ່າມັນຈະເອີ້ນໃຊ້ CircularProgressIndicator() ກໍ່ຕາມ
-                    if (settingPro.getTimeFish.length == 0) {
-                      timeFish1 = TimeOfDay(hour: 0, minute: 0);
-                      timeFish2 = TimeOfDay(hour: 0, minute: 0);
-                    } else {
-                      timeFish1 = settingPro.getTimeFish[0];
-                      timeFish2 = settingPro.getTimeFish[1];
-                    }
-                    // ສຳຫຼັບເອົາໄປສະແດງຢູ່ ໜ້າຈໍ
-                    List<String> formatTime =
-                        FormatTime.displayTime([timeFish1, timeFish2]);
-                    print("call consumer");
-                    return Column(
-                      children: [
-                        TimePickerWidget(
-                          func: pickTime1Local,
-                          time: formatTime[0],
-                          title: "Time Fish 1",
-                          rightPadding: 5,
-                          leftPadding: 15,
-                        ),
-                        TimePickerWidget(
-                          func: pickTime2Local,
-                          time: formatTime[1],
-                          title: "Time Fish 2",
-                          rightPadding: 5,
-                          leftPadding: 15,
-                        ),
-                        TimePumpActiveWidget(
-                          title: 'ໄລຍະເວລາທີ່ປໍ້ານໍ້າເປີດ',
-                          id: 'timePumpActive',
-                          unit: ' ນາທີ',
-                        ),
-                      ],
-                    );
-                  },
-                ),
-                SizedBox(
-                  height: 10,
-                ),
-                notifyExpand(), // ຕັ້ງຄ່າການແຈ້ງເຕືອນ
-                SizedBox(
-                  height: 10,
-                ),
-                _isExpanded
-                    ? Expanded(
-                        child: Padding(
-                          padding: const EdgeInsets.only(left: 15, right: 0),
-                          child: ListView.builder(
-                            physics: const NeverScrollableScrollPhysics(),
-                            itemCount: notifyInfo.length + 1,
-                            itemBuilder: (context, index) {
-                              if (index == notifyInfo.length) {
-                                print("hi =================");
-                                return Column(
-                                  children: [
-                                    Divider(
-                                      height: 15,
-                                      thickness: 1,
-                                      color: Colors.black26,
-                                    ),
-                                    Container(
-                                      height: 80,
-                                    ),
-                                  ],
-                                );
-                              }
-                              return DropDownHeaderWidget(
-                                title: notifyInfo[index]['title'],
-                                id: notifyInfo[index]['id'],
-                                unit: notifyInfo[index]['unit'],
-                              );
-                            },
-                          ),
-                        ),
-                      )
-                    : Container(),
-              ],
+      body: Stack(
+        children: [
+          Positioned(
+            top: 0,
+            left: 0,
+            right: 0,
+            child: Container(
+              color: Colors.black38,
+              height: 1,
             ),
           ),
-        );
-      }),
+          LayoutBuilder(builder: (context, constraint) {
+            return SingleChildScrollView(
+              child: ConstrainedBox(
+                constraints: BoxConstraints(
+                  maxHeight: MediaQuery.of(context).size.height * 1.7,
+                  minHeight: constraint.minHeight,
+                ),
+                child: Column(
+                  children: [
+                    SizedBox(height: 10),
+                    Consumer<SettingProvider>(
+                      builder: (_, settingPro, ch) {
+                        // ປ້ອງກັນໄວ້ອີກຊັ້ນໜຶ່ງ ເຖິງວ່າຈະປ້ອງກັນຢູ່ provider setting ແລ້ວກໍ່ຕາມ
+                        // ກັບເຖິງວ່າມັນຈະເອີ້ນໃຊ້ CircularProgressIndicator() ກໍ່ຕາມ
+                        if (settingPro.getTimeFish.length == 0) {
+                          timeFish1 = TimeOfDay(hour: 0, minute: 0);
+                          timeFish2 = TimeOfDay(hour: 0, minute: 0);
+                        } else {
+                          timeFish1 = settingPro.getTimeFish[0];
+                          timeFish2 = settingPro.getTimeFish[1];
+                        }
+                        // ສຳຫຼັບເອົາໄປສະແດງຢູ່ ໜ້າຈໍ
+                        List<String> formatTime =
+                            FormatTime.displayTime([timeFish1, timeFish2]);
+                        print("call consumer");
+                        return Column(
+                          children: [
+                            TimePickerWidget(
+                              func: pickTime1Local,
+                              time: formatTime[0],
+                              title: "ໃຫ້ອາຫານປາຄັ້ງທີ 1",
+                              rightPadding: 5,
+                              leftPadding: 15,
+                            ),
+                            TimePickerWidget(
+                              func: pickTime2Local,
+                              time: formatTime[1],
+                              title: "ໃຫ້ອາຫານປາຄັ້ງທີ 2",
+                              rightPadding: 5,
+                              leftPadding: 15,
+                            ),
+                            TimePumpActiveWidget(
+                              title: 'ໄລຍະເວລາທີ່ປໍ້ານໍ້າເປີດ',
+                              id: 'timePumpActive',
+                              unit: ' ນາທີ',
+                            ),
+                          ],
+                        );
+                      },
+                    ),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    notifyExpand(), // ຕັ້ງຄ່າການແຈ້ງເຕືອນ
+                    SizedBox(
+                      height: 10,
+                    ),
+                    _isExpanded
+                        ? Expanded(
+                            child: Padding(
+                              padding: const EdgeInsets.only(left: 15, right: 0),
+                              child: ListView.builder(
+                                physics: const NeverScrollableScrollPhysics(),
+                                itemCount: notifyInfo.length + 1,
+                                itemBuilder: (context, index) {
+                                  if (index == notifyInfo.length) {
+                                    print("hi =================");
+                                    return Column(
+                                      children: [
+                                        Divider(
+                                          height: 15,
+                                          thickness: 1,
+                                          color: Colors.black26,
+                                        ),
+                                        Container(
+                                          height: 80,
+                                        ),
+                                      ],
+                                    );
+                                  }
+                                  return DropDownHeaderWidget(
+                                    title: notifyInfo[index]['title'],
+                                    id: notifyInfo[index]['id'],
+                                    unit: notifyInfo[index]['unit'],
+                                  );
+                                },
+                              ),
+                            ),
+                          )
+                        : Container(),
+                  ],
+                ),
+              ),
+            );
+          }),
+        ],
+      ),
       floatingActionButton: Column(
         mainAxisAlignment: MainAxisAlignment.end,
         children: [
