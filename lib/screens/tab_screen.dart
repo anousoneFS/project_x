@@ -7,7 +7,6 @@ import 'package:project_x/providers/firebase_api.dart';
 import 'package:project_x/providers/home_provider.dart';
 import 'package:project_x/providers/setting_provider.dart';
 import 'package:project_x/screens/setting_screen.dart';
-import 'package:project_x/screens/test.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter/material.dart';
 import '../components/main_drawer.dart';
@@ -150,60 +149,84 @@ class _TabsScreenState extends State<TabsScreen> {
       body: loading && _connectionStatus != 'Unknown'
           ? Center(child: CircularProgressIndicator())
           : _pages[_selectedPageIndex]['page'],
-      bottomNavigationBar: BottomNavigationBar(
-        backgroundColor: Theme.of(context).primaryColor,
-        onTap: _selectPages,
-        unselectedItemColor: Colors.white,
-        selectedItemColor: Theme.of(context).accentColor,
-        currentIndex: _selectedPageIndex,
-        type: BottomNavigationBarType.fixed,
-        items: [
-          BottomNavigationBarItem(
-            backgroundColor: Theme.of(context).primaryColor,
-            icon: Container(
-              height: size.height * 0.03,
-              child: FittedBox(
-                child: Icon(Icons.home),
-              ),
+      bottomNavigationBar: SafeArea(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 0),
+          child: Container(
+            // height: size.height * 0.07,
+            padding: const EdgeInsets.all(0),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(30),
+              boxShadow: [
+                BoxShadow(color: Colors.black38, spreadRadius: 0, blurRadius: 10),
+              ],
             ),
-            title: Container(
-              height: size.height * 0.028,
-              child: FittedBox(
-                child: Text("Home"),
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(30),
+              child: BottomNavigationBar(
+                showSelectedLabels: false,
+                showUnselectedLabels: false,
+                backgroundColor: Theme.of(context).primaryColor,
+                onTap: _selectPages,
+                unselectedItemColor: Colors.white,
+                selectedItemColor: Theme.of(context).accentColor,
+                currentIndex: _selectedPageIndex,
+                type: BottomNavigationBarType.fixed,
+                items: [
+                  BottomNavigationBarItem(
+                    backgroundColor: Theme.of(context).primaryColor,
+                    icon: Container(
+                      height: size.height * 0.045,
+                      // color: Colors.red,
+                      child: FittedBox(
+                        child: Icon(Icons.home),
+                      ),
+                    ),
+                    // title: Container(
+                    //   height: size.height * 0.028,
+                    //   child: FittedBox(
+                    //     child: Text("Home"),
+                    //   ),
+                    // ),
+                    title: Text("home"),
+                  ),
+                  BottomNavigationBarItem(
+                    backgroundColor: Theme.of(context).primaryColor,
+                    icon: Container(
+                      height: size.height * 0.045,
+                      child: FittedBox(
+                        child: Icon(Icons.monitor),
+                      ),
+                    ),
+                    // title: Container(
+                    //   height: size.height * 0.028,
+                    //   child: FittedBox(
+                    //     child: Text("Monitoring"),
+                    //   ),
+                    // ),
+                    title: Text("monitoring"),
+                  ),
+                  BottomNavigationBarItem(
+                    backgroundColor: Theme.of(context).primaryColor,
+                    icon: Container(
+                      height: size.height * 0.045,
+                      child: FittedBox(
+                        child: Icon(Icons.settings),
+                      ),
+                    ),
+                    // title: Container(
+                    //   height: size.height * 0.028,
+                    //   child: FittedBox(
+                    //     child: Text("Setting"),
+                    //   ),
+                    // ),
+                    title: Text("setting"),
+                  ),
+                ],
               ),
             ),
           ),
-          BottomNavigationBarItem(
-            backgroundColor: Theme.of(context).primaryColor,
-            icon: Container(
-              height: size.height * 0.03,
-              child: FittedBox(
-                child: Icon(Icons.monitor),
-              ),
-            ),
-            title: Container(
-              height: size.height * 0.028,
-              child: FittedBox(
-                child: Text("Monitoring"),
-              ),
-            ),
-          ),
-          BottomNavigationBarItem(
-            backgroundColor: Theme.of(context).primaryColor,
-            icon: Container(
-              height: size.height * 0.03,
-              child: FittedBox(
-                child: Icon(Icons.settings),
-              ),
-            ),
-            title: Container(
-              height: size.height * 0.028,
-              child: FittedBox(
-                child: Text("Setting"),
-              ),
-            ),
-          ),
-        ],
+        ),
       ),
     );
   }
