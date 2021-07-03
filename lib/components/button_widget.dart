@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:project_x/style/color_theme.dart';
 
 class ButtonHeaderWidget extends StatelessWidget {
   final String title;
@@ -39,8 +40,12 @@ class ButtonWidget extends StatelessWidget {
             //   minimumSize: Size.fromHeight(40),
             //   primary: Colors.white,
             ButtonStyle(
-          foregroundColor: MaterialStateProperty.all<Color>(Colors.black),
-          backgroundColor: MaterialStateProperty.all<Color>(Colors.white),
+          foregroundColor: MaterialStateProperty.all<Color>(
+            Colors.black,
+          ),
+          backgroundColor: MaterialStateProperty.all<Color>(
+            GFTheme.lightBlue,
+          ),
           shape: MaterialStateProperty.all<RoundedRectangleBorder>(
             RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(10.0),
@@ -77,7 +82,8 @@ class HeaderWidget extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.start,
       children: [
         Container(
-          width: size.width * 0.5,
+          width: size.width * 0.6,
+          alignment: Alignment.center,
           child: Text(
             title,
             style: TextStyle(

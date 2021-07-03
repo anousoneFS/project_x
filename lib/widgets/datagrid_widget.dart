@@ -8,8 +8,8 @@ class DataGridWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // get ເອົາຄ່າເລີ່ມຕົ້ນ indexBegin and indexEnding ແລະ listen = true
-     final _initialData = Provider.of<FirebaseApi>(context, listen: true);
-     // get ເອົາ sensor data object ໃນຕຳແໜ່ງທີສອດຄອງກັບ indexBegin ແລະ indexEnding
+    final _initialData = Provider.of<FirebaseApi>(context, listen: true);
+    // get ເອົາ sensor data object ໃນຕຳແໜ່ງທີສອດຄອງກັບ indexBegin ແລະ indexEnding
     final _data = _initialData.getSubDataObj;
     print("call build in datagrid");
     // assign sensor sub data ໃສ່ sensorDataSource ເພື່ອ get ຄ່າໃຫ້ map ຕາມ mappingName
@@ -18,17 +18,20 @@ class DataGridWidget extends StatelessWidget {
     return Scaffold(
       body: SfDataGrid(
         source: _sensorDataSource,
+        isScrollbarAlwaysShown: true,
+        // verticalScrollPhysics: NeverScrollableScrollPhysics(),
         columns: <GridColumn>[
-          GridTextColumn(mappingName: 'time', headerText: 'time'),
-          GridNumericColumn(mappingName: 'tempAir', headerText: 'tempA'),
-          GridNumericColumn(mappingName: 'tempWater', headerText: 'tempW'),
-          GridNumericColumn(mappingName: 'humid', headerText: 'humid'),
-          GridNumericColumn(mappingName: 'ph', headerText: 'ph'),
-          GridNumericColumn(mappingName: 'ec', headerText: 'ec'),
-          GridNumericColumn(mappingName: 'light', headerText: 'light'),
+          GridTextColumn(mappingName: 'time', headerText: 'ເວລາ'),
+          GridNumericColumn(
+              mappingName: 'tempAir', headerText: 'ອຸນຫະພູມອາກາດ'),
+          GridNumericColumn(
+              mappingName: 'tempWater', headerText: 'ອຸນຫະພູມນໍ້າ'),
+          GridNumericColumn(mappingName: 'humid', headerText: 'ຄວາມຊຸມ'),
+          GridNumericColumn(mappingName: 'ph', headerText: 'ຄ່າ PH'),
+          GridNumericColumn(mappingName: 'ec', headerText: 'ຄ່າ EC'),
+          GridNumericColumn(mappingName: 'light', headerText: 'ຄ່າແສງ'),
         ],
       ),
     );
   }
 }
-

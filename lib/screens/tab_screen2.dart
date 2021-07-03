@@ -5,6 +5,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:project_x/providers/firebase_api.dart';
 import 'package:project_x/providers/home_provider.dart';
 import 'package:project_x/providers/setting_provider.dart';
+import 'package:project_x/screens/hide_appbar_scroll.dart';
 import 'package:project_x/screens/setting_screen.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter/material.dart';
@@ -137,7 +138,7 @@ class _TabsScreen2State extends State<TabsScreen2> {
         primaryIconTheme: IconThemeData(color: Colors.blue,),
       ),
       child: Scaffold(
-        appBar: AppBar(
+        appBar: _selectedPageIndex != 1 ? AppBar(
           title: Container(
             height: size.height * 0.04,
             child: FittedBox(
@@ -149,7 +150,7 @@ class _TabsScreen2State extends State<TabsScreen2> {
           ),
           elevation: 0,
           backgroundColor: Colors.white,
-        ),
+        ) : null,
         drawer: MainDrawer(),
         // ເຊັກ loading ກັບ connection ຖ້າ loading = true ແລະ connection != unknown
         // ສະແດງວ່າກຳລັງໂຫລດຂໍ້ມູນຢູ່ ໃຫ້ສະແດງ CircularProgressIndicator()
@@ -173,8 +174,8 @@ class _TabsScreen2State extends State<TabsScreen2> {
                       color: Colors.white,
                       borderRadius: BorderRadius.circular(0),
                       border: Border.all(
-                        width: 1,
-                        color: Colors.black38,
+                        width: 0.5,
+                        color: Colors.grey,
                       ),
                     ),
                     child: Row(

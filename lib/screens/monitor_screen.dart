@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:project_x/components/main_drawer.dart';
 import 'package:project_x/providers/firebase_api.dart';
 import 'package:project_x/screens/chart_screen.dart';
 import 'package:project_x/screens/table_screen.dart';
@@ -11,56 +12,72 @@ class MonitorScreen extends StatefulWidget {
   State<MonitorScreen> createState() => _MonitorScreenState();
 }
 
-class _MonitorScreenState extends State<MonitorScreen> {
-  @override
-  Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
-    return DefaultTabController(
+class _MonitorScreenState extends State<MonitorScreen>
+    with TickerProviderStateMixin {
+  ScrollController _scrollController;
+  TabController _tabController;
+
+  void initState() {
+    _scrollController = ScrollController();
+    _tabController = TabController(
+      vsync: this,
       length: 2,
       initialIndex: 0,
-      child: Scaffold(
-        appBar: PreferredSize(
-          preferredSize: Size.fromHeight(50.0),
-          child: AppBar(
-            // toolbarHeight: size.height * 0.06,
-            elevation: 4,
-            backgroundColor: Colors.white,
-            bottom: TabBar(
-              tabs: [
-                Container(
-                  margin: EdgeInsets.only(bottom: 4),
-                  width: size.width * 0.1,
-                  height: size.width * 0.1,
-                  child: FittedBox(
-                    fit: BoxFit.fitWidth,
-                    child: Tab(
-                      icon: Icon(
-                        Icons.table_chart,
-                        color: Colors.blue,
-                      ),
-                      // text: 'Data Table',
+    );
+    super.initState();
+  }
+
+  void dispose() {
+    _scrollController.dispose();
+    _tabController.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      drawer: MainDrawer(),
+      body: NestedScrollView(
+        controller: _scrollController,
+        headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
+          return [
+            SliverAppBar(
+              title: Text("Monitoring",
+                  style: TextStyle(color: Colors.black, fontSize: 26)),
+              pinned: true,
+              floating: true,
+              forceElevated: innerBoxIsScrolled,
+              backgroundColor: Colors.white,
+              elevation: 4,
+              bottom: TabBar(
+                controller: _tabController,
+                indicatorColor: Colors.blue,
+                tabs: [
+                  Tab(
+                    // text: "Table",
+                    icon: Icon(
+                      Icons.table_chart,
+                      color: Colors.blue,
+                      size: 40,
                     ),
                   ),
-                ),
-                Container(
-                  margin: EdgeInsets.only(bottom: 4),
-                  width: size.width * 0.1,
-                  height: size.width * 0.1,
-                  child: FittedBox(
-                    fit: BoxFit.fitWidth,
-                    child: Tab(
-                      icon: Icon(Icons.stacked_line_chart, color: Colors.blue),
-                      // text: 'Chart',
+                  Tab(
+                    // text: "Chart",
+                    icon: Icon(
+                      Icons.stacked_line_chart,
+                      color: Colors.blue,
+                      size: 40,
                     ),
                   ),
-                ),
-              ],
-            ),
-          ),
-        ),
+                ],
+              ),
+            )
+          ];
+        },
         body: Stack(
           children: [
             TabBarView(
+              controller: _tabController,
               children: [
                 TableScreen(),
                 ChartScreen(),
@@ -73,9 +90,6 @@ class _MonitorScreenState extends State<MonitorScreen> {
             ),
           ],
         ),
-        // ສຳຫຼັບປຸ່ມ Download ຂໍ້ມູນ ໃສ່ ໂທລະສັບ
-
-        // floatingActionButton: ExpandFloatingActionButton(),
       ),
     );
   }

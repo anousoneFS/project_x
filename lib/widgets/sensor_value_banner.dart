@@ -1,16 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:project_x/style/app_text_theme.dart';
+import 'package:project_x/style/color_theme.dart';
 
 class SensorValueBanner extends StatelessWidget {
   final String title;
   final String value;
   final String image;
+  final Color color;
 
   const SensorValueBanner({
     @required this.image,
     @required this.title,
     @required this.value,
+    @required this.color,
   });
 
   @override
@@ -23,7 +26,8 @@ class SensorValueBanner extends StatelessWidget {
           EdgeInsets.symmetric(horizontal: size.width * 0.044, vertical: 0),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(15),
-        color: Theme.of(context).scaffoldBackgroundColor,
+        // color: Theme.of(context).scaffoldBackgroundColor,
+        color: color,
         border: Border.all(
           color: Theme.of(context).primaryColor,
           width: 1,

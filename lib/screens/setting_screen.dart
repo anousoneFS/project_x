@@ -101,10 +101,13 @@ class _SettingScreenState extends State<SettingScreen> {
                               rightPadding: 5,
                               leftPadding: 15,
                             ),
-                            TimePumpActiveWidget(
-                              title: 'ໄລຍະເວລາທີ່ປໍ້ານໍ້າເປີດ',
-                              id: 'timePumpActive',
-                              unit: ' ນາທີ',
+                            Padding(
+                              padding: const EdgeInsets.only(left: 25,),
+                              child: TimePumpActiveWidget(
+                                title: 'ໄລຍະເວລາທີ່ປໍ້ານໍ້າເປີດ',
+                                id: 'timePumpActive',
+                                unit: ' ນາທີ',
+                              ),
                             ),
                           ],
                         );

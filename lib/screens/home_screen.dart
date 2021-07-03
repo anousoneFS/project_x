@@ -192,6 +192,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           controlPump,
                           valSwitchPump,
                           'assets/icons/pump.svg',
+                          GFTheme.lightBlue,
                         ),
                         SizedBox(height: 10),
                         buildSwitchControlWithHeaderWidget(
@@ -200,6 +201,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           controlServo,
                           valSwitchServo,
                           'assets/icons/fish.svg',
+                          GFTheme.lightBlue,
                         ),
                         SizedBox(height: 10),
                         buildSwitchControlWithHeaderWidget(
@@ -208,6 +210,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           controlAuto,
                           valSwitchAuto,
                           'assets/icons/machine-learning.svg',
+                          GFTheme.lightPeach,
                         ),
                       ],
                     ),
@@ -221,7 +224,7 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   Widget buildSwitchControlWithHeaderWidget(
-      Size size, String title, Function func, bool valueOnOff, String image) {
+      Size size, String title, Function func, bool valueOnOff, String image, Color color) {
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: size.width * 0.05),
       child: Card(
@@ -231,7 +234,7 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
         child: Container(
           decoration: BoxDecoration(
-            color: GFTheme.lightBlue,
+            color: color,
             borderRadius: BorderRadius.circular(30),
             border: Border.all(
               width: 1,
