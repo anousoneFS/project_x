@@ -93,7 +93,7 @@ class _DropDownWidgetState extends State<DropDownWidget> {
               child: Text(
                 widget.title,
                 style: TextStyle(
-                  fontSize: 20,
+                  fontSize: 24,
                   color: Colors.black,
                   fontFamily: 'NotoSansLao',
                 ),
@@ -195,16 +195,7 @@ class _TimePumpActiveWidgetState extends State<TimePumpActiveWidget> {
     Size size = MediaQuery.of(context).size;
     return Padding(
       padding: const EdgeInsets.only(left: 15),
-      child: Container(
-        width: size.width,
-        child: Column(
-          children: [
-            Divider(
-              height: 15,
-              thickness: 1,
-              color: Colors.black26,
-            ),
-            DropDownWidget(
+            child: DropDownWidget(
               // setState ມັນ call build ຢູ່ ແຕ່ບໍ່ທັງໝົດ
               ignoreVal: !valNotify,
               valueChoose: valueChoose,
@@ -214,14 +205,6 @@ class _TimePumpActiveWidgetState extends State<TimePumpActiveWidget> {
               settingProvider: settingProvider,
               title: widget.title,
             ),
-            Divider(
-              height: 15,
-              thickness: 1,
-              color: Colors.black26,
-            ),
-          ],
-        ),
-      ),
     );
   }
 }

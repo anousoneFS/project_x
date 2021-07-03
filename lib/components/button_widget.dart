@@ -74,6 +74,7 @@ class HeaderWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Row(
+      mainAxisAlignment: MainAxisAlignment.start,
       children: [
         Container(
           width: size.width * 0.5,

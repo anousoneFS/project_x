@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:project_x/providers/firebase_api.dart';
 import 'package:project_x/providers/home_provider.dart';
+import 'package:project_x/style/color_theme.dart';
 import 'package:project_x/widgets/control_widget.dart';
 import 'package:project_x/widgets/sensor_value_streaming_widget.dart';
 import 'package:project_x/widgets/stream_data_widget.dart';
@@ -224,12 +225,13 @@ class _HomeScreenState extends State<HomeScreen> {
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: size.width * 0.05),
       child: Card(
-        elevation: 3,
+        elevation: 2,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(30),
         ),
         child: Container(
           decoration: BoxDecoration(
+            color: GFTheme.lightBlue,
             borderRadius: BorderRadius.circular(30),
             border: Border.all(
               width: 1,

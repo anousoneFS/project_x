@@ -113,6 +113,10 @@ class _SettingScreenState extends State<SettingScreen> {
                     SizedBox(
                       height: 10,
                     ),
+                    Container(color: Colors.black12, height: 4,),
+                    SizedBox(
+                      height: 10,
+                    ),
                     notifyExpand(), // ຕັ້ງຄ່າການແຈ້ງເຕືອນ
                     SizedBox(
                       height: 10,

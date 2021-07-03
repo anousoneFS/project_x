@@ -4,31 +4,14 @@ import 'package:project_x/screens/chart_screen.dart';
 import 'package:project_x/screens/table_screen.dart';
 import 'package:provider/provider.dart';
 
-class MonitorScreen extends StatelessWidget {
+class MonitorScreen extends StatefulWidget {
   static String routeName = "/monitor";
 
-  void saveData(BuildContext ctx) {
-    Future.delayed(Duration.zero).then((value) {
-      try {
-        Provider.of<FirebaseApi>(ctx, listen: false).saveData();
-      } catch (error) {
-        print("--- Have Error saveData in MonitorScreen ---");
-        print(error);
-      }
-    });
-  }
+  @override
+  State<MonitorScreen> createState() => _MonitorScreenState();
+}
 
-  void reverseData(BuildContext ctx) {
-    Future.delayed(Duration.zero).then((value) {
-      try {
-        Provider.of<FirebaseApi>(ctx, listen: false).reversData();
-      } catch (error) {
-        print("--- Have Error reverseData in MonitorScreen ---");
-        print(error);
-      }
-    });
-  }
-
+class _MonitorScreenState extends State<MonitorScreen> {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -51,7 +34,10 @@ class MonitorScreen extends StatelessWidget {
                   child: FittedBox(
                     fit: BoxFit.fitWidth,
                     child: Tab(
-                      icon: Icon(Icons.table_chart, color: Colors.blue,),
+                      icon: Icon(
+                        Icons.table_chart,
+                        color: Colors.blue,
+                      ),
                       // text: 'Data Table',
                     ),
                   ),
@@ -76,69 +62,143 @@ class MonitorScreen extends StatelessWidget {
           children: [
             TableScreen(),
             ChartScreen(),
-            // Center(
-            //   child: Text("Chart"),
-            // ),
           ],
         ),
         // ສຳຫຼັບປຸ່ມ Download ຂໍ້ມູນ ໃສ່ ໂທລະສັບ
-        floatingActionButton: Column(
-          mainAxisAlignment: MainAxisAlignment.end,
-          children: [
-            FloatingActionButton(
-              onPressed: () => reverseData(context),
-              backgroundColor: Colors.blue,
-              child: FittedBox(
-                child: Transform.rotate(
-                  angle: -1.6,
-                  child: Icon(
-                    Icons.compare_arrows_outlined,
-                    size: 45,
-                  ),
-                ),
-              ),
-            ),
-            SizedBox(
-              height: 10,
-            ),
-            FloatingActionButton(
-              onPressed: () async {
-                await showDialog<Null>(
-                  context: context,
-                  builder: (ctx) => AlertDialog(
-                    title: Text('ກະລຸນາຢືນຢັນກ່ອນທຳການດາວໂຫລດຂໍ້ມູນ'),
-                    content: Text("ທ່ານຕ້ອງການ Save ຂໍ້ມູນລົງເຄື່ອງແທ້ບໍ່?"),
-                    actions: [
-                      FlatButton(
-                        child: Text('ແມ່ນແລ້ວ'),
-                        onPressed: () {
-                          saveData(context);
-                          Navigator.of(context).pop();
-                        },
-                      ),
-                      FlatButton(
-                        child: Text('ຍົກເລີກ'),
-                        onPressed: () {
-                          print("cancel save Data to local by user");
-                          Navigator.of(context).pop();
-                        },
-                      )
-                    ],
-                  ),
-                );
-              },
-              backgroundColor: Colors.blue,
-              child: FittedBox(
-                child: Icon(
-                  Icons.download_rounded,
-                  size: 45,
-                ),
-              ),
-            ),
-            SizedBox(height: 50,),
-          ],
-        ),
+        floatingActionButton: ExpandFloatingActionButton(),
       ),
+    );
+  }
+}
+
+class ExpandFloatingActionButton extends StatefulWidget {
+  @override
+  State<ExpandFloatingActionButton> createState() =>
+      _ExpandFloatingActionButtonState();
+}
+
+class _ExpandFloatingActionButtonState
+    extends State<ExpandFloatingActionButton> {
+  bool _isExpand = false;
+
+  void toggleExpanded() {
+    if (_isExpand)
+      _isExpand = false;
+    else
+      _isExpand = true;
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 50),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.end,
+        children: [
+          if(_isExpand)
+            MultiFloatingActionButtonWidget(),
+          FloatingActionButton(
+            onPressed: () {
+              setState(() {
+                toggleExpanded();
+              });
+            },
+            backgroundColor: Colors.white.withOpacity(0.9),
+            child: _isExpand ? Icon(Icons.expand_less, color: Colors.black,size: 35,) : Icon(Icons.expand_more, color: Colors.black,size: 35,),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class MultiFloatingActionButtonWidget extends StatelessWidget {
+  void saveData(BuildContext ctx) {
+    Future.delayed(Duration.zero).then((value) {
+      try {
+        Provider.of<FirebaseApi>(ctx, listen: false).saveData();
+      } catch (error) {
+        print("--- Have Error saveData in MonitorScreen ---");
+        print(error);
+      }
+    });
+  }
+
+  void reverseData(BuildContext ctx) {
+    Future.delayed(Duration.zero).then((value) {
+      try {
+        Provider.of<FirebaseApi>(ctx, listen: false).reversData();
+      } catch (error) {
+        print("--- Have Error reverseData in MonitorScreen ---");
+        print(error);
+      }
+    });
+  }
+
+  Future<void> showAlertDialog(BuildContext context) async {
+    await showDialog<Null>(
+      context: context,
+      builder: (ctx) => AlertDialog(
+        title: Text('ກະລຸນາຢືນຢັນກ່ອນທຳການດາວໂຫລດຂໍ້ມູນ'),
+        content: Text("ທ່ານຕ້ອງການ Save ຂໍ້ມູນລົງເຄື່ອງແທ້ບໍ່?"),
+        actions: [
+          FlatButton(
+            child: Text('ແມ່ນແລ້ວ'),
+            onPressed: () {
+              saveData(context);
+              Navigator.of(context).pop();
+            },
+          ),
+          FlatButton(
+            child: Text('ຍົກເລີກ'),
+            onPressed: () {
+              print("cancel save Data to local by user");
+              Navigator.of(context).pop();
+            },
+          )
+        ],
+      ),
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    print("call build multi floating");
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.end,
+      children: [
+        FloatingActionButton(
+          onPressed: () => reverseData(context),
+          backgroundColor: Colors.blue,
+          child: FittedBox(
+            child: Transform.rotate(
+              angle: -1.6,
+              child: Icon(
+                Icons.compare_arrows_outlined,
+                size: 45,
+              ),
+            ),
+          ),
+        ),
+        SizedBox(
+          height: 10,
+        ),
+        FloatingActionButton(
+          onPressed: () async {
+            await showAlertDialog(context);
+          },
+          backgroundColor: Colors.blue,
+          child: FittedBox(
+            child: Icon(
+              Icons.download_rounded,
+              size: 45,
+            ),
+          ),
+        ),
+        SizedBox(
+          height: 10,
+        ),
+      ],
     );
   }
 }
