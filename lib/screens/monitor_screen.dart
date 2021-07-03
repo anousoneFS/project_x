@@ -58,14 +58,24 @@ class _MonitorScreenState extends State<MonitorScreen> {
             ),
           ),
         ),
-        body: TabBarView(
+        body: Stack(
           children: [
-            TableScreen(),
-            ChartScreen(),
+            TabBarView(
+              children: [
+                TableScreen(),
+                ChartScreen(),
+              ],
+            ),
+            Positioned(
+              bottom: 55,
+              right: 15,
+              child: ExpandFloatingActionButton(),
+            ),
           ],
         ),
         // ສຳຫຼັບປຸ່ມ Download ຂໍ້ມູນ ໃສ່ ໂທລະສັບ
-        floatingActionButton: ExpandFloatingActionButton(),
+
+        // floatingActionButton: ExpandFloatingActionButton(),
       ),
     );
   }
@@ -94,17 +104,29 @@ class _ExpandFloatingActionButtonState
       padding: const EdgeInsets.only(bottom: 50),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.end,
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          if(_isExpand)
-            MultiFloatingActionButtonWidget(),
-          FloatingActionButton(
-            onPressed: () {
-              setState(() {
-                toggleExpanded();
-              });
-            },
-            backgroundColor: Colors.white.withOpacity(0.9),
-            child: _isExpand ? Icon(Icons.expand_less, color: Colors.black,size: 35,) : Icon(Icons.expand_more, color: Colors.black,size: 35,),
+          if (_isExpand) MultiFloatingActionButtonWidget(),
+          Padding(
+            padding: const EdgeInsets.only(right: 12),
+            child: IconButton(
+              onPressed: () {
+                setState(() {
+                  toggleExpanded();
+                });
+              },
+              icon: _isExpand
+                  ? Icon(
+                      Icons.expand_less,
+                      color: Colors.blue,
+                      size: 55,
+                    )
+                  : Icon(
+                      Icons.expand_more,
+                      color: Colors.blue,
+                      size: 55,
+                    ),
+            ),
           ),
         ],
       ),
@@ -165,7 +187,7 @@ class MultiFloatingActionButtonWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     print("call build multi floating");
     return Column(
-      mainAxisAlignment: MainAxisAlignment.end,
+      crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         FloatingActionButton(
           onPressed: () => reverseData(context),
