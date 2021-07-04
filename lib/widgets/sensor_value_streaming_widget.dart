@@ -5,7 +5,8 @@ import 'package:project_x/widgets/sensor_value_banner.dart';
 class SensorValueStreamingWidget extends StatelessWidget {
   final Map<String, dynamic> json;
 
-  SensorValueStreamingWidget({this.json});
+  const SensorValueStreamingWidget({@required this.json});
+
   @override
   Widget build(BuildContext context) {
     return

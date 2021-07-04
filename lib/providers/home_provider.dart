@@ -15,6 +15,7 @@ class HomeProvider with ChangeNotifier{
   int _toggleServo  = 2;
   int _toggleAuto = 4;
 
+
   void setData(Map<String, dynamic> json) async{
    _data = {...json};
    await openBoxHome();
@@ -56,9 +57,9 @@ class HomeProvider with ChangeNotifier{
     }
   }
 
-  Future<void> toggleAuto()async{
+  Future<void> toggleAuto(bool value)async{
     try {
-      if(_toggleAuto == 4){
+      if(value){
         _toggleAuto = 5;
       }else{
         _toggleAuto = 4;
@@ -70,17 +71,6 @@ class HomeProvider with ChangeNotifier{
       await _databaseReference.update({
         'setting/auto': _toggleAuto == 5 ? 1 : 0
       }).then((_) => print('update auto Success'));
-
-      // int _isAuto;
-      // if(_toggleAuto == 5){
-      //   _isAuto = 1;
-      // }else{
-      //  _isAuto = 0;
-      // }
-      //
-      // await _databaseReference.update({
-      //   'setting/auto': _isAuto
-      // }).then((_) => print('togglePump Success'));
 
     } catch (error) {
       print('---- Have Error toggleServo Arduino Streaming ----');

@@ -13,6 +13,9 @@ class SettingProvider with ChangeNotifier {
   int _timePumpActive; // ຍັງບໍ່ທັນ get from firebase
   DatabaseReference _databaseReference;
 
+  bool _isAuto = false;
+  bool get getAutoValue => _isAuto;
+
   // for alert
   Setting _data = new Setting();
   double _maxPh;
@@ -224,6 +227,7 @@ class SettingProvider with ChangeNotifier {
         print("setting LocalDb is empty");
       } else {
         // =====> pass json data <======
+        print("auto = ${myMap[0]['auto']}");
         assignData(myMap[0]);
         setAllStatus();
         print('fetch data setting from Local DB success');
@@ -309,7 +313,10 @@ class SettingProvider with ChangeNotifier {
           newJson['minTempAir'] != null &&
           newJson['minHumid'] != null &&
           newJson['minLight'] != null) {
+        // convert newJson(type json) to object before assign
         _data = Setting.formJson(newJson);
+        print("auto = ${_data.isAuto}");
+        _isAuto = _data.isAuto;
         _timePumpActive = _data.timePumpActive;
         _maxPh = _data.maxPh;
         _maxEc = _data.maxEc;

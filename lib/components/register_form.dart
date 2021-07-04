@@ -1,6 +1,6 @@
 import 'package:email_auth/email_auth.dart';
 import '../components/rounded_input.dart';
-import '../screens/home_screen.dart';
+import '../screens/home_screen/home_screen.dart';
 import '../screens/otp_screen.dart';
 import '../models/user.dart' as model;
 import 'package:firebase_auth/firebase_auth.dart';

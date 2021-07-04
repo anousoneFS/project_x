@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 class Setting {
+  bool isAuto;
   double maxPh;
   double minPh;
   int maxEc;
@@ -18,6 +19,7 @@ class Setting {
   List<String> timeFish2Split;
 
   Setting({
+    this.isAuto = false,
     this.timePumpActive,
     this.timeFish1Split,
     this.timeFish2Split,
@@ -37,7 +39,9 @@ class Setting {
 
   Setting.formJson(Map<dynamic, dynamic> json)
   // ຂຽນດັກໄວ້ ຫ້າມມີຄ່າ null ຖືວ່າດັກໄວ້ຫຼາຍຊັ້ນເຕີບ
-      : this.timePumpActive = int.parse(json['timePumpActive'].toString()) ?? 0,
+      :
+        this.isAuto = int.parse(json['auto'].toString()) == 1 ? true : false,
+        this.timePumpActive = int.parse(json['timePumpActive'].toString()) ?? 0,
         this.timeFish1Split = json['timeFish1'].split(":") ?? ['00', '00'],
         this.timeFish2Split = json['timeFish2'].split(":") ?? ['00', '00'],
         this.maxPh = double.parse(json['maxPh'].toString()) ?? 0,
@@ -56,6 +60,7 @@ class Setting {
   dynamic json() {
     return {
       // ຂຽນດັກໄວ້ຖ້າມີຄ່າ null ເວລາ save ໃສ່ LocalDb ຈຶ່ງບໍ່ມີຄ່າ null
+      'auto': this.isAuto ? 1 : 0,
       'timePumpActive': this.timePumpActive ?? 0,
       'maxPh': this.maxPh ?? 0,
       'maxEc': this.maxEc ?? 0,

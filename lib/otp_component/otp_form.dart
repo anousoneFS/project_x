@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import '../screens/tab_screen.dart';
 import '../models/user.dart' as Model;
-import '../screens/home_screen.dart';
+import '../screens/home_screen/home_screen.dart';
 import '../style/constant.dart';
 import '../size_config.dart';
 import '../utils.dart';

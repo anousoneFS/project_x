@@ -8,7 +8,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../components/rounded_button.dart';
 import '../components/rounded_input.dart';
 import '../components/rounded_password_input.dart';
-import '../screens/home_screen.dart';
+import '../screens/home_screen/home_screen.dart';
 import '../screens/reset_password_screen.dart';
 import '../screens/tab_screen.dart';
 import '../models/user.dart' as Model;

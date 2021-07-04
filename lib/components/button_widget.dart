@@ -58,6 +58,7 @@ class ButtonWidget extends StatelessWidget {
             text,
             style: TextStyle(
               fontSize: 20,
+              fontFamily: "NotoSansLao",
             ),
           ),
         ),

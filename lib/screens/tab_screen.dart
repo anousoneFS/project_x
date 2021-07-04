@@ -9,7 +9,7 @@ import 'package:project_x/screens/setting_screen.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter/material.dart';
 import '../components/main_drawer.dart';
-import '../screens/home_screen.dart';
+import 'home_screen/home_screen.dart';
 import '../screens/monitor_screen.dart';
 import 'package:connectivity/connectivity.dart';
 

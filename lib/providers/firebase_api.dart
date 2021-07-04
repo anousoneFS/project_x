@@ -32,10 +32,10 @@ class FirebaseApi with ChangeNotifier {
   List<List<dynamic>> _sensorSubData = [];
   List<SensorData> _sensorSubDataObj = [];
 
-  String _formDate = 'Form';
-  String _untilDate = 'Until';
+  String _formDate = 'ຈາກວັນທີ';
+  String _untilDate = 'ຫາວັນທີ';
   int _indexBegin = 0;
-  int _indexEnding = 97;
+  int _indexEnding = 20;
 
   List<List<dynamic>> get getData => _sensorData;
 
@@ -212,6 +212,7 @@ class FirebaseApi with ChangeNotifier {
           myMap.length,
           (index) => myMap[index],
         );
+        print("=> 1");
         // add data from LocalDB to provider
         _sensorData = fetchData;
         // add data List to data Object but don't need header
@@ -219,6 +220,8 @@ class FirebaseApi with ChangeNotifier {
             .sublist(1)
             .map((list) => SensorData.formList(list))
             .toList();
+
+        print("=> 2");
 
         // set Sub Data
         setSubData();

@@ -5,7 +5,7 @@ import 'package:project_x/providers/home_provider.dart';
 import 'package:project_x/providers/monitor_provider.dart';
 import 'package:project_x/providers/setting_provider.dart';
 import 'package:project_x/screens/chart_screen.dart';
-import 'package:project_x/screens/home_screen.dart';
+import 'package:project_x/screens/home_screen/home_screen.dart';
 import 'package:project_x/screens/login_screen.dart';
 import 'package:project_x/screens/monitor_screen.dart';
 import 'package:project_x/screens/otp_screen.dart';

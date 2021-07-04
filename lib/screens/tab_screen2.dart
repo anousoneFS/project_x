@@ -11,7 +11,7 @@ import 'package:provider/provider.dart';
 import 'package:flutter/material.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 import '../components/main_drawer.dart';
-import '../screens/home_screen.dart';
+import 'home_screen/home_screen.dart';
 import '../screens/monitor_screen.dart';
 import 'package:connectivity/connectivity.dart';
 
@@ -101,6 +101,7 @@ class _TabsScreen2State extends State<TabsScreen2> {
           Provider.of<FirebaseApi>(context, listen: false)
               .setConnectionStatus('');
         });
+
       } catch (error) {
         print("---- Have Error fetchData on Tab Screen---");
         // await Provider.of<FirebaseApi>(context, listen: false).fetchDataFormLocalDb();
@@ -168,14 +169,14 @@ class _TabsScreen2State extends State<TabsScreen2> {
                 right: 0,
                 child: SafeArea(
                   child: Container(
-                    padding: EdgeInsets.symmetric(vertical: 4, horizontal: 4),
+                    padding: EdgeInsets.symmetric(vertical: 0, horizontal: 4),
                     decoration: BoxDecoration(
                       // color: Theme.of(context).primaryColor,
                       color: Colors.white,
                       borderRadius: BorderRadius.circular(0),
                       border: Border.all(
-                        width: 0.5,
-                        color: Colors.grey,
+                        width: 1,
+                        color: Colors.black38,
                       ),
                     ),
                     child: Row(
@@ -185,7 +186,7 @@ class _TabsScreen2State extends State<TabsScreen2> {
                           padding: EdgeInsets.all(0),
                           icon: Icon(
                             Icons.home,
-                            size: _selectedPageIndex == 0 ? 35 : 26,
+                            size: _selectedPageIndex == 0 ? 30 : 22,
                             color: _selectedPageIndex == 0
                                 ? Colors.blue
                                 : Colors.black38,
@@ -198,7 +199,7 @@ class _TabsScreen2State extends State<TabsScreen2> {
                           padding: EdgeInsets.all(0),
                           icon: Icon(
                             Icons.monitor,
-                            size: _selectedPageIndex == 1 ? 35 : 26,
+                            size: _selectedPageIndex == 1 ? 30 : 22,
                             color: _selectedPageIndex == 1
                                 ? Colors.blue
                                 : Colors.black38,
@@ -211,7 +212,7 @@ class _TabsScreen2State extends State<TabsScreen2> {
                           padding: EdgeInsets.all(0),
                           icon: Icon(
                             Icons.settings,
-                            size: _selectedPageIndex == 2 ? 35 : 26,
+                            size: _selectedPageIndex == 2 ? 30 : 22,
                             color: _selectedPageIndex == 2
                                 ? Colors.blue
                                 : Colors.black38,

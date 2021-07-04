@@ -42,8 +42,13 @@ class _MonitorScreenState extends State<MonitorScreen>
         headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
           return [
             SliverAppBar(
-              title: Text("Monitoring",
-                  style: TextStyle(color: Colors.black, fontSize: 26)),
+              title: Text(
+                "Monitoring",
+                style: TextStyle(
+                  color: Colors.black,
+                  fontSize: 26,
+                ),
+              ),
               pinned: true,
               floating: true,
               forceElevated: innerBoxIsScrolled,
@@ -58,7 +63,7 @@ class _MonitorScreenState extends State<MonitorScreen>
                     icon: Icon(
                       Icons.table_chart,
                       color: Colors.blue,
-                      size: 40,
+                      size: 30,
                     ),
                   ),
                   Tab(
@@ -66,7 +71,7 @@ class _MonitorScreenState extends State<MonitorScreen>
                     icon: Icon(
                       Icons.stacked_line_chart,
                       color: Colors.blue,
-                      size: 40,
+                      size: 30,
                     ),
                   ),
                 ],

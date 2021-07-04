@@ -51,7 +51,7 @@ Future pickDateRange(BuildContext context, List<List<dynamic>> data,
     List subString = e[0].split(' ');
     return subString[0];
   }).toList();
-  // print(myDate);
+  print(myDate);
 
   // ຊອກຫາ index ເລີມຕົ້ນ ແລະ ສິ້ນສຸດ ຂອງ myDate ເວລາເລືອກຊ່ວງເວລາ
   final begin = myDate.indexWhere((element) => element == dateBegin);
