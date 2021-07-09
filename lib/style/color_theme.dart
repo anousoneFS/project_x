@@ -9,6 +9,7 @@ class GFTheme {
   static const secondaryMaroon = Color(0xff86003c);
   static const secondaryGrey = Color(0xff442b2b);
   static const primaryGrey = Color(0xff1a1111);
+  static const blueAccentShade100 = Color(0xff82b1ff);
 
   // other colors
   static const lightPurple = Color(0xffE9D7FF);

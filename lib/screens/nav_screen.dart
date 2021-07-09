@@ -13,14 +13,13 @@ import 'home_screen/home_screen.dart';
 import '../screens/monitor_screen.dart';
 import 'package:connectivity/connectivity.dart';
 
-class TabsScreen extends StatefulWidget {
-  static const routeName = '/tabs_screen';
-
+class NavScreen extends StatefulWidget {
   @override
-  _TabsScreenState createState() => _TabsScreenState();
+  _NavScreenState createState() => _NavScreenState();
 }
 
-class _TabsScreenState extends State<TabsScreen> {
+class _NavScreenState extends State<NavScreen> {
+  @override
   List<Map<String, Object>> _pages;
   int _selectedPageIndex = 0;
   final auth = FirebaseAuth.instance;
@@ -131,106 +130,57 @@ class _TabsScreenState extends State<TabsScreen> {
   @override
   Widget build(BuildContext context) {
     _portraitModeOnly();
-    Size size = MediaQuery.of(context).size;
-    return Scaffold(
-      appBar: _selectedPageIndex != 1 ? AppBar(
-        title: Container(
-          height: size.height * 0.04,
-          child: FittedBox(
-            child: Text(_pages[_selectedPageIndex]['title'],
-                style: TextStyle(
-                  color: Colors.black,
-                )),
-          ),
-        ),
-        elevation: 0,
-        backgroundColor: Colors.white,
-      ) : null,
-      drawer: MainDrawer(),
-      // ເຊັກ loading ກັບ connection ຖ້າ loading = true ແລະ connection != unknown
-      // ສະແດງວ່າກຳລັງໂຫລດຂໍ້ມູນຢູ່ ໃຫ້ສະແດງ CircularProgressIndicator()
-      body: loading && _connectionStatus != 'Unknown'
-          ? Center(child: CircularProgressIndicator())
-          : _pages[_selectedPageIndex]['page'],
-      bottomNavigationBar: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.only(left: 30, right: 30, bottom: 5,),
-          child: Container(
-            // height: size.height * 0.07,
-            padding: const EdgeInsets.all(0),
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(30),
-              boxShadow: [
-                BoxShadow(color: Colors.black38, spreadRadius: 0, blurRadius: 10),
-              ],
-            ),
-            child: ClipRRect(
-              borderRadius: BorderRadius.circular(30),
-              child: BottomNavigationBar(
-                selectedFontSize: 0,
-                showSelectedLabels: false,
-                showUnselectedLabels: false,
-                backgroundColor: Theme.of(context).primaryColor,
-                // backgroundColor: Colors.black,
-                onTap: _selectPages,
-                unselectedItemColor: Colors.white,
-                selectedItemColor: Theme.of(context).accentColor,
-                currentIndex: _selectedPageIndex,
-                type: BottomNavigationBarType.fixed,
-                items: [
-                  BottomNavigationBarItem(
-                    backgroundColor: Theme.of(context).primaryColor,
-                    icon: Container(
-                      height: size.height * 0.03,
-                      // color: Colors.red,
-                      child: FittedBox(
-                        child: Icon(Icons.home),
-                      ),
-                    ),
-                    // title: Container(
-                    //   height: size.height * 0.028,
-                    //   child: FittedBox(
-                    //     child: Text("Home"),
-                    //   ),
-                    // ),
-                    title: Text("home"),
-                  ),
-                  BottomNavigationBarItem(
-                    backgroundColor: Theme.of(context).primaryColor,
-                    icon: Container(
-                      height: size.height * 0.03,
-                      child: FittedBox(
-                        child: Icon(Icons.monitor),
-                      ),
-                    ),
-                    // title: Container(
-                    //   height: size.height * 0.028,
-                    //   child: FittedBox(
-                    //     child: Text("Monitoring"),
-                    //   ),
-                    // ),
-                    title: Text("monitoring"),
-                  ),
-                  BottomNavigationBarItem(
-                    backgroundColor: Theme.of(context).primaryColor,
-                    icon: Container(
-                      height: size.height * 0.03,
-                      child: FittedBox(
-                        child: Icon(Icons.settings),
-                      ),
-                    ),
-                    // title: Container(
-                    //   height: size.height * 0.028,
-                    //   child: FittedBox(
-                    //     child: Text("Setting"),
-                    //   ),
-                    // ),
-                    title: Text("setting"),
-                  ),
-                ],
-              ),
+    Size size = MediaQuery
+        .of(context)
+        .size;
+    return Theme(
+      data: ThemeData(
+        primaryIconTheme: IconThemeData(color: Colors.blue,),
+      ),
+      child: Scaffold(
+        appBar: _selectedPageIndex != 1 ? AppBar(
+          title: Container(
+            height: size.height * 0.04,
+            child: FittedBox(
+              child: Text(_pages[_selectedPageIndex]['title'],
+                  style: TextStyle(
+                    color: Colors.black,
+                  )),
             ),
           ),
+          elevation: 0,
+          backgroundColor: Colors.white,
+        ) : null,
+        drawer: MainDrawer(),
+        // ເຊັກ loading ກັບ connection ຖ້າ loading = true ແລະ connection != unknown
+        // ສະແດງວ່າກຳລັງໂຫລດຂໍ້ມູນຢູ່ ໃຫ້ສະແດງ CircularProgressIndicator()
+        body:
+        loading && _connectionStatus != 'Unknown'
+            ? Center(child: CircularProgressIndicator())
+            : _pages[_selectedPageIndex]['page'],
+        bottomNavigationBar: BottomNavigationBar(
+          type: BottomNavigationBarType.fixed,
+          currentIndex: _selectedPageIndex,
+          onTap: (i) => setState(() => _selectedPageIndex = i),
+          selectedFontSize: 10.0,
+          unselectedFontSize: 10.0,
+          items: const [
+            BottomNavigationBarItem(
+              icon: Icon(Icons.home_outlined),
+              activeIcon: Icon(Icons.home),
+              label: 'Home',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.monitor_outlined),
+              activeIcon: Icon(Icons.monitor),
+              label: 'Monitoring',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.settings_outlined),
+              activeIcon: Icon(Icons.settings),
+              label: 'Setting',
+            ),
+          ],
         ),
       ),
     );
