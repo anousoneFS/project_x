@@ -4,19 +4,40 @@ import 'package:flutter/material.dart';
 import 'package:project_x/providers/home_provider.dart';
 import 'package:provider/provider.dart';
 
-class FirebaseStreamData extends StatelessWidget {
+class FirebaseStreamData extends StatefulWidget {
   final DatabaseReference stream;
   final String setDataMethod;
 
   const FirebaseStreamData({@required this.stream, @required this.setDataMethod,});
 
   @override
+  State<FirebaseStreamData> createState() => _FirebaseStreamDataState();
+}
+
+class _FirebaseStreamDataState extends State<FirebaseStreamData> {
+  bool _isFirst = true;
+  int n = 0;
+
+  void initState(){
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     final homeProvider = Provider.of<HomeProvider>(context, listen: false);
+    if(_isFirst){
+      setState(() {
+        n++;
+      });
+      if(n > 3){
+        n = 0;
+        _isFirst = false;
+      }
+    }
     return FirebaseAnimatedList(
       physics: ClampingScrollPhysics(),
       shrinkWrap: true,
-      query: stream,
+      query: widget.stream,
       itemBuilder: (BuildContext context, DataSnapshot snapshot,
           Animation<double> animation, int index) {
         String body =
@@ -35,7 +56,7 @@ class FirebaseStreamData extends StatelessWidget {
         for (var i = 0; i < title.length; i++) {
           json_data.putIfAbsent('${title[i]}', () => bodySplit[i]);
         }
-        switch (setDataMethod) {
+        switch (widget.setDataMethod) {
           case 'stream_sensor':
             homeProvider.setData(json_data);
             break;

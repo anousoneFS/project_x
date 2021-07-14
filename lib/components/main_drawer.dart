@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:project_x/screens/login_screen.dart';
+import 'package:project_x/screens/nav_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../screens/tab_screen.dart';
 
@@ -54,7 +55,7 @@ class MainDrawer extends StatelessWidget {
             'Home',
             Icons.restaurant,
                 () {
-              Navigator.of(context).pushReplacementNamed(TabsScreen.routeName);
+              Navigator.of(context).pushReplacementNamed(NavScreen.routeName);
             },
           ),
           buildListTile(

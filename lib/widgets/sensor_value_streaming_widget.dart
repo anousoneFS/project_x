@@ -19,13 +19,13 @@ class SensorValueStreamingWidget extends StatelessWidget {
               SensorValueBanner(
                 color: GFTheme.lightBlue,
                 title: json.keys.toList()[1],
-                value: json.values.toList()[1] + " ອົງສາ",
+                value: json.values.toList()[1],
                 image: "assets/icons/thermometer.svg",
               ),
               SensorValueBanner(
                 color: GFTheme.lightPurple,
                 title: json.keys.toList()[2],
-                value: json.values.toList()[2] + " %",
+                value: json.values.toList()[2],
                 image: "assets/icons/humidity.svg",
               ),
             ],
@@ -37,13 +37,13 @@ class SensorValueStreamingWidget extends StatelessWidget {
               SensorValueBanner(
                 color: GFTheme.lightPeach,
                 title: json.keys.toList()[3],
-                value: json.values.toList()[3] + " PH",
+                value: json.values.toList()[3],
                 image: "assets/icons/ph.svg",
               ),
               SensorValueBanner(
                 color: GFTheme.lightBlue,
                 title: json.keys.toList()[4],
-                value: json.values.toList()[4] + " EC",
+                value: json.values.toList()[4],
                 image: "assets/icons/ec-water.svg",
               ),
             ],
@@ -55,13 +55,13 @@ class SensorValueStreamingWidget extends StatelessWidget {
               SensorValueBanner(
                 color: GFTheme.lightBlue,
                 title: json.keys.toList()[5],
-                value: json.values.toList()[5] + " ອົງສາ",
+                value: json.values.toList()[5],
                 image: "assets/icons/water-temperature.svg",
               ),
               SensorValueBanner(
                 color: GFTheme.lightYellow,
                 title: json.keys.toList()[6],
-                value: json.values.toList()[6] + " LUX",
+                value: json.values.toList()[6],
                 image: "assets/icons/sun.svg",
               ),
             ],

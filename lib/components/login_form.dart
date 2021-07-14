@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:form_field_validator/form_field_validator.dart';
+import 'package:project_x/screens/nav_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../components/rounded_button.dart';
 import '../components/rounded_input.dart';
@@ -60,7 +61,7 @@ class _LoginFormState extends State<LoginForm> {
             gravity: ToastGravity.BOTTOM,
             timeInSecForIosWeb: 3,
           );
-          Navigator.of(context).pushReplacementNamed(TabsScreen.routeName);
+          Navigator.of(context).pushReplacementNamed(NavScreen.routeName);
         });
       } on FirebaseAuthException catch (e) {
         Fluttertoast.showToast(

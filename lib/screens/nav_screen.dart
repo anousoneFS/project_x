@@ -14,6 +14,8 @@ import '../screens/monitor_screen.dart';
 import 'package:connectivity/connectivity.dart';
 
 class NavScreen extends StatefulWidget {
+  static String routeName = "/NavScreen";
+
   @override
   _NavScreenState createState() => _NavScreenState();
 }
@@ -130,32 +132,43 @@ class _NavScreenState extends State<NavScreen> {
   @override
   Widget build(BuildContext context) {
     _portraitModeOnly();
-    Size size = MediaQuery
-        .of(context)
-        .size;
+    Size size = MediaQuery.of(context).size;
+    // set top app bar color
+    SystemChrome.setSystemUIOverlayStyle(
+      SystemUiOverlayStyle(
+        statusBarColor: Colors.white,
+        statusBarBrightness: Brightness.dark,
+      ),
+    );
     return Theme(
       data: ThemeData(
-        primaryIconTheme: IconThemeData(color: Colors.blue,),
+        primaryIconTheme: IconThemeData(
+          color: Colors.blue,
+        ),
       ),
       child: Scaffold(
-        appBar: _selectedPageIndex != 1 ? AppBar(
-          title: Container(
-            height: size.height * 0.04,
-            child: FittedBox(
-              child: Text(_pages[_selectedPageIndex]['title'],
-                  style: TextStyle(
-                    color: Colors.black,
-                  )),
-            ),
-          ),
-          elevation: 0,
-          backgroundColor: Colors.white,
-        ) : null,
+        appBar: _selectedPageIndex != 1
+            ? AppBar(
+                title: Container(
+                  height: size.height * 0.04,
+                  child: FittedBox(
+                    child: Text(
+                      _pages[_selectedPageIndex]['title'],
+                      style: TextStyle(
+                        color: Colors.black,
+                      ),
+                    ),
+                  ),
+                ),
+                elevation: 0,
+                backgroundColor: Colors.white,
+                brightness: Brightness.light,
+              )
+            : null,
         drawer: MainDrawer(),
         // ເຊັກ loading ກັບ connection ຖ້າ loading = true ແລະ connection != unknown
         // ສະແດງວ່າກຳລັງໂຫລດຂໍ້ມູນຢູ່ ໃຫ້ສະແດງ CircularProgressIndicator()
-        body:
-        loading && _connectionStatus != 'Unknown'
+        body: loading && _connectionStatus != 'Unknown'
             ? Center(child: CircularProgressIndicator())
             : _pages[_selectedPageIndex]['page'],
         bottomNavigationBar: BottomNavigationBar(

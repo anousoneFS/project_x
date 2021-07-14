@@ -2,6 +2,7 @@ import 'package:email_auth/email_auth.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:project_x/screens/nav_screen.dart';
 import '../screens/tab_screen.dart';
 import '../models/user.dart' as Model;
 import '../screens/home_screen/home_screen.dart';
@@ -79,7 +80,7 @@ class _OtpFormState extends State<OtpForm> {
             toastDuration: Duration(seconds: 3),
           );
           Navigator.of(context).pushNamedAndRemoveUntil(
-              TabsScreen.routeName, (Route<dynamic> route) => false);
+              NavScreen.routeName, (Route<dynamic> route) => false);
         });
       } on FirebaseAuthException catch (e) {
         String message;

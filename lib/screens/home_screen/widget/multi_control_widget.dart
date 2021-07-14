@@ -33,7 +33,7 @@ class _MultiControlWidgetState extends State<MultiControlWidget> {
           title: 'ເປີດ-ປິດ ປໍ້ານໍ້າ',
           valueOnOff: valSwitchPump,
           image: 'assets/icons/pump.svg',
-          color: GFTheme.blueAccentShade100,
+          color: GFTheme.lightBlue,
         ),
         SizedBox(height: 10),
         SwitchControlCardWidget(
@@ -41,7 +41,7 @@ class _MultiControlWidgetState extends State<MultiControlWidget> {
           title: 'ໃຫ້ອາຫານປາ',
           valueOnOff: valSwitchServo,
           image: 'assets/icons/fish.svg',
-          color: GFTheme.blueAccentShade100,
+          color: GFTheme.lightBlue,
         ),
         SizedBox(height: 10),
         SwitchControlCardWidget(
@@ -49,7 +49,7 @@ class _MultiControlWidgetState extends State<MultiControlWidget> {
           title: 'ເປີດ-ປິດ ອໍໂຕ້',
           valueOnOff: valSwitchAuto,
           image: 'assets/icons/machine-learning.svg',
-          color: GFTheme.blueAccentShade100,
+          color: GFTheme.lightBlue,
         ),
       ],
     );

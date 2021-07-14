@@ -63,8 +63,8 @@ class _HomeScreenState extends State<HomeScreen> {
                 builder: (_, data, ch) {
                   return data.getData.values.length != 0
                       ? SensorValueStreamingWidget(json: data.getData)
-                      // : CircularProgressIndicator();
-                  : Text("No Data");
+                      : CircularProgressIndicator();
+                  // : Text("No Data");
                   // return SensorValueStreamingWidget(json: data.getData);
                 },
               ),

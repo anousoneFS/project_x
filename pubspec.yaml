@@ -36,8 +36,22 @@ dependencies:
 
 
 dev_dependencies:
+  flutter_launcher_icons:
+  flutter_native_splash:
   flutter_test:
     sdk: flutter
+
+flutter_native_splash:
+  color: "#ffffff"
+  image: assets/images/farmer.png
+  android: true
+  ios: true
+
+flutter_icons:
+  image_path: "assets/images/farmer.png"
+  android: true
+  ios: true
+
 flutter:
 
   uses-material-design: true
