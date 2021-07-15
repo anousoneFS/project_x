@@ -1,12 +1,13 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:project_x/screens/chat_bot_screen/chat_bot_screen.dart';
 import 'package:project_x/screens/login_screen.dart';
 import 'package:project_x/screens/nav_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../screens/tab_screen.dart';
 
 class MainDrawer extends StatelessWidget {
-  final  auth = FirebaseAuth.instance;
+  final auth = FirebaseAuth.instance;
 
   Widget buildListTile(String title, IconData icon, Function tapHandle) {
     return ListTile(
@@ -54,29 +55,29 @@ class MainDrawer extends StatelessWidget {
           buildListTile(
             'Home',
             Icons.restaurant,
-                () {
+            () {
               Navigator.of(context).pushReplacementNamed(NavScreen.routeName);
             },
           ),
           buildListTile(
             'Add Line ChatBot',
             Icons.chat,
-                () {
+            () {
+              Navigator.of(context).pushNamed(ChatBotScreen.routeName);
             },
           ),
           buildListTile(
             'Log Out',
             Icons.logout,
-                () async{
-                  SharedPreferences prefs = await SharedPreferences.getInstance();
-                  prefs.remove('email');
-                  auth.signOut().then(
-                        (value) => Navigator.of(context).pushReplacementNamed(
+            () async {
+              SharedPreferences prefs = await SharedPreferences.getInstance();
+              prefs.remove('email');
+              auth.signOut().then(
+                    (value) => Navigator.of(context).pushReplacementNamed(
                       LogInScreen.routeName,
                     ),
                   );
-
-                },
+            },
           ),
         ],
       ),

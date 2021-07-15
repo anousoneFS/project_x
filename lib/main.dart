@@ -12,11 +12,11 @@ import 'package:project_x/screens/nav_screen.dart';
 import 'package:project_x/screens/otp_screen.dart';
 import 'package:project_x/screens/reset_password_screen.dart';
 import 'package:project_x/screens/setting_screen.dart';
-import 'package:project_x/screens/tab_screen.dart';
-import 'package:project_x/screens/tab_screen2.dart';
 import 'package:project_x/screens/table_screen.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
+import 'screens/chat_bot_screen/chat_bot_screen.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -53,27 +53,29 @@ class MyApp extends StatelessWidget {
         ),
       ],
       child: MaterialApp(
-          debugShowCheckedModeBanner: false,
-          title: 'Flutter Demo',
-          theme: ThemeData(
-            primarySwatch: Colors.blue,
-            visualDensity: VisualDensity.adaptivePlatformDensity,
-            accentColor: Colors.black,
-          ),
-          home: email == null ? LogInScreen() : NavScreen(),
-          // home: TabsScreen(),
-          routes: {
-            HomeScreen.routeName: (ctx) => HomeScreen(),
-            OtpScreen.routeName: (ctx) => OtpScreen(),
-            LogInScreen.routeName: (ctx) => LogInScreen(),
-            ResetPasswordScreen.routeName:(ctx) => ResetPasswordScreen(),
-            MonitorScreen.routeName: (ctx) => MonitorScreen(),
-            // TabsScreen.routeName: (ctx) => TabsScreen(),
-            NavScreen.routeName: (ctx) => NavScreen(),
-            SettingScreen.routeName: (ctx) => SettingScreen(),
-            TableScreen.routeName: (ctx) => TableScreen(),
-            ChartScreen.routeName: (ctx) => ChartScreen(),
-          }),
+        debugShowCheckedModeBanner: false,
+        title: 'Flutter Demo',
+        theme: ThemeData(
+          primarySwatch: Colors.blue,
+          visualDensity: VisualDensity.adaptivePlatformDensity,
+          accentColor: Colors.black,
+        ),
+        home: email == null ? LogInScreen() : NavScreen(),
+        // home: TabsScreen(),
+        routes: {
+          HomeScreen.routeName: (ctx) => HomeScreen(),
+          OtpScreen.routeName: (ctx) => OtpScreen(),
+          LogInScreen.routeName: (ctx) => LogInScreen(),
+          ResetPasswordScreen.routeName: (ctx) => ResetPasswordScreen(),
+          MonitorScreen.routeName: (ctx) => MonitorScreen(),
+          // TabsScreen.routeName: (ctx) => TabsScreen(),
+          NavScreen.routeName: (ctx) => NavScreen(),
+          SettingScreen.routeName: (ctx) => SettingScreen(),
+          TableScreen.routeName: (ctx) => TableScreen(),
+          ChartScreen.routeName: (ctx) => ChartScreen(),
+          ChatBotScreen.routeName: (ctx) => ChatBotScreen(),
+        },
+      ),
     );
   }
 }
