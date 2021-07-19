@@ -14,6 +14,7 @@ final headingStyle = TextStyle(
   fontWeight: FontWeight.bold,
   color: Colors.black,
   height: 1.5,
+  fontFamily: 'NotoSansLao',
 );
 final otpInputDecoration = InputDecoration(
   contentPadding:

@@ -43,10 +43,11 @@ class _MonitorScreenState extends State<MonitorScreen>
           return [
             SliverAppBar(
               title: Text(
-                "Monitoring",
+                "ຂໍ້ມູນຈາກເຊັນເຊີ",
                 style: TextStyle(
                   color: Colors.black,
                   fontSize: 26,
+                  fontFamily: 'NotoSansLao',
                 ),
               ),
               pinned: true,

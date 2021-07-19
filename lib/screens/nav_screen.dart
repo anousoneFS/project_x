@@ -40,7 +40,7 @@ class _NavScreenState extends State<NavScreen> {
     _pages = [
       {
         "page": HomeScreen(),
-        "title": "Home",
+        "title": "ໜ້າຫຼັກ",
       },
       {
         "page": MonitorScreen(),
@@ -48,7 +48,7 @@ class _NavScreenState extends State<NavScreen> {
       },
       {
         "page": SettingScreen(),
-        "title": "Auto Setting",
+        "title": "ຕັ້ງຄ່າ",
       },
     ];
     super.initState();
@@ -150,12 +150,13 @@ class _NavScreenState extends State<NavScreen> {
         appBar: _selectedPageIndex != 1
             ? AppBar(
                 title: Container(
-                  height: size.height * 0.04,
+                  height: size.height * 0.05,
                   child: FittedBox(
                     child: Text(
                       _pages[_selectedPageIndex]['title'],
                       style: TextStyle(
                         color: Colors.black,
+                        fontFamily: 'NotoSansLao',
                       ),
                     ),
                   ),
@@ -181,19 +182,21 @@ class _NavScreenState extends State<NavScreen> {
             BottomNavigationBarItem(
               icon: Icon(Icons.home_outlined),
               activeIcon: Icon(Icons.home),
-              label: 'Home',
+              label: 'ໜ້າຫຼັກ',
             ),
             BottomNavigationBarItem(
               icon: Icon(Icons.monitor_outlined),
               activeIcon: Icon(Icons.monitor),
-              label: 'Monitoring',
+              label: 'ຂໍ້ມູນຈາກເຊັນເຊີ',
             ),
             BottomNavigationBarItem(
               icon: Icon(Icons.settings_outlined),
               activeIcon: Icon(Icons.settings),
-              label: 'Setting',
+              label: 'ຕັ້ງຄ່າ',
             ),
           ],
+          selectedLabelStyle: TextStyle(fontFamily: 'NotoSansLao', fontSize: 15,),
+          unselectedLabelStyle: TextStyle(fontFamily: 'NotoSansLao', fontSize: 13,),
         ),
       ),
     );

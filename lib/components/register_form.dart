@@ -65,20 +65,20 @@ class _RegisterFormState extends State<RegisterForm> {
       var statusOtp = await EmailAuth.sendOtp(receiverMail: emailController.text);
       if (statusOtp) {
         Fluttertoast.showToast(
-          msg: 'Send OTP Success',
-          timeInSecForIosWeb: 2,
+          msg: 'ສົ່ງລະຫັດ OTP ສຳເລັດ',
+          timeInSecForIosWeb: 3,
         );
         Navigator.of(context).pushNamed(OtpScreen.routeName, arguments: user);
       } else {
         Fluttertoast.showToast(
-          msg: 'send otp fail',
-          timeInSecForIosWeb: 2,
+          msg: 'ສົ່ງລະຫັດ OTP ບໍ່ສຳເລັດ',
+          timeInSecForIosWeb: 3,
         );
       }
     }else{
       Fluttertoast.showToast(
-        msg: 'Password Don\'t Match',
-        timeInSecForIosWeb: 2,
+        msg: 'ລະຫັດຜ່ານບໍ່ຄືກັນ!!!',
+        timeInSecForIosWeb: 3,
       );
     }
     waiting = false;
@@ -111,9 +111,10 @@ class _RegisterFormState extends State<RegisterForm> {
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
                           Text(
-                            "Welcome",
+                            "ຍິນດີຕ້ອນຮັບ",
                             style: TextStyle(
                               fontWeight: FontWeight.bold,
+                              fontFamily: 'NotoSansLao',
                               fontSize: 24,
                             ),
                           ),
@@ -130,7 +131,7 @@ class _RegisterFormState extends State<RegisterForm> {
                           ),
                           RoundedInput(
                             icon: Icons.email,
-                            hint: "Email",
+                            hint: " ຊື່ Email",
                             textController: emailController,
                             validator: [
                               RequiredValidator(errorText: "ກະລຸນາປ້ອນ Email"),
@@ -140,18 +141,18 @@ class _RegisterFormState extends State<RegisterForm> {
                           ),
                           RoundedPasswordInput(
                             icon: Icons.lock,
-                            hint: "Password",
+                            hint: "ລະຫັດຜ່ານ",
                             textController: pwdController,
                           ),
                           RoundedPasswordInput(
                             icon: Icons.lock,
-                            hint: "Confirm Password",
+                            hint: "ໃສ່ລະຫັດຜ່ານອີກຄັ້ງ",
                             textController: confirmPwdController,
                           ),
                           SizedBox(
                             height: 10,
                           ),
-                          RoundedButton(title: "SIGN UP", func: sendOtp),
+                          RoundedButton(title: "ລົງທະບຽນ", func: sendOtp),
                           SizedBox(height: 20,),
                           waiting ? CircularProgressIndicator() : Container(),
                         ],

@@ -31,6 +31,7 @@ class RoundedPasswordInput extends StatelessWidget {
             color: kPrimaryColor,
           ),
           hintText: hint,
+          hintStyle: TextStyle(fontFamily: 'NotoSansLao',),
           border: InputBorder.none,
         ),
       ),

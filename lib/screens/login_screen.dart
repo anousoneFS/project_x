@@ -147,10 +147,11 @@ class _LogInScreenState extends State<LogInScreen>
                 },
           child: isLogin
               ? Text(
-                  "Don't have an account?, Sign up",
+                  "ລົງທະບຽນເຂົ້າສູ່ລະບົບ",
                   style: TextStyle(
-                    fontSize: 18,
+                    fontSize: 22,
                     color: kPrimaryColor,
+                    fontFamily: 'NotoSansLao',
                   ),
                 )
               : null,

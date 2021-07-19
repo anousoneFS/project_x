@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:project_x/screens/chat_bot_screen/chat_bot_screen.dart';
 import 'package:project_x/screens/login_screen.dart';
 import 'package:project_x/screens/nav_screen.dart';
@@ -18,8 +19,8 @@ class MainDrawer extends StatelessWidget {
       title: Text(
         title,
         style: TextStyle(
-          fontSize: 24,
-          fontFamily: 'RobotoCondensd',
+          fontSize: 22,
+          fontFamily: 'NotoSansLao',
           fontWeight: FontWeight.bold,
         ),
       ),
@@ -29,6 +30,12 @@ class MainDrawer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setSystemUIOverlayStyle(
+      SystemUiOverlayStyle(
+        statusBarColor: Colors.blue,
+        statusBarBrightness: Brightness.dark,
+      ),
+    );
     return Drawer(
       child: Column(
         children: [
@@ -40,7 +47,7 @@ class MainDrawer extends StatelessWidget {
             color: Theme.of(context).primaryColor,
             child: Center(
               child: Text(
-                "Lettuce",
+                "CEIT-FARM",
                 style: TextStyle(
                   fontSize: 30,
                   fontWeight: FontWeight.w900,
@@ -53,21 +60,21 @@ class MainDrawer extends StatelessWidget {
             height: 10,
           ),
           buildListTile(
-            'Home',
+            'ໜ້າຫຼັກ',
             Icons.restaurant,
             () {
               Navigator.of(context).pushReplacementNamed(NavScreen.routeName);
             },
           ),
           buildListTile(
-            'Add Line ChatBot',
+            'LINE Chat Bot',
             Icons.chat,
             () {
               Navigator.of(context).pushNamed(ChatBotScreen.routeName);
             },
           ),
           buildListTile(
-            'Log Out',
+            'ອອກຈາກແອັບ',
             Icons.logout,
             () async {
               SharedPreferences prefs = await SharedPreferences.getInstance();

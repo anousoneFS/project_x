@@ -13,7 +13,7 @@ Widget customToast = Container(
     style: TextStyle(
       fontSize: 20,
       color: Colors.white,
-      // fontFamily: 'NotoSands',
+      fontFamily: 'NotoSansLao',
     ),
   ),
 );

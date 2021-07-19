@@ -56,7 +56,8 @@ class ResetPasswordScreen extends StatelessWidget {
                 children: [
                   RoundedInput(
                     icon: Icons.email,
-                    hint: "Email",
+                    hint: " ຊື່ Email",
+                    textType: TextInputType.emailAddress,
                     textController: emailController,
                     validator: [
                       EmailValidator(
@@ -68,7 +69,7 @@ class ResetPasswordScreen extends StatelessWidget {
                     ],
                   ),
                   RoundedButton(
-                    title: "Send Request",
+                    title: "ສົ່ງຄຳຮ້ອງຂໍ",
                     func: () {
                       auth.sendPasswordResetEmail(email: emailController.text);
                       Fluttertoast.showToast(
@@ -82,12 +83,27 @@ class ResetPasswordScreen extends StatelessWidget {
                       Navigator.of(context).pop();
                     },
                   ),
-                  SizedBox(height: 20,),
+                  SizedBox(
+                    height: 25,
+                  ),
                   TextButton(
                     onPressed: () {
                       Navigator.of(context).pop();
                     },
-                    child: Text("ກັບໄປໜ້າ LogIn"),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Icon(Icons.arrow_back),
+                        SizedBox(width: 5,),
+                        Text(
+                          "ກັບໄປໜ້າ LogIn",
+                          style: TextStyle(
+                            fontSize: 18,
+                            fontFamily: 'NotoSansLao',
+                          ),
+                        ),
+                      ],
+                    ),
                   )
                 ],
               ),

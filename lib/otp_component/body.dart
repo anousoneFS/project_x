@@ -15,23 +15,22 @@ class Body extends StatefulWidget {
 class _BodyState extends State<Body> {
   Model.User user = Model.User();
 
-  Future<void> sendOtp() async{
+  Future<void> sendOtp() async {
     print("sending otp code to");
-   print(user.email);
-    EmailAuth.sessionName = 'smart-farm-app';
+    print(user.email);
+    EmailAuth.sessionName = 'CEIT-FARM-APP';
     var statusOtp = await EmailAuth.sendOtp(receiverMail: user.email);
     if (statusOtp) {
       Fluttertoast.showToast(
-        msg: 'Send OTP Code Success',
+        msg: 'ສົ່ງລະຫັດ OTP ສຳເລັດ',
         timeInSecForIosWeb: 2,
       );
     } else {
       Fluttertoast.showToast(
-        msg: 'Send OTP Fail',
+        msg: 'ສົ່ງລະຫັດ OTP ບໍ່ສຳເລັດ',
         timeInSecForIosWeb: 2,
       );
     }
-
   }
 
   @override
@@ -41,16 +40,23 @@ class _BodyState extends State<Body> {
       width: double.infinity,
       child: Padding(
         padding:
-        EdgeInsets.symmetric(horizontal: getProportionateScreenWidth(20)),
+            EdgeInsets.symmetric(horizontal: getProportionateScreenWidth(20)),
         child: SingleChildScrollView(
           child: Column(
             children: [
               SizedBox(height: SizeConfig.screenHeight * 0.05),
               Text(
-                "OTP Verification",
+                "ກວດສອບລະຫັດ OTP",
                 style: headingStyle,
               ),
-              Text("We sent your code to +1 898 860 ***"),
+              Text(
+                "ລະບົບໄດ້ສົ່ງລະຫັດ OTP ໃຫ້ແລ້ວ \n ໃຫ້ທ່ານກວດສອບລະຫັດ OTP ຢູ່ Email ຂອງທ່ານ \n ແລ້ວປ້ອນລະຫັດທີໄດ້ໃນຊອງລຸ່ມນີ້",
+                style: TextStyle(
+                  fontFamily: 'NotoSansLao',
+                  fontSize: 18,
+                ),
+                textAlign: TextAlign.center,
+              ),
               buildTimer(),
               OtpForm(),
               SizedBox(height: SizeConfig.screenHeight * 0.1),
@@ -59,10 +65,16 @@ class _BodyState extends State<Body> {
                   // OTP code resend
                 },
                 child: TextButton(
-                  child: Text("Resend OTP Code"),
+                  child: Text(
+                    "ສົ່ງລະຫັດ OTP ຊຸດໃໝ່",
+                    style: TextStyle(
+                      fontSize: 18,
+                      fontFamily: 'NotoSansLao',
+                    ),
+                  ),
                   onPressed: sendOtp,
-                )
-              )
+                ),
+              ),
             ],
           ),
         ),
@@ -74,13 +86,22 @@ class _BodyState extends State<Body> {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        Text("This code will expired in "),
+        Text(
+          "ລະຫັດ OTP ນັບຖອຍຫຼັງ ",
+          style: TextStyle(
+            fontSize: 18,
+            fontFamily: 'NotoSanslao',
+          ),
+        ),
         TweenAnimationBuilder(
-          tween: Tween(begin: 30.0, end: 0.0),
-          duration: Duration(seconds: 30),
+          tween: Tween(begin: 60.0, end: 0.0),
+          duration: Duration(seconds: 60),
           builder: (_, value, child) => Text(
             "00:${value.toInt()}",
-            style: TextStyle(color: kPrimaryColor),
+            style: TextStyle(
+              color: kPrimaryColor,
+              fontSize: 18,
+            ),
           ),
         ),
       ],

@@ -97,10 +97,11 @@ class _LoginFormState extends State<LoginForm> {
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         Text(
-                          "Welcome Back",
+                          "ຍິນດີຕ້ອນຮັບ",
                           style: TextStyle(
                             fontWeight: FontWeight.bold,
                             fontSize: 24,
+                            fontFamily: 'NotoSansLao',
                           ),
                         ),
                         SizedBox(
@@ -116,7 +117,8 @@ class _LoginFormState extends State<LoginForm> {
                         ),
                         RoundedInput(
                           icon: Icons.email,
-                          hint: "Email",
+                          hint: "ໃສ່ຊື່ Email",
+                          textType: TextInputType.emailAddress,
                           textController: emailController,
                           validator: [
                             EmailValidator(
@@ -126,14 +128,14 @@ class _LoginFormState extends State<LoginForm> {
                         ),
                         RoundedPasswordInput(
                           icon: Icons.lock,
-                          hint: "Password",
+                          hint: "ລະຫັດຜ່ານ",
                           textController: pwdController,
                         ),
                         SizedBox(
                           height: 10,
                         ),
                         RoundedButton(
-                          title: "LOGIN",
+                          title: "ເຂົ້າສູ່ລະບົບ",
                           func: submit,
                         ),
                         SizedBox(
@@ -144,7 +146,13 @@ class _LoginFormState extends State<LoginForm> {
                             Navigator.of(context)
                                 .pushNamed(ResetPasswordScreen.routeName);
                           },
-                          child: Text("Forgot Password?"),
+                          child: Text(
+                            "ລືມລະຫັດຜ່ານ?",
+                            style: TextStyle(
+                              fontFamily: 'NotoSansLao',
+                              fontSize: 18,
+                            ),
+                          ),
                         ),
                       ],
                     ),
