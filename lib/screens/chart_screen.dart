@@ -23,38 +23,39 @@ class ChartScreen extends StatelessWidget {
     final _initialData = Provider.of<FirebaseApi>(context, listen: true);
     // get ເອົາ sensor data object ໃນຕຳແໜ່ງທີສອດຄອງກັບ indexBegin ແລະ indexEnding
     final sensorDataObject = _initialData.getSubDataObj;
-    if(sensorDataObject.length == 0){
+    if (sensorDataObject.length == 0) {
       print("==> sorry no chart data");
-    }else{
+    } else {
       _phData = sensorDataObject
           .map((e) => ChartData(
-          DateFormat('dd-MM-yyyy HH:mm').parse(e.time.toString()), e.ph))
+              DateFormat('dd-MM-yyyy HH:mm').parse(e.time.toString()), e.ph))
           .toList();
 
       _ecData = sensorDataObject
           .map((e) => ChartData(
-          DateFormat('dd-MM-yyyy HH:mm').parse(e.time.toString()), e.ec))
+              DateFormat('dd-MM-yyyy HH:mm').parse(e.time.toString()), e.ec))
           .toList();
 
       _tempAirData = sensorDataObject
           .map((e) => ChartData(
-          DateFormat('dd-MM-yyyy HH:mm').parse(e.time.toString()), e.tempAir))
+              DateFormat('dd-MM-yyyy HH:mm').parse(e.time.toString()),
+              e.tempAir))
           .toList();
 
       _tempWaterData = sensorDataObject
           .map((e) => ChartData(
-          DateFormat('dd-MM-yyyy HH:mm').parse(e.time.toString()),
-          e.tempWater))
+              DateFormat('dd-MM-yyyy HH:mm').parse(e.time.toString()),
+              e.tempWater))
           .toList();
 
       _humidData = sensorDataObject
           .map((e) => ChartData(
-          DateFormat('dd-MM-yyyy HH:mm').parse(e.time.toString()), e.humid))
+              DateFormat('dd-MM-yyyy HH:mm').parse(e.time.toString()), e.humid))
           .toList();
 
       _lightData = sensorDataObject
           .map((e) => ChartData(
-          DateFormat('dd-MM-yyyy HH:mm').parse(e.time.toString()), e.light))
+              DateFormat('dd-MM-yyyy HH:mm').parse(e.time.toString()), e.light))
           .toList();
     }
 
@@ -74,27 +75,45 @@ class ChartScreen extends StatelessWidget {
               SizedBox(
                 height: 10,
               ),
-              Text("PH Chart"),
+              Text(
+                "ກຣາຟສະແດງຄ່າ pH",
+                style: TextStyle(fontSize: 20, fontFamily: 'NotoSansLao'),
+              ),
               SingleLineChartWidget(
                 chartData: _phData,
               ),
-              Text("EC Chart"),
+              Text(
+                "ກຣາຟສະແດງຄ່າ EC",
+                style: TextStyle(fontSize: 20, fontFamily: 'NotoSansLao'),
+              ),
               SingleLineChartWidget(
                 chartData: _ecData,
               ),
-              Text("Temperature Water Chart"),
+              Text(
+                "ກຣາຟສະແດງຄ່າ ອຸນຫະພູມຂອງນໍ້າ",
+                style: TextStyle(fontSize: 20, fontFamily: 'NotoSansLao'),
+              ),
               SingleLineChartWidget(
                 chartData: _tempWaterData,
               ),
-              Text("Temperature Air Chart"),
+              Text(
+                "ກຣາຟສະແດງຄ່າ ອຸນຫະພູມຂອງອາກາດ",
+                style: TextStyle(fontSize: 20, fontFamily: 'NotoSansLao'),
+              ),
               SingleLineChartWidget(
                 chartData: _tempAirData,
               ),
-              Text("Humid Chart"),
+              Text(
+                "ກຣາຟສະແດງຄ່າ ຄວາມຊຸມອາກາດ",
+                style: TextStyle(fontSize: 20, fontFamily: 'NotoSansLao'),
+              ),
               SingleLineChartWidget(
                 chartData: _humidData,
               ),
-              Text("Light Chart"),
+              Text(
+                "ກຣາຟສະແດງຄ່າ ຄວາມເຂັ້ມຂອງແສງ",
+                style: TextStyle(fontSize: 20, fontFamily: 'NotoSansLao'),
+              ),
               SingleLineChartWidget(
                 chartData: _lightData,
               ),

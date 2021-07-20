@@ -33,7 +33,7 @@ class SingleLineChartWidget extends StatelessWidget {
                   enableAutoIntervalOnZooming: true,
                 ),
                 primaryYAxis: NumericAxis(
-                  numberFormat: NumberFormat.simpleCurrency(decimalDigits: 0),
+                  numberFormat: NumberFormat.compact(),
                 ),
                 // zoomPanBehavior: ZoomPanBehavior(
                 //   enablePanning: true,

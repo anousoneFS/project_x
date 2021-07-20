@@ -121,7 +121,7 @@ class _ExpandFloatingActionButtonState
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(bottom: 50),
+      padding: const EdgeInsets.only(bottom: 0),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.end,
         crossAxisAlignment: CrossAxisAlignment.center,

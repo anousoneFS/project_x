@@ -61,13 +61,13 @@ class MainDrawer extends StatelessWidget {
           ),
           buildListTile(
             'ໜ້າຫຼັກ',
-            Icons.restaurant,
+            Icons.home,
             () {
               Navigator.of(context).pushReplacementNamed(NavScreen.routeName);
             },
           ),
           buildListTile(
-            'LINE Chat Bot',
+            'ລະບົບແຈ້ງເຕືອນ',
             Icons.chat,
             () {
               Navigator.of(context).pushNamed(ChatBotScreen.routeName);
