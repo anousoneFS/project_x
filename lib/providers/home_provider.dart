@@ -17,11 +17,10 @@ class HomeProvider with ChangeNotifier{
 
 
   void setData(Map<String, dynamic> json) async{
-   _data = {...json};
-   print("step one der");
-   await openBoxHome();
-   print("hi heyeyeye");
-   await pushHome(json);
+   // _data = {...json};
+   _data = json;
+   // await openBoxHome();
+   // await pushHome(json);
    notifyListeners();
   }
 
@@ -82,6 +81,7 @@ class HomeProvider with ChangeNotifier{
   }
 
   Future<void> fetchDataFromLocalDb()async{
+    print("=========> fetch");
     try {
       await openBoxHome();
       final myMap = boxHome.toMap().values.toList();
