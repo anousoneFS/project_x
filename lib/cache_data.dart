@@ -62,5 +62,5 @@ Future openBoxHome() async {
 Future pushHome(data) async {
   await boxHome.clear();
   boxHome.add(data);
-  boxHome.close();
+  await boxHome.close();
 }

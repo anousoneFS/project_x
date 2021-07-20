@@ -18,7 +18,9 @@ class HomeProvider with ChangeNotifier{
 
   void setData(Map<String, dynamic> json) async{
    _data = {...json};
+   print("step one der");
    await openBoxHome();
+   print("hi heyeyeye");
    await pushHome(json);
    notifyListeners();
   }
