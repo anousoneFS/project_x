@@ -207,8 +207,13 @@ class SettingProvider with ChangeNotifier {
         assignData(snapshot.value);
       }).then((value) async{
         // ====> save data to local db
+        print('one');
+        // Future.delayed(Duration.zero, () async {
+        // });
         await saveSettingToLocalDb(_data);
+        print('two');
         setAllStatus();
+        print('three');
       });
     } catch (error) {
       print('---- Have Error fetch settingFirebase in provider----');
@@ -436,7 +441,9 @@ class SettingProvider with ChangeNotifier {
 }
 
 Future<void> saveSettingToLocalDb(Setting data) async {
+  print('opening');
   await openBoxSetting();
+  print('pushing');
   await pushDataSetting(data.json()).then((_) {
     print('save setting data to local db success');
   });

@@ -21,7 +21,7 @@ Future pushDataSensor(data) async {
   for (var d in data) {
     box.add(d);
   }
-  box.close();
+  await box.close();
 }
 
 Box boxSetting;
@@ -33,7 +33,9 @@ Future openBoxSetting() async {
     directory = await getApplicationDocumentsDirectory();
   }
   Hive.init(directory.path);
-  boxSetting = await Hive.openBox('setting_data');
+  // var key = Hive.generateSecureKey();
+  // boxHome = await Hive.openBox('setting_data',encryptionKey: key);
+  boxHome = await Hive.openBox('setting_data');
   return;
 }
 
@@ -42,8 +44,9 @@ Future pushDataSetting(data) async {
   // for (var d in data) {
   //   boxSetting.add(d);
   // }
-  boxSetting.add(data);
-  boxSetting.close();
+  await boxSetting.add(data);
+  print('closing');
+  await boxSetting.close();
 }
 
 Box boxHome;
@@ -55,6 +58,8 @@ Future openBoxHome() async {
     directory = await getApplicationDocumentsDirectory();
   }
   Hive.init(directory.path);
+  // var key = Hive.generateSecureKey();
+  // boxHome = await Hive.openBox('home',encryptionKey: key);
   boxHome = await Hive.openBox('home');
   return;
 }

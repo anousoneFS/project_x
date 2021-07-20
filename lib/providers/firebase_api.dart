@@ -35,7 +35,7 @@ class FirebaseApi with ChangeNotifier {
   String _formDate = 'ຈາກວັນທີ';
   String _untilDate = 'ຫາວັນທີ';
   int _indexBegin = 0;
-  int _indexEnding = 20;
+  int _indexEnding = 2;
 
   List<List<dynamic>> get getData => _sensorData;
 
@@ -57,9 +57,9 @@ class FirebaseApi with ChangeNotifier {
 
   void setSubDataObj() {
     // ເອົາຂໍ້ມູນທັງໝົດ ມາແບ່ງສ່ວນ
-    if(_sensorDataObj.length > 1){
+    if (_sensorDataObj.length > 1) {
       _sensorSubDataObj = _sensorDataObj.sublist(_indexBegin, _indexEnding);
-    }else{
+    } else {
       _sensorSubDataObj = _sensorDataObj;
     }
     notifyListeners();
@@ -67,9 +67,9 @@ class FirebaseApi with ChangeNotifier {
 
   void setSubData() {
     // ເອົາຂໍ້ມູນທັງໝົດ ມາແບ່ງສ່ວນ
-    if(_sensorData.length > 1){
+    if (_sensorData.length > 1) {
       _sensorSubData = _sensorData.sublist(_indexBegin, _indexEnding);
-    }else{
+    } else {
       _sensorSubData = _sensorData;
     }
     notifyListeners();
@@ -112,36 +112,43 @@ class FirebaseApi with ChangeNotifier {
       List<List<dynamic>> _subData = [];
 
       DatabaseReference _databaseReference =
-      FirebaseDatabase.instance.reference();
+          FirebaseDatabase.instance.reference();
 
       await _databaseReference
-          .child('sensor-values')
+          .child('sensor-values2')
           .once()
           .then((DataSnapshot snapshot) {
+        print('snapshot is ${snapshot.value}');
         snapshot.value.forEach((key, value) {
           // loop ຂອງແຕ່ລະມື້
           int first = 1;
           // sublist ເພາະວ່າ ມີຄ່າ null ຢູ່ທາງໜ້າ
-          for (var item in value.sublist(1)) {
-            Map<String, dynamic> myMap =
-            json.decode(item) as Map<String, dynamic>;
-            // ດັກ Error ໄວ້ ຖ້າມີຄ່າ Null
-            _subData.add([
-              myMap["time"] ?? 0,
-              myMap["temp"] ?? 0,
-              myMap["humid"] ?? 0,
-              myMap["ph"] ?? 0,
-              myMap["ec"] ?? 0,
-              myMap["light"] ?? 0,
-            ]);
-            if (first == 1) {
-              // 1-6-2021 00:15
-              List splitEnd = myMap['time'].split(' ').toList();
-              List<String> splitTime = splitEnd[0].split('-').toList();
-              _timeUnsort.add(DateFormat('dd-MM-yyyy').parse(splitEnd[0]));
-              first = 2;
+          // print('value is $value');
+          for (var item in value.sublist(0)) {
+            // print('item is $item');
+
+            if (item != null) {
+              Map<String, dynamic> myMap =
+                  json.decode(item) as Map<String, dynamic>;
+              // ດັກ Error ໄວ້ ຖ້າມີຄ່າ Null
+              _subData.add([
+                myMap["time"] ?? 0,
+                myMap["temp"] ?? 0,
+                myMap["humid"] ?? 0,
+                myMap["ph"] ?? 0,
+                myMap["ec"] ?? 0,
+                myMap["light"] ?? 0,
+              ]);
+              if (first == 1) {
+                // 1-6-2021 00:15
+                List splitEnd = myMap['time'].split(' ').toList();
+                List<String> splitTime = splitEnd[0].split('-').toList();
+                _timeUnsort.add(DateFormat('dd-MM-yyyy').parse(splitEnd[0]));
+                first = 2;
+              }
             }
           }
+
           _subAllData.add(_subData);
           _subData = [];
         });
@@ -170,13 +177,22 @@ class FirebaseApi with ChangeNotifier {
         // type = List<dynamic>
         _sensorData = [..._finalDataSorted];
         //ປ່ຽນໄປເປັນ Object  List<dynamic> ==> SensorData()
-        if(_sensorData.length > 1){
+        if (_sensorData.length > 1) {
           _sensorDataObj = _sensorData
               .sublist(1)
               .map((list) => SensorData.formList(list))
               .toList();
-        }else{
-          _sensorDataObj = [SensorData(time: '0-0-0 00:00', tempAir: 0, tempWater: 0, ec: 0, ph: 0, humid: 0, light: 0)];
+        } else {
+          _sensorDataObj = [
+            SensorData(
+                time: '0-0-0 00:00',
+                tempAir: 0,
+                tempWater: 0,
+                ec: 0,
+                ph: 0,
+                humid: 0,
+                light: 0)
+          ];
         }
         // ===> set Sub Data
         setSubData();
@@ -210,7 +226,7 @@ class FirebaseApi with ChangeNotifier {
       } else {
         List<List<dynamic>> fetchData = List.generate(
           myMap.length,
-              (index) => myMap[index],
+          (index) => myMap[index],
         );
         print("=> 1");
         // add data from LocalDB to provider
