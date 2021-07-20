@@ -35,7 +35,7 @@ class FirebaseApi with ChangeNotifier {
   String _formDate = 'ຈາກວັນທີ';
   String _untilDate = 'ຫາວັນທີ';
   int _indexBegin = 0;
-  int _indexEnding = 20;
+  int _indexEnding = 17;
 
   List<List<dynamic>> get getData => _sensorData;
 
@@ -115,7 +115,7 @@ class FirebaseApi with ChangeNotifier {
           FirebaseDatabase.instance.reference();
 
       await _databaseReference
-          .child('sensor-values2')
+          .child('sensor-values')
           .once()
           .then((DataSnapshot snapshot) {
         print("=========== ${snapshot.value}");
