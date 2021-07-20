@@ -123,7 +123,7 @@ class FirebaseApi with ChangeNotifier {
           // loop ຂອງແຕ່ລະມື້
           int first = 1;
           // sublist ເພາະວ່າ ມີຄ່າ null ຢູ່ທາງໜ້າ
-          for (var item in value.subList(1)) {
+          for (var item in value.sublist(1)) {
               Map<String, dynamic> myMap =
                   json.decode(item) as Map<String, dynamic>;
               // ດັກ Error ໄວ້ ຖ້າມີຄ່າ Null
