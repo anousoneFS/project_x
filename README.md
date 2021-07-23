@@ -1,2 +1,2 @@
-# project_x
-ບົດຈົບຊັ້ນ lettuce app IoT using Flutter
+# project-x
+ບົດຈົບຊັ້ນ smart-farm-app ໂດຍໃຊ້ Flutter
